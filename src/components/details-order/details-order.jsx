@@ -1,16 +1,13 @@
-import styles from './details-order.module.css';
-import imgThree from '../../images/sauce-03.svg';
 import {
   ConstructorElement,
   DragIcon
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { detailsOrder } from '../../utils/detailOrder';
 
-function DetailsOrder(){
+function DetailsOrder({arrDetailsOrder}){
   return (
     <>
         {
-          detailsOrder.map((card) => (
+          arrDetailsOrder.map((card) => (
             <div{...card} key={card._id}>
               <DragIcon type="primary" />
               <ConstructorElement

@@ -1,6 +1,11 @@
 import React from 'react';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from './tag-bar.module.css'
+import styles from './tag-bar.module.css';
+import {
+  TAG_BAR_BUN,
+  TAG_BAR_MAIN,
+  TAG_BAR_SAUCE
+} from '../../utils/constants';
 
 
 function TabBar() {
@@ -15,22 +20,22 @@ function TabBar() {
         value="one"
         active={current === 'one'}
         onClick={setCurrent}
-        >Булки
+        >{TAG_BAR_BUN}
       </Tab>
       <Tab
         value="two"
         active={current === 'two'}
         onClick={setCurrent}
-        >Соусы
+        >{TAG_BAR_SAUCE}
       </Tab>
       <Tab
         value="three"
         active={current === 'three'}
         onClick={setCurrent}
-        >Начинки
+        >{TAG_BAR_MAIN}
       </Tab>
     </div>
-  )
-}
+  );
+};
 
 export default TabBar;

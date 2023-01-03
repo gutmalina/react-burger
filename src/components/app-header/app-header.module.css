@@ -5,17 +5,13 @@
 
 .nav{
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin: 0 320px;
+  list-style: none;
+  padding: 0;
 }
-.container{
-  display: flex;
-}
-.btn{
-  display: flex;
-  background-color: inherit;
-  border: none;
-  color: inherit;
-  padding: 20px 16px;
+
+.logo svg{
+  margin-left: 110px;
+  margin-right: 290px;
 }

@@ -7,7 +7,7 @@ export const ingredients = [
      "fat":24,
      "carbohydrates":53,
      "calories":420,
-     "price":1255,
+     "price": 20,
      "image":"https://code.s3.yandex.net/react/code/bun-02.png",
      "image_mobile":"https://code.s3.yandex.net/react/code/bun-02-mobile.png",
      "image_large":"https://code.s3.yandex.net/react/code/bun-02-large.png",
@@ -49,7 +49,7 @@ export const ingredients = [
      "fat":20,
      "carbohydrates":40,
      "calories":30,
-     "price":90,
+     "price":30,
      "image":"https://code.s3.yandex.net/react/code/sauce-02.png",
      "image_mobile":"https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
      "image_large":"https://code.s3.yandex.net/react/code/sauce-02-large.png",
@@ -70,6 +70,20 @@ export const ingredients = [
      "__v":0
   },
   {
+    "_id":"60666c42cc7b410027a1a9b8",
+    "name":"Соус фирменный Space Sauce",
+    "type":"sauce",
+    "proteins":50,
+    "fat":22,
+    "carbohydrates":11,
+    "calories":14,
+    "price":80,
+    "image":"https://code.s3.yandex.net/react/code/sauce-04.png",
+    "image_mobile":"https://code.s3.yandex.net/react/code/sauce-04-mobile.png",
+    "image_large":"https://code.s3.yandex.net/react/code/sauce-04-large.png",
+    "__v":0
+  },
+  {
      "_id":"60666c42cc7b410027a1a9b9",
      "name":"Соус традиционный галактический",
      "type":"sauce",
@@ -83,20 +97,7 @@ export const ingredients = [
      "image_large":"https://code.s3.yandex.net/react/code/sauce-03-large.png",
      "__v":0
   },
-  {
-     "_id":"60666c42cc7b410027a1a9b8",
-     "name":"Соус фирменный Space Sauce",
-     "type":"sauce",
-     "proteins":50,
-     "fat":22,
-     "carbohydrates":11,
-     "calories":14,
-     "price":80,
-     "image":"https://code.s3.yandex.net/react/code/sauce-04.png",
-     "image_mobile":"https://code.s3.yandex.net/react/code/sauce-04-mobile.png",
-     "image_large":"https://code.s3.yandex.net/react/code/sauce-04-large.png",
-     "__v":0
-  },
+
   {
      "_id":"60666c42cc7b410027a1a9bc",
      "name":"Плоды Фалленианского дерева",
@@ -203,7 +204,7 @@ export const ingredients = [
      "fat":26,
      "carbohydrates":85,
      "calories":643,
-     "price":988,
+     "price":20,
      "image":"https://code.s3.yandex.net/react/code/bun-01.png",
      "image_mobile":"https://code.s3.yandex.net/react/code/bun-01-mobile.png",
      "image_large":"https://code.s3.yandex.net/react/code/bun-01-large.png",

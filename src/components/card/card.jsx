@@ -1,22 +1,44 @@
 import styles from './card.module.css';
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  CurrencyIcon,
+  Counter
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from 'prop-types';
 
-function Card({name, price, image}){
+function Card({ ...card}){
+  const {name, price, image} = card;
+
   return(
     <article className={styles.card}>
-      <img className={`${styles.image} mt-6 mr-4 mb-1 ml-4`} src={image} alt={name} />
-      <div className={`${styles.price} mb-1`}>
+      <Counter
+        count={1}
+        size="default"
+      />
+      <img
+        className={`${styles.image} mr-4 mb-2 ml-4`}
+        src={image}
+        alt={name}
+      />
+      <div className={`${styles.price} mb-2`}>
         <span
-          className='text text_type_main-default'
+          className='text text_type_digits-default'
           >{price}
         </span>
         <CurrencyIcon
           type="primary"
         />
       </div>
-      <p className={`${styles.subtitle} text text_type_main-default`}>{name}</p>
+      <p className={`${styles.subtitle} text text_type_main-default`}
+        >{name}
+        </p>
     </article>
   );
+};
+
+Card.propTypes = {
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired
 };
 
 export default Card;

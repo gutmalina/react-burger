@@ -1,39 +1,39 @@
 import styles from "./app-header.module.css";
+import NavTab from "../nav-tab/nav-tab";
 import {
   BurgerIcon,
   ListIcon,
   Logo,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  BUTTON_ICON_BURGER,
+  BUTTON_ICON_LIST_ORDER,
+  BUTTON_ICON_PROFILE
+} from '../../utils/constants';
 
 function AppHeader() {
   return (
     <div className={styles.header}>
-      <div className={`${styles.nav} pt-4 pb-4`}>
-        <div className={styles.container}>
-          <button type="button" className={`${styles.btn} mr-2`}>
-            <BurgerIcon type="primary" />
-            <span className="text text_type_main-default ml-2">
-              Конструктор
-            </span>
-          </button>
-          <button type="button" className={styles.btn}>
-            <ListIcon type="secondary" />
-            <span className="text text_type_main-default text_color_inactive ml-2">
-              Лента заказов
-            </span>
-          </button>
-        </div>
-        <Logo />
-        <button type="button" className={styles.btn}>
-          <ProfileIcon type="secondary" />
-          <span className="text text_type_main-default text_color_inactive ml-2">
-            Личныйкабинет
-          </span>
-        </button>
-      </div>
+      <ul className={`${styles.nav} mt-3 mb-3`}>
+        <NavTab
+          textSpan={BUTTON_ICON_BURGER}>
+          {<BurgerIcon type="primary"/>}
+        </NavTab>
+        <NavTab
+          textSpan={BUTTON_ICON_LIST_ORDER}>
+          {<ListIcon type="secondary"/>}
+        </NavTab>
+        <li className={styles.logo}>
+          {<Logo/>}
+        </li>
+        <NavTab
+          textSpan={BUTTON_ICON_PROFILE}>
+          {<ProfileIcon type="secondary"/>}
+        </NavTab>
+      </ul>
     </div>
   );
-}
+};
 
 export default AppHeader;

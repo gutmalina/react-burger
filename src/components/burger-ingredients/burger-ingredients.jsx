@@ -1,13 +1,14 @@
-import styles from './burger-ingredients.module.css';
 import TabBar from '../tag-bar/tag-bar';
 import ScrollBar from '../scroll-bar/scroll-bar';
+import { SCROLL_BAR_TYPE_INGREDIENTS } from '../../utils/constants';
 
-function BurgerIngredients(){
+function BurgerIngredients({arrIngredients}){
   return(
-    <div className={styles.ingredients}>
+    <div>
       <TabBar/>
       <ScrollBar
-        typeScroll='ingredients'
+        typeScroll={SCROLL_BAR_TYPE_INGREDIENTS}
+        arrIngredients={arrIngredients}
       />
     </div>
   );

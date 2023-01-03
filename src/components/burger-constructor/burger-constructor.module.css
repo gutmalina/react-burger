@@ -1,13 +1,18 @@
-.container{}
+.container{
+  padding-left: 15px;
+}
+
 .order{
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
+
 .order > svg {
 width: 33px;
 height: 33px;
 }
+
 .result{
   margin-right: 10px;
 }
