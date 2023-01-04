@@ -1,6 +1,5 @@
 import React from 'react';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from './tag-bar.module.css';
 import {
   TAG_BAR_BUN,
   TAG_BAR_MAIN,
@@ -13,7 +12,6 @@ function TabBar() {
 
   return (
     <div
-      className={styles.tag_bar}
       style={{display: 'flex', marginBottom: 40}}
       >
       <Tab
