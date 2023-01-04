@@ -24,9 +24,10 @@ function AppHeader() {
           textSpan={BUTTON_ICON_LIST_ORDER}>
           {<ListIcon type="secondary"/>}
         </NavTab>
-        <li className={styles.logo}>
+        <NavTab
+          type='logo'>
           {<Logo/>}
-        </li>
+        </NavTab>
         <NavTab
           textSpan={BUTTON_ICON_PROFILE}>
           {<ProfileIcon type="secondary"/>}
