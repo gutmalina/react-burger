@@ -1,7 +1,10 @@
 import styles from './nav-tab.module.css';
 import { BUTTON_ICON_BURGER } from '../../utils/constants';
 
-function NavTab({type, textSpan, children}){
+function NavTab({
+  type,
+  textSpan,
+  children}){
   const classNameItem = (type)?
     styles.nav_logo :
     styles.nav_item ;

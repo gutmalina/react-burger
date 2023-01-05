@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
 
-function Card({ ...card}){
+function Card({card}){
   const {name, price, image} = card;
 
   return(

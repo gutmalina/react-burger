@@ -14,7 +14,7 @@ function RenderCard({
       <section className={`${styles.cards} ml-4 mr-4`}>
         {
           groupIngredients.map((card) => (
-            <Card {...card} key={card._id}/>
+            <Card card={card} key={card._id}/>
           ))
         }
       </section>
