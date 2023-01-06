@@ -1,0 +1,26 @@
+.card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 272px;
+  position: relative;
+}
+
+.image{
+  width: 240px;
+  height: 120px;
+}
+
+.price{
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 6px;
+}
+
+.subtitle{
+  width: 100%;
+  height: 48px;
+  text-align: center;
+}
+
