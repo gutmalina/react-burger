@@ -33,5 +33,11 @@ export const detailsOrder = [
     "name":"Хрустящие минеральные кольца",
     "price":80,
     "image":img4,
+  },
+  {
+    "_id":"6",
+    "name":"Хрустящие минеральные кольца",
+    "price":80,
+    "image":img4,
   }
 ]

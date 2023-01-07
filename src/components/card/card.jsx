@@ -3,7 +3,7 @@ import {
   CurrencyIcon,
   Counter
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
+import { cardType } from '../../types/index';
 
 function Card({card}){
   const {name, price, image} = card;
@@ -36,10 +36,8 @@ function Card({card}){
 };
 
 Card.propTypes = {
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired
-};
+  card: cardType.isRequired
+}
 
 export default Card;
 

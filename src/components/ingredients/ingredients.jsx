@@ -7,6 +7,7 @@ import {
   FILTER_MAIN,
   FILTER_SAUCE
 } from '../../utils/constants';
+import { arrayIngredientsType } from '../../types/index';
 
 const heandleGroupIngredients = (array, type) => {
   return array.filter((card) => (
@@ -32,5 +33,9 @@ function Ingredients({arrIngredients}){
     </>
   );
 };
+
+Ingredients.propTypes = {
+  arrIngredients: arrayIngredientsType.isRequired
+}
 
 export default Ingredients;

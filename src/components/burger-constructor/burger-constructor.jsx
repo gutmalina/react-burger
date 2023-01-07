@@ -9,6 +9,7 @@ import {
   SCROLL_BAR_TYPE_DETAILS_ORDER,
   TEXT_BUTTON_MAKE_ORDER
 } from '../../utils/constants';
+import { arrayDetailsOrderType } from '../../types/index';
 
 function BurgerConstructor({arrDetailsOrder}){
   return(
@@ -19,7 +20,7 @@ function BurgerConstructor({arrDetailsOrder}){
         text="Краторная булка N-200i (верх)"
         price={200}
         thumbnail={img}
-        extraClass='ml-8 mb-4'
+        extraClass={`${styles.element} mb-4`}
       />
       <ScrollBar
         typeScroll={SCROLL_BAR_TYPE_DETAILS_ORDER}
@@ -31,7 +32,7 @@ function BurgerConstructor({arrDetailsOrder}){
         text="Краторная булка N-200i (низ)"
         price={200}
         thumbnail={img}
-        extraClass='mt-1 mb-10 ml-8'
+        extraClass={`${styles.element} mt-1 mb-10`}
       />
       <article className={`${styles.order} mr-4`}>
         <span
@@ -45,12 +46,16 @@ function BurgerConstructor({arrDetailsOrder}){
           htmlType="button"
           type="primary"
           size="large"
-          extraClass='ml-10'
+          extraClass={styles.btn}
           >{TEXT_BUTTON_MAKE_ORDER}
         </Button>
       </article>
     </div>
   );
 };
+
+BurgerConstructor.protoTypes = {
+  arrDetailsOrder: arrayDetailsOrderType.isRequired
+}
 
 export default BurgerConstructor;

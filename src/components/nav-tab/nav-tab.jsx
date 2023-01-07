@@ -1,5 +1,9 @@
 import styles from './nav-tab.module.css';
 import { BUTTON_ICON_BURGER } from '../../utils/constants';
+import {
+  textType,
+  childrenType
+} from '../../types/index';
 
 function NavTab({
   type,
@@ -26,5 +30,11 @@ function NavTab({
     </a>
   );
 };
+
+NavTab.propTypes = {
+  textSpan: textType,
+  type: textType,
+  children: childrenType.isRequired
+}
 
 export default NavTab;

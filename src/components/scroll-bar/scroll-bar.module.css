@@ -1,6 +1,14 @@
 .scroll_bar{
   width: 600px;
-  height: 912px;
+  overflow: overlay;
+}
+
+.scroll_bar_ingredients{
+  height: 715px;
+}
+
+.scroll_bar_details{
+  height: 477px;
 }
 
 

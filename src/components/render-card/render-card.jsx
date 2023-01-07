@@ -1,6 +1,9 @@
 import styles from './render-card.module.css';
 import Card from '../card/card';
-import PropTypes from 'prop-types';
+import {
+  textType,
+  arrayIngredientsType
+} from '../../types/index';
 
 function RenderCard({
   groupIngredients,
@@ -23,7 +26,8 @@ function RenderCard({
 };
 
 RenderCard.propTypes = {
-  typeGroup: PropTypes.string.isRequired
+  typeGroup: textType.isRequired,
+  groupIngredients: arrayIngredientsType.isRequired
 }
 
 export default RenderCard;
