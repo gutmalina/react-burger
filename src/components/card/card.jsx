@@ -30,7 +30,7 @@ function Card({card}){
       </div>
       <p className={`${styles.subtitle} text text_type_main-default`}
         >{name}
-        </p>
+      </p>
     </article>
   );
 };

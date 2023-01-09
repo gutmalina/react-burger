@@ -1,11 +1,11 @@
-import styles from './details-order.module.css';
+import styles from './scroll-bar-constructor.module.css';
 import {
   ConstructorElement,
   DragIcon
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { arrayDetailsOrderType } from '../../types/index';
 
-function DetailsOrder({arrDetailsOrder}){
+function ScrollBarConstructor({arrDetailsOrder}){
   return (
     <>
         {
@@ -30,8 +30,8 @@ function DetailsOrder({arrDetailsOrder}){
   );
 };
 
-DetailsOrder.propTypes = {
+ScrollBarConstructor.propTypes = {
   arrDetailsOrder: arrayDetailsOrderType.isRequired
 }
 
-export default DetailsOrder;
+export default ScrollBarConstructor;

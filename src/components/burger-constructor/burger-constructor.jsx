@@ -10,6 +10,7 @@ import {
   TEXT_BUTTON_MAKE_ORDER
 } from '../../utils/constants';
 import { arrayDetailsOrderType } from '../../types/index';
+import ScrollBarConstructor from '../scroll-bar-constructor/scroll-bar-constructor';
 
 function BurgerConstructor({arrDetailsOrder}){
   return(
@@ -23,9 +24,9 @@ function BurgerConstructor({arrDetailsOrder}){
         extraClass={`${styles.element} mb-4`}
       />
       <ScrollBar
-        typeScroll={SCROLL_BAR_TYPE_DETAILS_ORDER}
-        arrDetailsOrder={arrDetailsOrder}
-      />
+        typeScroll={SCROLL_BAR_TYPE_DETAILS_ORDER}>
+          {<ScrollBarConstructor arrDetailsOrder={arrDetailsOrder}/>}
+      </ScrollBar>
       <ConstructorElement
         type="bottom"
         isLocked={true}

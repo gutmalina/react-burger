@@ -15,7 +15,7 @@ const heandleGroupIngredients = (array, type) => {
   ))
 };
 
-function Ingredients({arrIngredients}){
+function ScrollBarIngredients({arrIngredients}){
   return(
     <>
       <RenderCard
@@ -34,8 +34,8 @@ function Ingredients({arrIngredients}){
   );
 };
 
-Ingredients.propTypes = {
+ScrollBarIngredients.propTypes = {
   arrIngredients: arrayIngredientsType.isRequired
 }
 
-export default Ingredients;
+export default ScrollBarIngredients;

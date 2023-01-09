@@ -2,10 +2,11 @@ import PropTypes from 'prop-types';
 
 export const textType = PropTypes.string;
 export const childrenType = PropTypes.element;
+export const groupIngredientsType = PropTypes.oneOf(['bun', 'main', 'sauce']);
 export const arrayIngredientsType = PropTypes.arrayOf(PropTypes.shape({
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  type: groupIngredientsType.isRequired,
   proteins: PropTypes.number,
   fat: PropTypes.number,
   carbohydrates: PropTypes.number,
@@ -27,5 +28,4 @@ export const cardType = PropTypes.shape({
   price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired
 });
-export const groupIngredientsType = PropTypes.oneOf(['bun', 'main', 'sauce']).isRequired;
 export const scrollBarType = PropTypes.oneOf(['ingredients', 'detailsOrder']);
