@@ -7,35 +7,45 @@ import {
   FILTER_MAIN,
   FILTER_SAUCE
 } from '../../utils/constants';
-import { arrayIngredientsType } from '../../types/index';
+import {
+  arrayIngredientsType,
+  functionType
+} from '../../types/index';
 
-const heandleGroupIngredients = (array, type) => {
-  return array.filter((card) => (
-    card.type === type
-  ))
-};
+function ScrollBarIngredients({
+  onOpenModal,
+  arrIngredients
+}){
+  const getGroup = (array, type) => {
+    return array.filter((card) => (
+      card.type === type
+    ))
+  };
 
-function ScrollBarIngredients({arrIngredients}){
   return(
     <>
       <RenderCard
+        onOpenModal={onOpenModal}
         typeGroup={TAG_BAR_BUN}
-        groupIngredients={heandleGroupIngredients(arrIngredients, FILTER_BUN)}
+        groupIngredients={getGroup(arrIngredients, FILTER_BUN)}
       />
       <RenderCard
-        typeGroup={TAG_BAR_MAIN}
-        groupIngredients={heandleGroupIngredients(arrIngredients, FILTER_MAIN)}
-      />
-      <RenderCard
+        onOpenModal={onOpenModal}
         typeGroup={TAG_BAR_SAUCE}
-        groupIngredients={heandleGroupIngredients(arrIngredients, FILTER_SAUCE)}
+        groupIngredients={getGroup(arrIngredients, FILTER_SAUCE)}
+      />
+      <RenderCard
+        onOpenModal={onOpenModal}
+        typeGroup={TAG_BAR_MAIN}
+        groupIngredients={getGroup(arrIngredients, FILTER_MAIN)}
       />
     </>
   );
 };
 
 ScrollBarIngredients.propTypes = {
-  arrIngredients: arrayIngredientsType.isRequired
+  arrIngredients: arrayIngredientsType.isRequired,
+  onOpenModal: functionType.isRequired
 }
 
 export default ScrollBarIngredients;

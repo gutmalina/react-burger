@@ -1,6 +1,9 @@
 .scroll_bar{
   width: 600px;
-  overflow: overlay;
+  /* overflow: overlay; */
+  /* overflow: hidden; */
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .scroll_bar_ingredients{
@@ -10,5 +13,6 @@
 .scroll_bar_details{
   height: 477px;
 }
+
 
 

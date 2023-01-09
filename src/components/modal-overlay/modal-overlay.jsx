@@ -1,9 +1,13 @@
 import styles from './modal-overlay.module.css';
+import { forwardRef } from 'react';
 
-function ModalOverlay(){
+const ModalOverlay= forwardRef(( {}, ref) => {
   return(
-    <div className={styles.overlay}></div>
-  );
-};
+    <div
+      ref={ref}
+      className={styles.overlay}>
+    </div>
+  )
+});
 
 export default ModalOverlay;

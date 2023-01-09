@@ -2,13 +2,16 @@ import styles from './render-card.module.css';
 import Card from '../card/card';
 import {
   textType,
-  arrayIngredientsType
+  arrayIngredientsType,
+  functionType
 } from '../../types/index';
 
 function RenderCard({
+  onOpenModal,
   groupIngredients,
   typeGroup
 }){
+
   return(
     <div className='mb-10'>
       <p className='text text_type_main-medium mb-6'>
@@ -17,7 +20,10 @@ function RenderCard({
       <section className={`${styles.cards} ml-4 mr-4`}>
         {
           groupIngredients.map((card) => (
-            <Card card={card} key={card._id}/>
+            <Card
+              onOpenModal={onOpenModal}
+              card={card}
+              key={card._id}/>
           ))
         }
       </section>
@@ -27,7 +33,8 @@ function RenderCard({
 
 RenderCard.propTypes = {
   typeGroup: textType.isRequired,
-  groupIngredients: arrayIngredientsType.isRequired
+  groupIngredients: arrayIngredientsType.isRequired,
+  onOpenModal: functionType.isRequired
 }
 
 export default RenderCard;

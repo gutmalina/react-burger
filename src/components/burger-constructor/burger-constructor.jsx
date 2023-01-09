@@ -3,16 +3,23 @@ import img from '../../images/bun-02.svg';
 import {
   ConstructorElement,
   CurrencyIcon,
-  Button } from "@ya.praktikum/react-developer-burger-ui-components";
+  Button
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import ScrollBar from '../scroll-bar/scroll-bar';
 import {
   SCROLL_BAR_TYPE_DETAILS_ORDER,
   TEXT_BUTTON_MAKE_ORDER
 } from '../../utils/constants';
-import { arrayDetailsOrderType } from '../../types/index';
+import {
+  arrayDetailsOrderType,
+  functionType
+} from '../../types/index';
 import ScrollBarConstructor from '../scroll-bar-constructor/scroll-bar-constructor';
 
-function BurgerConstructor({arrDetailsOrder}){
+function BurgerConstructor({
+  onOpenModal,
+  arrDetailsOrder}){
+
   return(
     <div className={styles.container}>
       <ConstructorElement
@@ -25,7 +32,10 @@ function BurgerConstructor({arrDetailsOrder}){
       />
       <ScrollBar
         typeScroll={SCROLL_BAR_TYPE_DETAILS_ORDER}>
-          {<ScrollBarConstructor arrDetailsOrder={arrDetailsOrder}/>}
+          {
+            <ScrollBarConstructor
+              arrDetailsOrder={arrDetailsOrder}/>
+          }
       </ScrollBar>
       <ConstructorElement
         type="bottom"
@@ -37,8 +47,8 @@ function BurgerConstructor({arrDetailsOrder}){
       />
       <article className={`${styles.order} mr-4`}>
         <span
-          className={`${styles.result} text text_type_digits-medium`}
-          >610
+          className={`${styles.result} text text_type_digits-medium`}>
+            610
         </span>
         <CurrencyIcon
           type="primary"
@@ -48,7 +58,8 @@ function BurgerConstructor({arrDetailsOrder}){
           type="primary"
           size="large"
           extraClass={styles.btn}
-          >{TEXT_BUTTON_MAKE_ORDER}
+          onClick={onOpenModal}>
+            {TEXT_BUTTON_MAKE_ORDER}
         </Button>
       </article>
     </div>
@@ -56,7 +67,8 @@ function BurgerConstructor({arrDetailsOrder}){
 };
 
 BurgerConstructor.protoTypes = {
-  arrDetailsOrder: arrayDetailsOrderType.isRequired
+  arrDetailsOrder: arrayDetailsOrderType.isRequired,
+  onOpenModal: functionType.isRequired
 }
 
 export default BurgerConstructor;
