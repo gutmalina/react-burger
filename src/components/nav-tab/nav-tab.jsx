@@ -36,6 +36,6 @@ NavTab.propTypes = {
   textSpan: textType,
   type: textType,
   children: childrenType.isRequired
-}
+};
 
 export default NavTab;

@@ -17,7 +17,7 @@ function Card({
   function postDataCardOpenModal(e){
     e.stopPropagation()
     onOpenModal(card);
-  }
+  };
 
   return(
     <article
@@ -50,7 +50,7 @@ function Card({
 Card.propTypes = {
   card: cardType.isRequired,
   onOpenModal: functionType.isRequired
-}
+};
 
 export default Card;
 

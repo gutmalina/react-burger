@@ -66,5 +66,6 @@ function IngredientDetails({onCard}){
 
 IngredientDetails.propType = {
   onCard: cardIngredientType.isRequired
-}
+};
+
 export default IngredientDetails;

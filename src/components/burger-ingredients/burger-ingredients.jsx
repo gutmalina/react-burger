@@ -32,6 +32,6 @@ function BurgerIngredients({
 BurgerIngredients.protoTypes = {
   arrIngredients: arrayIngredientsType.isRequired,
   onOpenModal: functionType.isRequired
-}
+};
 
 export default BurgerIngredients;

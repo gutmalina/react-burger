@@ -35,6 +35,6 @@ RenderCard.propTypes = {
   typeGroup: textType.isRequired,
   groupIngredients: arrayIngredientsType.isRequired,
   onOpenModal: functionType.isRequired
-}
+};
 
 export default RenderCard;

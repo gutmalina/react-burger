@@ -24,6 +24,6 @@ function ScrollBar({
 ScrollBar.propTypes = {
   typeScroll: scrollBarType.isRequired,
   children: childrenType.isRequired
-}
+};
 
 export default ScrollBar;

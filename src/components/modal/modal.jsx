@@ -65,6 +65,6 @@ createPortal.protoTypes = {
   onClose: functionType.isRequired,
   textTitle: textType.isRequired,
   children: childrenType.isRequired
-}
+};
 
 export default Modal;

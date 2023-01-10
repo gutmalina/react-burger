@@ -6,7 +6,6 @@ import {
   TAG_BAR_SAUCE
 } from '../../utils/constants';
 
-
 function TabBar() {
   const [current, setCurrent] = React.useState('one');
 

@@ -46,6 +46,6 @@ function ScrollBarIngredients({
 ScrollBarIngredients.propTypes = {
   arrIngredients: arrayIngredientsType.isRequired,
   onOpenModal: functionType.isRequired
-}
+};
 
 export default ScrollBarIngredients;

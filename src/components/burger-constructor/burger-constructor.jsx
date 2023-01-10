@@ -69,6 +69,6 @@ function BurgerConstructor({
 BurgerConstructor.protoTypes = {
   arrDetailsOrder: arrayDetailsOrderType.isRequired,
   onOpenModal: functionType.isRequired
-}
+};
 
 export default BurgerConstructor;

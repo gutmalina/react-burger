@@ -6,7 +6,7 @@ import {
 import { arrayDetailsOrderType } from '../../types/index';
 
 function ScrollBarConstructor({arrDetailsOrder}){
-  
+
   return (
     <>
       {
@@ -33,6 +33,6 @@ function ScrollBarConstructor({arrDetailsOrder}){
 
 ScrollBarConstructor.propTypes = {
   arrDetailsOrder: arrayDetailsOrderType.isRequired
-}
+};
 
 export default ScrollBarConstructor;
