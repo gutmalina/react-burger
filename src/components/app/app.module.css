@@ -1,15 +1,10 @@
-.body{
-  background-color: #131316;
+.main{
+  padding: 0 380px;
 }
 
-.page{
-  width: 2000px;
-  height: 1080px;
-  display: flex;
-  flex-direction: column;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.make_burger{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 40px;
 }
+

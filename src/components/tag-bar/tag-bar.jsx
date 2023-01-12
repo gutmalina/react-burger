@@ -6,9 +6,8 @@ import {
   TAG_BAR_SAUCE
 } from '../../utils/constants';
 
-
 function TabBar() {
-  const [current, setCurrent] = React.useState('one')
+  const [current, setCurrent] = React.useState('one');
 
   return (
     <div
@@ -17,20 +16,20 @@ function TabBar() {
       <Tab
         value="one"
         active={current === 'one'}
-        onClick={setCurrent}
-        >{TAG_BAR_BUN}
+        onClick={setCurrent}>
+          {TAG_BAR_BUN}
       </Tab>
       <Tab
         value="two"
         active={current === 'two'}
-        onClick={setCurrent}
-        >{TAG_BAR_SAUCE}
+        onClick={setCurrent}>
+          {TAG_BAR_SAUCE}
       </Tab>
       <Tab
         value="three"
         active={current === 'three'}
-        onClick={setCurrent}
-        >{TAG_BAR_MAIN}
+        onClick={setCurrent}>
+          {TAG_BAR_MAIN}
       </Tab>
     </div>
   );

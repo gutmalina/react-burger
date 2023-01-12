@@ -1,5 +1,8 @@
 .container{
-  padding-left: 15px;
+}
+
+.element{
+  margin-left: 48px;
 }
 
 .order{
@@ -15,4 +18,8 @@ height: 33px;
 
 .result{
   margin-right: 10px;
+}
+
+.btn{
+  margin-left: 42px;
 }

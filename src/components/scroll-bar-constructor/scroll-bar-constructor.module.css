@@ -1,0 +1,9 @@
+.details_container{
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+}
+
+.icon{
+  margin-bottom: 10px;
+}

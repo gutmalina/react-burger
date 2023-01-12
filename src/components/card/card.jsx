@@ -3,13 +3,26 @@ import {
   CurrencyIcon,
   Counter
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
+import {
+  cardType,
+  functionType
+} from '../../types/index';
 
-function Card({card}){
-  const {name, price, image} = card;
+function Card({
+  card,
+  onOpenModal
+}){
+  const { name, price, image} = card;
+
+  function postDataCardOpenModal(e){
+    e.stopPropagation()
+    onOpenModal(card);
+  };
 
   return(
-    <article className={styles.card}>
+    <article
+      onClick={postDataCardOpenModal}
+      className={styles.card}>
       <Counter
         count={1}
         size="default"
@@ -20,25 +33,23 @@ function Card({card}){
         alt={name}
       />
       <div className={`${styles.price} mb-2`}>
-        <span
-          className='text text_type_digits-default'
-          >{price}
+        <span className='text text_type_digits-default'>
+          {price}
         </span>
         <CurrencyIcon
           type="primary"
         />
       </div>
-      <p className={`${styles.subtitle} text text_type_main-default`}
-        >{name}
-        </p>
+      <p className={`${styles.subtitle} text text_type_main-default`}>
+        {name}
+      </p>
     </article>
   );
 };
 
 Card.propTypes = {
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired
+  card: cardType.isRequired,
+  onOpenModal: functionType.isRequired
 };
 
 export default Card;

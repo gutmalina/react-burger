@@ -18,19 +18,30 @@ function AppHeader() {
       <ul className={`${styles.nav} mt-3 mb-3`}>
         <NavTab
           textSpan={BUTTON_ICON_BURGER}>
-          {<BurgerIcon type="primary"/>}
+          {
+            <BurgerIcon
+              type="primary"/>
+          }
         </NavTab>
         <NavTab
           textSpan={BUTTON_ICON_LIST_ORDER}>
-          {<ListIcon type="secondary"/>}
+          {
+            <ListIcon
+              type="secondary"/>
+          }
         </NavTab>
         <NavTab
           type='logo'>
-          {<Logo/>}
+          {
+            <Logo/>
+          }
         </NavTab>
         <NavTab
           textSpan={BUTTON_ICON_PROFILE}>
-          {<ProfileIcon type="secondary"/>}
+          {
+            <ProfileIcon
+              type="secondary"/>
+          }
         </NavTab>
       </ul>
     </div>
