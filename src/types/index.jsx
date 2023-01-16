@@ -27,12 +27,6 @@ export const cardIngredientType = PropTypes.shape({
   calories: PropTypes.number,
   image: PropTypes.string.isRequired
 });
-export const arrayDetailsOrderType = PropTypes.arrayOf(PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired
-}));
 export const cardType = PropTypes.shape({
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,

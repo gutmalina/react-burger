@@ -1,11 +1,11 @@
 import styles from './order-details.module.css';
 
-function OrderDetails(){
-  
+function OrderDetails({isOrder}){
+const {number} = {...isOrder.order}
   return (
     <>
       <p className='text text_type_digits-large mt-10 mb-8'>
-        034536
+        {number}
       </p>
       <p className='text text_type_main-medium'>
         идентификатор заказа

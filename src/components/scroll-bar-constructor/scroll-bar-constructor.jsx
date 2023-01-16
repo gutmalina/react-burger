@@ -3,14 +3,12 @@ import {
   ConstructorElement,
   DragIcon
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { arrayDetailsOrderType } from '../../types/index';
 
-function ScrollBarConstructor({arrDetailsOrder}){
-
+function ScrollBarConstructor({ingredientInside}){
   return (
     <>
       {
-        arrDetailsOrder.map((card) => (
+        ingredientInside.map((card) => (
           <div
             {...card}
             key={card._id}
@@ -29,10 +27,6 @@ function ScrollBarConstructor({arrDetailsOrder}){
       }
     </>
   );
-};
-
-ScrollBarConstructor.propTypes = {
-  arrDetailsOrder: arrayDetailsOrderType.isRequired
 };
 
 export default ScrollBarConstructor;

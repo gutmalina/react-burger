@@ -1,5 +1,6 @@
+import { useContext, useEffect, useState } from 'react';
+import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
 import styles from './burger-constructor.module.css';
-import img from '../../images/bun-02.svg';
 import {
   ConstructorElement,
   CurrencyIcon,
@@ -11,44 +12,73 @@ import {
   TEXT_BUTTON_MAKE_ORDER
 } from '../../utils/constants';
 import {
-  arrayDetailsOrderType,
   functionType
 } from '../../types/index';
 import ScrollBarConstructor from '../scroll-bar-constructor/scroll-bar-constructor';
+import { keyboard } from '@testing-library/user-event/dist/keyboard';
 
 function BurgerConstructor({
   onOpenModal,
-  arrDetailsOrder}){
+  setIsIdIngredients}){
+  const ingredientsAll = useContext(BurgerConstructorContext);
+
+  const ingredientsBun = ingredientsAll.filter((item=>item.type === 'bun'));
+  const ingredientBunRandom = {...ingredientsBun[Math.floor(Math.random() * ingredientsBun.length)]};
+  const ingredientInside = (ingredientsAll.filter((item=> item.type !== 'bun'))).filter((item) => Math.random() > 0.5);
+  const arr = ingredientInside.concat(ingredientBunRandom, ingredientBunRandom);
+  const [isRenderIngredients, setIsRenderIngredients] = useState([]);
+  const [isResult, setIsResult] = useState(0);
+
+  const res = [];
+  const id = []
+
+  const fun = ()=>{
+
+    for(let i=0; i<arr.length; i++){
+      res.push(arr[i].price);
+      id.push(arr[i]._id)
+    }
+    return (res, id)
+  }
+
+  useEffect(()=>{
+    setIsRenderIngredients(arr);
+    fun()
+    setIsResult(res.reduce((pre, sum)=>{ return pre + sum}, 0));
+    setIsIdIngredients(id)
+  }, [ingredientsAll])
+
 
   return(
     <div className={styles.container}>
       <ConstructorElement
+        name="bun"
         type="top"
         isLocked={true}
-        text="Краторная булка N-200i (верх)"
-        price={200}
-        thumbnail={img}
+        text={ingredientBunRandom.name}
+        price={ingredientBunRandom.price}
+        thumbnail={ingredientBunRandom.image}
         extraClass={`${styles.element} mb-4`}
       />
       <ScrollBar
         typeScroll={SCROLL_BAR_TYPE_DETAILS_ORDER}>
           {
-            <ScrollBarConstructor
-              arrDetailsOrder={arrDetailsOrder}/>
+            <ScrollBarConstructor ingredientInside={ingredientInside}/>
           }
       </ScrollBar>
       <ConstructorElement
+        name="bun"
         type="bottom"
         isLocked={true}
-        text="Краторная булка N-200i (низ)"
-        price={200}
-        thumbnail={img}
+        text={ingredientBunRandom.name}
+        price={ingredientBunRandom.price}
+        thumbnail={ingredientBunRandom.image}
         extraClass={`${styles.element} mt-1 mb-10`}
       />
       <article className={`${styles.order} mr-4`}>
         <span
           className={`${styles.result} text text_type_digits-medium`}>
-            610
+            {isResult || 0}
         </span>
         <CurrencyIcon
           type="primary"
@@ -67,7 +97,6 @@ function BurgerConstructor({
 };
 
 BurgerConstructor.protoTypes = {
-  arrDetailsOrder: arrayDetailsOrderType.isRequired,
   onOpenModal: functionType.isRequired
 };
 

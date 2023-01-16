@@ -1,5 +1,10 @@
 .container{
 }
+.list{
+  padding-left: 0;
+  list-style: none;
+}
+.item{}
 
 .element{
   margin-left: 48px;
