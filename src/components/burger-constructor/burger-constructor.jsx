@@ -11,31 +11,18 @@ import {
   SCROLL_BAR_TYPE_DETAILS_ORDER,
   TEXT_BUTTON_MAKE_ORDER
 } from '../../utils/constants';
-import {
-  functionType
-} from '../../types/index';
+import { functionType } from '../../types/index';
 import ScrollBarConstructor from '../scroll-bar-constructor/scroll-bar-constructor';
 
 function BurgerConstructor({
   onOpenModal,
   setIsIdIngredients}){
+
   const ingredientsAll = useContext(BurgerConstructorContext);
   const [isBun, setIsBun] = useState([]);
   const [isInsideBun, setIsInsideBun] = useState([]);
   const [isBurgerSelected, setIsBurgerSelected] = useState([]);
   const [isResult, setIsResult] = useState(0);
-
-  const funct = () =>{
-    const arrAllBun = ingredientsAll.filter((item=>item.type === 'bun'));
-    const bun = {...arrAllBun[Math.floor(Math.random() * arrAllBun.length)]};
-    const arrInsideBun = ingredientsAll.filter((item=>item.type !== 'bun'));
-    const inside = arrInsideBun.filter((item)=>Math.random() > 0.5);
-    const burger = inside.concat(bun, bun)
-    setIsBun(bun)
-    setIsInsideBun(inside);
-    setIsBurgerSelected(burger);
-  };
-
   const arrPrice = [];
   const arrId = [];
 
@@ -48,14 +35,21 @@ function BurgerConstructor({
   };
 
   useEffect(()=>{
-    funct();
+    const arrAllBun = ingredientsAll.filter((item=>item.type === 'bun'));
+    const bun = {...arrAllBun[Math.floor(Math.random() * arrAllBun.length)]};
+    const arrInsideBun = ingredientsAll.filter((item=>item.type !== 'bun'));
+    const inside = arrInsideBun.filter((item)=>Math.random() > 0.5);
+    const burger = inside.concat(bun, bun)
+    setIsBun(bun)
+    setIsInsideBun(inside);
+    setIsBurgerSelected(burger);
   }, [ingredientsAll]);
 
   useEffect(()=>{
     handleDataBerger();
-    setIsResult(arrPrice.reduce((pre, sum)=>{ return pre + sum}, 0));
+    const result = arrPrice.reduce((pre, sum)=>{ return pre + sum}, 0);
+    setIsResult(result);
     setIsIdIngredients(arrId);
-
   }, [isBurgerSelected]);
 
 
@@ -105,7 +99,8 @@ function BurgerConstructor({
 };
 
 BurgerConstructor.protoTypes = {
-  onOpenModal: functionType.isRequired
+  onOpenModal: functionType.isRequired,
+  setIsIdIngredients: functionType.isRequired
 };
 
 export default BurgerConstructor;

@@ -9,13 +9,9 @@ import {
   FILTER_MAIN,
   FILTER_SAUCE
 } from '../../utils/constants';
-import {
-  functionType
-} from '../../types/index';
+import { functionType } from '../../types/index';
 
-function ScrollBarIngredients({
-  onOpenModal
-}){
+function ScrollBarIngredients({ onOpenModal }){
   const ingredientsAll = useContext(BurgerConstructorContext);
   const getGroup = (array, type) => {
     return array.filter((card) => (

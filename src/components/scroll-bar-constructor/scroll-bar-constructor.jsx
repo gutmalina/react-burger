@@ -3,6 +3,7 @@ import {
   ConstructorElement,
   DragIcon
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { arrayIngredientsType } from '../../types/index';
 
 function ScrollBarConstructor({ingredientInside}){
   return (
@@ -27,6 +28,10 @@ function ScrollBarConstructor({ingredientInside}){
       }
     </>
   );
+};
+
+ScrollBarConstructor.protoTypes = {
+  ingredientInside: arrayIngredientsType.isRequired
 };
 
 export default ScrollBarConstructor;

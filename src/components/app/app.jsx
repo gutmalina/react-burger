@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BASE_URL } from "../../utils/config";
+import { getIngredients, getOrder } from '../../utils/burger-api';
 import styles from './app.module.css';
 import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
 import AppHeader from '../app-header/app-header';
@@ -21,21 +21,9 @@ function App() {
   const [isOrder, setIsOrder] = useState([]);
   const [isIdIngredients, setIsIdIngredients] = useState([]);
 
-/** получение массива ингридиентов */
+  /** получить массива ингридиентов */
   useEffect(()=>{
-    fetch(`${BASE_URL}/ingredients`, {
-      method: 'GET',
-      header: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then((res)=>{
-        if(res.ok){
-          return res.json()
-        }else{
-          Promise.reject(res.status)
-        }
-      })
+    getIngredients()
       .then((data)=>{
         setIsIngredients(data.data);
       })
@@ -45,30 +33,15 @@ function App() {
   /** передать заказ и получить номер заказа */
   useEffect(()=>{
     if(isModalOrderDetails){
-      fetch(`${BASE_URL}/orders`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          "ingredients": isIdIngredients
-        })
-      })
-        .then((res)=>{
-          if(res.ok){
-            return res.json()
-          }else{
-            Promise.reject(res.status)
-          }
-        })
+      getOrder(isIdIngredients)
         .then((data)=>{
           setIsOrder(data);
         })
         .catch((err)=>(console.log(err)))
     }
-  }, [isModalOrderDetails])
+  }, [isModalOrderDetails]);
 
-/** открытие модального окна */
+  /** открытие модального окна */
   const handleOpenModalOrderDetails = () => {
     setIsModalOrderDetails(true);
   };
@@ -78,7 +51,7 @@ function App() {
     setIsModalIngredientDetails(true);
   };
 
-/** закрытие модального окна */
+  /** закрытие модального окна */
   const handleCloseModal = () => {
     setIsModalIngredientDetails(false);
     setIsModalOrderDetails(false);

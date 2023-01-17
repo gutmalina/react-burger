@@ -32,9 +32,9 @@ function RenderCard({
 };
 
 RenderCard.propTypes = {
-  typeGroup: textType.isRequired,
+  onOpenModal: functionType.isRequired,
   groupIngredients: arrayIngredientsType.isRequired,
-  onOpenModal: functionType.isRequired
+  typeGroup: textType.isRequired
 };
 
 export default RenderCard;

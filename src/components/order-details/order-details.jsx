@@ -1,4 +1,5 @@
 import styles from './order-details.module.css';
+import { orderType } from '../../types';
 
 function OrderDetails({isOrder}){
 const {number} = {...isOrder.order}
@@ -19,6 +20,10 @@ const {number} = {...isOrder.order}
       </p>
     </>
   );
+};
+
+OrderDetails.propType = {
+  isOrder: orderType.isRequired
 };
 
 export default OrderDetails;

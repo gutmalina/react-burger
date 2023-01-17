@@ -33,8 +33,8 @@ function NavTab({
 };
 
 NavTab.propTypes = {
-  textSpan: textType,
   type: textType,
+  textSpan: textType,
   children: childrenType.isRequired
 };
 
