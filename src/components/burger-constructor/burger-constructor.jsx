@@ -15,64 +15,72 @@ import {
   functionType
 } from '../../types/index';
 import ScrollBarConstructor from '../scroll-bar-constructor/scroll-bar-constructor';
-import { keyboard } from '@testing-library/user-event/dist/keyboard';
 
 function BurgerConstructor({
   onOpenModal,
   setIsIdIngredients}){
   const ingredientsAll = useContext(BurgerConstructorContext);
-
-  const ingredientsBun = ingredientsAll.filter((item=>item.type === 'bun'));
-  const ingredientBunRandom = {...ingredientsBun[Math.floor(Math.random() * ingredientsBun.length)]};
-  const ingredientInside = (ingredientsAll.filter((item=> item.type !== 'bun'))).filter((item) => Math.random() > 0.5);
-  const arr = ingredientInside.concat(ingredientBunRandom, ingredientBunRandom);
-  const [isRenderIngredients, setIsRenderIngredients] = useState([]);
+  const [isBun, setIsBun] = useState([]);
+  const [isInsideBun, setIsInsideBun] = useState([]);
+  const [isBurgerSelected, setIsBurgerSelected] = useState([]);
   const [isResult, setIsResult] = useState(0);
 
-  const res = [];
-  const id = []
+  const funct = () =>{
+    const arrAllBun = ingredientsAll.filter((item=>item.type === 'bun'));
+    const bun = {...arrAllBun[Math.floor(Math.random() * arrAllBun.length)]};
+    const arrInsideBun = ingredientsAll.filter((item=>item.type !== 'bun'));
+    const inside = arrInsideBun.filter((item)=>Math.random() > 0.5);
+    const burger = inside.concat(bun, bun)
+    setIsBun(bun)
+    setIsInsideBun(inside);
+    setIsBurgerSelected(burger);
+  };
 
-  const fun = ()=>{
+  const arrPrice = [];
+  const arrId = [];
 
-    for(let i=0; i<arr.length; i++){
-      res.push(arr[i].price);
-      id.push(arr[i]._id)
+  const handleDataBerger = () =>{
+    for(let i=0; i < isBurgerSelected.length; i++){
+      arrPrice.push(isBurgerSelected[i].price);
+      arrId.push(isBurgerSelected[i]._id)
     }
-    return (res, id)
-  }
+    return (arrPrice, arrId)
+  };
 
   useEffect(()=>{
-    setIsRenderIngredients(arr);
-    fun()
-    setIsResult(res.reduce((pre, sum)=>{ return pre + sum}, 0));
-    setIsIdIngredients(id)
-  }, [ingredientsAll])
+    funct();
+  }, [ingredientsAll]);
+
+  useEffect(()=>{
+    handleDataBerger();
+    setIsResult(arrPrice.reduce((pre, sum)=>{ return pre + sum}, 0));
+    setIsIdIngredients(arrId);
+
+  }, [isBurgerSelected]);
 
 
   return(
     <div className={styles.container}>
       <ConstructorElement
-        name="bun"
         type="top"
         isLocked={true}
-        text={ingredientBunRandom.name}
-        price={ingredientBunRandom.price}
-        thumbnail={ingredientBunRandom.image}
+        text={isBun.name}
+        price={isBun.price}
+        thumbnail={isBun.image}
         extraClass={`${styles.element} mb-4`}
       />
       <ScrollBar
         typeScroll={SCROLL_BAR_TYPE_DETAILS_ORDER}>
           {
-            <ScrollBarConstructor ingredientInside={ingredientInside}/>
+            <ScrollBarConstructor ingredientInside={isInsideBun}/>
           }
       </ScrollBar>
       <ConstructorElement
-        name="bun"
         type="bottom"
         isLocked={true}
-        text={ingredientBunRandom.name}
-        price={ingredientBunRandom.price}
-        thumbnail={ingredientBunRandom.image}
+        text={isBun.name}
+        price={isBun.price}
+        thumbnail={isBun.image}
         extraClass={`${styles.element} mt-1 mb-10`}
       />
       <article className={`${styles.order} mr-4`}>

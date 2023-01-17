@@ -9,8 +9,7 @@ import {
 import ScrollBarIngredients from '../scroll-bar-ingredients/scroll-bar-ingredients';
 
 function BurgerIngredients({
-  onOpenModal,
-  arrIngredients
+  onOpenModal
 }){
 
   return(
@@ -21,8 +20,7 @@ function BurgerIngredients({
         typeScroll={SCROLL_BAR_TYPE_INGREDIENTS}>
           {
             <ScrollBarIngredients
-              onOpenModal={onOpenModal}
-              arrIngredients={arrIngredients}/>
+              onOpenModal={onOpenModal}/>
           }
       </ScrollBar>
     </div>
@@ -30,7 +28,6 @@ function BurgerIngredients({
 };
 
 BurgerIngredients.protoTypes = {
-  arrIngredients: arrayIngredientsType.isRequired,
   onOpenModal: functionType.isRequired
 };
 

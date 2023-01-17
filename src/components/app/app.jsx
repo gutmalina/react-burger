@@ -42,6 +42,7 @@ function App() {
       .catch((err)=>(console.log(err)))
   }, []);
 
+  /** передать заказ и получить номер заказа */
   useEffect(()=>{
     if(isModalOrderDetails){
       fetch(`${BASE_URL}/orders`, {
@@ -51,7 +52,6 @@ function App() {
         },
         body: JSON.stringify({
           "ingredients": isIdIngredients
-          // ["60d3b41abdacab0026a733c6", "60d3b41abdacab0026a733c7", "60d3b41abdacab0026a733cd"]
         })
       })
         .then((res)=>{
@@ -86,25 +86,23 @@ function App() {
 
   return (
     <>
-      <AppHeader/>
-      <section className={styles.main}>
-        <h1 className="text text_type_main-large mt-10 mb-5">
-          {TITLE_LEAD}
-        </h1>
-        <div className={styles.make_burger}>
-          <BurgerIngredients
-            onOpenModal={handleOpenModalIngredientDetails}
-            arrIngredients={isIngredients}
-          />
-          <BurgerConstructorContext.Provider value={isIngredients}>
+      <BurgerConstructorContext.Provider value={isIngredients}>
+        <AppHeader/>
+        <section className={styles.main}>
+          <h1 className="text text_type_main-large mt-10 mb-5">
+            {TITLE_LEAD}
+          </h1>
+          <div className={styles.make_burger}>
+            <BurgerIngredients
+              onOpenModal={handleOpenModalIngredientDetails}
+            />
             <BurgerConstructor
               onOpenModal={handleOpenModalOrderDetails}
               setIsIdIngredients={setIsIdIngredients}
-
             />
-          </BurgerConstructorContext.Provider>
-        </div>
-      </section>
+          </div>
+        </section>
+      </BurgerConstructorContext.Provider>
       <Modal
         isModal={isModalIngredientDetails}
         onClose={handleCloseModal}
