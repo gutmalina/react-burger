@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getIngredients, getOrder } from '../../utils/burger-api';
+import { getIngredients } from '../../utils/burger-api';
 import styles from './app.module.css';
 import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
 import AppHeader from '../app-header/app-header';
@@ -14,52 +14,22 @@ import {
 } from '../../utils/constants';
 
 function App() {
-  const [isIngredients, setIsIngredients] = useState([]);
-  const [isCardIngredient, setIsCardIngredient] = useState([]);
-  const [isModalIngredientDetails, setIsModalIngredientDetails] = useState(false);
-  const [isModalOrderDetails, setIsModalOrderDetails] = useState(false);
-  const [isOrder, setIsOrder] = useState([]);
-  const [isIdIngredients, setIsIdIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
+  const [cardIngredient, setCardIngredient] = useState('');
+  const [order, setOrder] = useState('');
 
   /** получить массива ингридиентов */
   useEffect(()=>{
     getIngredients()
       .then((data)=>{
-        setIsIngredients(data.data);
+        setIngredients(data.data);
       })
       .catch((err)=>(console.log(err)))
   }, []);
 
-  /** передать заказ и получить номер заказа */
-  useEffect(()=>{
-    if(isModalOrderDetails){
-      getOrder(isIdIngredients)
-        .then((data)=>{
-          setIsOrder(data);
-        })
-        .catch((err)=>(console.log(err)))
-    }
-  }, [isModalOrderDetails]);
-
-  /** открытие модального окна */
-  const handleOpenModalOrderDetails = () => {
-    setIsModalOrderDetails(true);
-  };
-
-  const handleOpenModalIngredientDetails = (card) => {
-    setIsCardIngredient(card);
-    setIsModalIngredientDetails(true);
-  };
-
-  /** закрытие модального окна */
-  const handleCloseModal = () => {
-    setIsModalIngredientDetails(false);
-    setIsModalOrderDetails(false);
-  };
-
   return (
     <>
-      <BurgerConstructorContext.Provider value={isIngredients}>
+      <BurgerConstructorContext.Provider value={ingredients}>
         <AppHeader/>
         <section className={styles.main}>
           <h1 className="text text_type_main-large mt-10 mb-5">
@@ -67,30 +37,29 @@ function App() {
           </h1>
           <div className={styles.make_burger}>
             <BurgerIngredients
-              onOpenModal={handleOpenModalIngredientDetails}
+              setCardIngredient={setCardIngredient}
             />
             <BurgerConstructor
-              onOpenModal={handleOpenModalOrderDetails}
-              setIsIdIngredients={setIsIdIngredients}
+              setOrder={setOrder}
             />
           </div>
         </section>
       </BurgerConstructorContext.Provider>
       <Modal
-        isModal={isModalIngredientDetails}
-        onClose={handleCloseModal}
+        isOpenModal={cardIngredient}
+        isCloseModal={setCardIngredient}
         textTitle={MODAL_TITLE}>
         {
           <IngredientDetails
-            onCard={isCardIngredient}/>
+            onCard={cardIngredient}/>
         }
       </Modal>
       <Modal
-        isModal={isModalOrderDetails}
-        onClose={handleCloseModal}>
+        isOpenModal={order}
+        isCloseModal={setOrder}>
         {
           <OrderDetails
-            isOrder={isOrder}/>
+            order={order}/>
         }
       </Modal>
     </>

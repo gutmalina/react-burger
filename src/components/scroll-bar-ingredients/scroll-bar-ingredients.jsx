@@ -11,7 +11,7 @@ import {
 } from '../../utils/constants';
 import { functionType } from '../../types/index';
 
-function ScrollBarIngredients({ onOpenModal }){
+function ScrollBarIngredients({ setCardIngredient }){
   const ingredientsAll = useContext(BurgerConstructorContext);
   const getGroup = (array, type) => {
     return array.filter((card) => (
@@ -22,17 +22,17 @@ function ScrollBarIngredients({ onOpenModal }){
   return(
     <>
       <RenderCard
-        onOpenModal={onOpenModal}
+        setCardIngredient={setCardIngredient}
         typeGroup={TAG_BAR_BUN}
         groupIngredients={getGroup(ingredientsAll, FILTER_BUN)}
       />
       <RenderCard
-        onOpenModal={onOpenModal}
+        setCardIngredient={setCardIngredient}
         typeGroup={TAG_BAR_SAUCE}
         groupIngredients={getGroup(ingredientsAll, FILTER_SAUCE)}
       />
       <RenderCard
-        onOpenModal={onOpenModal}
+        setCardIngredient={setCardIngredient}
         typeGroup={TAG_BAR_MAIN}
         groupIngredients={getGroup(ingredientsAll, FILTER_MAIN)}
       />
@@ -41,7 +41,7 @@ function ScrollBarIngredients({ onOpenModal }){
 };
 
 ScrollBarIngredients.propTypes = {
-  onOpenModal: functionType.isRequired
+  setCardIngredient: functionType.isRequired
 };
 
 export default ScrollBarIngredients;

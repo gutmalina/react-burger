@@ -7,7 +7,7 @@ import {
 } from '../../types/index';
 
 function RenderCard({
-  onOpenModal,
+  setCardIngredient,
   groupIngredients,
   typeGroup
 }){
@@ -21,7 +21,7 @@ function RenderCard({
         {
           groupIngredients.map((card) => (
             <Card
-              onOpenModal={onOpenModal}
+              onOpenModal={setCardIngredient}
               card={card}
               key={card._id}/>
           ))
@@ -32,7 +32,7 @@ function RenderCard({
 };
 
 RenderCard.propTypes = {
-  onOpenModal: functionType.isRequired,
+  setCardIngredient: functionType.isRequired,
   groupIngredients: arrayIngredientsType.isRequired,
   typeGroup: textType.isRequired
 };

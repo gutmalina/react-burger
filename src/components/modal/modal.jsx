@@ -11,22 +11,27 @@ import {
 } from '../../types';
 
 function Modal({
-  isModal,
-  onClose,
+  isOpenModal,
+  isCloseModal,
   textTitle,
   children
 }){
   const modalRoot = document.querySelector('#root-modal');
-  const classPopup = isModal ?
+  const classPopup = isOpenModal ?
     `${styles.popup} ${styles.popup_opened}` :
     `${styles.popup}`;
   const refOverlay = useRef();
 
-  /** закрытие модального окна по ESC и overlay */
+  /** закрыть модальное окно */
+  const handleCloseModal = () => {
+    isCloseModal('')
+  };
+
+  /** закрыть модальное окно по ESC и overlay */
   useEffect(()=>{
     const handleClose = (e) =>{
       if(e.code === 'Escape' || e.target === refOverlay.current){
-        onClose()
+        handleCloseModal()
       };
     };
     document.addEventListener('keydown', handleClose);
@@ -36,7 +41,7 @@ function Modal({
       document.removeEventListener('keydown', handleClose)
       document.removeEventListener( 'click', handleClose);
     };
-  }, [isModal]);
+  }, [isOpenModal]);
 
   return createPortal(
     <div className={classPopup}>
@@ -48,7 +53,7 @@ function Modal({
           <div className={styles.btn}>
             <CloseIcon
               type="primary"
-              onClick={onClose}/>
+              onClick={handleCloseModal}/>
           </div>
         </article>
         {children}
@@ -61,8 +66,8 @@ function Modal({
 };
 
 createPortal.protoTypes = {
-  isModal: boolType.isRequired,
-  onClose: functionType.isRequired,
+  isOpenModal: boolType.isRequired,
+  isCloseModal: functionType.isRequired,
   textTitle: textType.isRequired,
   children: childrenType.isRequired
 };

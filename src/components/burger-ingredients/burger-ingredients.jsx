@@ -5,7 +5,7 @@ import { SCROLL_BAR_TYPE_INGREDIENTS } from '../../utils/constants';
 import { functionType } from '../../types/index';
 import ScrollBarIngredients from '../scroll-bar-ingredients/scroll-bar-ingredients';
 
-function BurgerIngredients({ onOpenModal }){
+function BurgerIngredients({ setCardIngredient }){
 
   return(
     <div
@@ -15,7 +15,7 @@ function BurgerIngredients({ onOpenModal }){
         typeScroll={SCROLL_BAR_TYPE_INGREDIENTS}>
           {
             <ScrollBarIngredients
-              onOpenModal={onOpenModal}/>
+              setCardIngredient={setCardIngredient}/>
           }
       </ScrollBar>
     </div>
@@ -23,7 +23,7 @@ function BurgerIngredients({ onOpenModal }){
 };
 
 BurgerIngredients.protoTypes = {
-  onOpenModal: functionType.isRequired
+  setCardIngredient: functionType.isRequired
 };
 
 export default BurgerIngredients;

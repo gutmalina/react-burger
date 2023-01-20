@@ -1,5 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
+import { getOrder } from '../../utils/burger-api';
 import styles from './burger-constructor.module.css';
 import {
   ConstructorElement,
@@ -11,27 +12,27 @@ import {
   SCROLL_BAR_TYPE_DETAILS_ORDER,
   TEXT_BUTTON_MAKE_ORDER
 } from '../../utils/constants';
-import { functionType } from '../../types/index';
 import ScrollBarConstructor from '../scroll-bar-constructor/scroll-bar-constructor';
+import { functionType } from '../../types/index';
 
-function BurgerConstructor({
-  onOpenModal,
-  setIsIdIngredients}){
+function BurgerConstructor({ setOrder }){
 
   const ingredientsAll = useContext(BurgerConstructorContext);
   const [isBun, setIsBun] = useState([]);
   const [isInsideBun, setIsInsideBun] = useState([]);
   const [isBurgerSelected, setIsBurgerSelected] = useState([]);
   const [isResult, setIsResult] = useState(0);
+  const [idIngredients, setIdIngredients] = useState([]);
   const arrPrice = [];
-  const arrId = [];
 
-  const handleDataBerger = () =>{
+  const handleDataOfBurger = () =>{
+    const arrId = [];
     for(let i=0; i < isBurgerSelected.length; i++){
       arrPrice.push(isBurgerSelected[i].price);
       arrId.push(isBurgerSelected[i]._id)
     }
-    return (arrPrice, arrId)
+    setIdIngredients(arrId)
+    return (arrPrice)
   };
 
   useEffect(()=>{
@@ -45,13 +46,20 @@ function BurgerConstructor({
     setIsBurgerSelected(burger);
   }, [ingredientsAll]);
 
-  useEffect(()=>{
-    handleDataBerger();
+  const handleResult = useMemo(()=>{
+    handleDataOfBurger();
     const result = arrPrice.reduce((pre, sum)=>{ return pre + sum}, 0);
     setIsResult(result);
-    setIsIdIngredients(arrId);
   }, [isBurgerSelected]);
 
+   /** передать заказ и получить номер заказа */
+  const getNumberOrder = () =>{
+    getOrder(idIngredients)
+      .then((data)=>{
+        setOrder(data);
+      })
+      .catch((err)=>(console.log(err)))
+  };
 
   return(
     <div className={styles.container}>
@@ -90,7 +98,7 @@ function BurgerConstructor({
           type="primary"
           size="large"
           extraClass={styles.btn}
-          onClick={onOpenModal}>
+          onClick={getNumberOrder}>
             {TEXT_BUTTON_MAKE_ORDER}
         </Button>
       </article>
@@ -99,8 +107,7 @@ function BurgerConstructor({
 };
 
 BurgerConstructor.protoTypes = {
-  onOpenModal: functionType.isRequired,
-  setIsIdIngredients: functionType.isRequired
+  setOrder: functionType.isRequired
 };
 
 export default BurgerConstructor;
