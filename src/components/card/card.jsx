@@ -4,7 +4,7 @@ import {
   Counter
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import {
-  cardType,
+  ingredientsType,
   functionType
 } from '../../types/index';
 
@@ -48,7 +48,7 @@ function Card({
 };
 
 Card.propTypes = {
-  card: cardType.isRequired,
+  card: ingredientsType.isRequired,
   onOpenModal: functionType.isRequired
 };
 

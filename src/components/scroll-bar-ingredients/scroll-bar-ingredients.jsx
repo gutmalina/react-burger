@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
 import RenderCard from '../render-card/render-card';
 import {
   TAG_BAR_BUN,
@@ -7,15 +9,10 @@ import {
   FILTER_MAIN,
   FILTER_SAUCE
 } from '../../utils/constants';
-import {
-  arrayIngredientsType,
-  functionType
-} from '../../types/index';
+import { functionType } from '../../types/index';
 
-function ScrollBarIngredients({
-  onOpenModal,
-  arrIngredients
-}){
+function ScrollBarIngredients({ setCardIngredient }){
+  const ingredientsAll = useContext(BurgerConstructorContext);
   const getGroup = (array, type) => {
     return array.filter((card) => (
       card.type === type
@@ -25,27 +22,26 @@ function ScrollBarIngredients({
   return(
     <>
       <RenderCard
-        onOpenModal={onOpenModal}
+        setCardIngredient={setCardIngredient}
         typeGroup={TAG_BAR_BUN}
-        groupIngredients={getGroup(arrIngredients, FILTER_BUN)}
+        groupIngredients={getGroup(ingredientsAll, FILTER_BUN)}
       />
       <RenderCard
-        onOpenModal={onOpenModal}
+        setCardIngredient={setCardIngredient}
         typeGroup={TAG_BAR_SAUCE}
-        groupIngredients={getGroup(arrIngredients, FILTER_SAUCE)}
+        groupIngredients={getGroup(ingredientsAll, FILTER_SAUCE)}
       />
       <RenderCard
-        onOpenModal={onOpenModal}
+        setCardIngredient={setCardIngredient}
         typeGroup={TAG_BAR_MAIN}
-        groupIngredients={getGroup(arrIngredients, FILTER_MAIN)}
+        groupIngredients={getGroup(ingredientsAll, FILTER_MAIN)}
       />
     </>
   );
 };
 
 ScrollBarIngredients.propTypes = {
-  arrIngredients: arrayIngredientsType.isRequired,
-  onOpenModal: functionType.isRequired
+  setCardIngredient: functionType.isRequired
 };
 
 export default ScrollBarIngredients;

@@ -15,7 +15,7 @@ import {
 function AppHeader() {
   return (
     <div className={styles.header}>
-      <ul className={`${styles.nav} mt-3 mb-3`}>
+      <ul className={styles.nav}>
         <NavTab
           textSpan={BUTTON_ICON_BURGER}>
           {

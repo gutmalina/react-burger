@@ -1,11 +1,12 @@
 import styles from './order-details.module.css';
+import { orderType } from '../../types';
 
-function OrderDetails(){
-  
+function OrderDetails({order}){
+const {number} = {...order.order}
   return (
     <>
       <p className='text text_type_digits-large mt-10 mb-8'>
-        034536
+        {number}
       </p>
       <p className='text text_type_main-medium'>
         идентификатор заказа
@@ -19,6 +20,10 @@ function OrderDetails(){
       </p>
     </>
   );
+};
+
+OrderDetails.propType = {
+  isOrder: orderType.isRequired
 };
 
 export default OrderDetails;

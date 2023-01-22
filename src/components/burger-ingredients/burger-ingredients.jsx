@@ -2,16 +2,10 @@ import styles from './burger-ingredients.module.css';
 import TabBar from '../tag-bar/tag-bar';
 import ScrollBar from '../scroll-bar/scroll-bar';
 import { SCROLL_BAR_TYPE_INGREDIENTS } from '../../utils/constants';
-import {
-  arrayIngredientsType,
-  functionType
-} from '../../types/index';
+import { functionType } from '../../types/index';
 import ScrollBarIngredients from '../scroll-bar-ingredients/scroll-bar-ingredients';
 
-function BurgerIngredients({
-  onOpenModal,
-  arrIngredients
-}){
+function BurgerIngredients({ setCardIngredient }){
 
   return(
     <div
@@ -21,8 +15,7 @@ function BurgerIngredients({
         typeScroll={SCROLL_BAR_TYPE_INGREDIENTS}>
           {
             <ScrollBarIngredients
-              onOpenModal={onOpenModal}
-              arrIngredients={arrIngredients}/>
+              setCardIngredient={setCardIngredient}/>
           }
       </ScrollBar>
     </div>
@@ -30,8 +23,7 @@ function BurgerIngredients({
 };
 
 BurgerIngredients.protoTypes = {
-  arrIngredients: arrayIngredientsType.isRequired,
-  onOpenModal: functionType.isRequired
+  setCardIngredient: functionType.isRequired
 };
 
 export default BurgerIngredients;

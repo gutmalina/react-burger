@@ -5,7 +5,7 @@ import {
   MODAL_CARD_FAT,
   MODAL_CARD_CARBOHYDRATES
 } from '../../utils/constants';
-import { cardIngredientType } from '../../types';
+import { ingredientsType } from '../../types';
 
 function IngredientDetails({onCard}){
   const {
@@ -65,7 +65,7 @@ function IngredientDetails({onCard}){
 };
 
 IngredientDetails.propType = {
-  onCard: cardIngredientType.isRequired
+  onCard: ingredientsType.isRequired
 };
 
 export default IngredientDetails;
