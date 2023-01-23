@@ -1,28 +1,31 @@
-import styles from './card.module.css';
+import styles from './ingredient.module.css';
 import {
   CurrencyIcon,
   Counter
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {
-  ingredientsType,
-  functionType
-} from '../../types/index';
+import { ingredientsType } from '../../types/index';
+import { useDispatch } from 'react-redux';
+import { addIngredient } from '../../services/actions/actions';
+import { useDrag } from 'react-dnd/dist/hooks';
 
-function Card({
-  card,
-  onOpenModal
-}){
+function Ingredient({ card }){
   const { name, price, image} = card;
+  const dispatch = useDispatch()
+  const [, dragRef] = useDrag({
+    type: 'main',
+    item: card.id
+  })
 
-  function postDataCardOpenModal(e){
+  const postDataCardOpenModal=(e)=>{
     e.stopPropagation()
-    onOpenModal(card);
+    dispatch(addIngredient(card))
   };
 
   return(
     <article
       onClick={postDataCardOpenModal}
-      className={styles.card}>
+      className={styles.card}
+      ref={dragRef}>
       <Counter
         count={1}
         size="default"
@@ -47,12 +50,11 @@ function Card({
   );
 };
 
-Card.propTypes = {
-  card: ingredientsType.isRequired,
-  onOpenModal: functionType.isRequired
+Ingredient.propTypes = {
+  card: ingredientsType.isRequired
 };
 
-export default Card;
+export default Ingredient;
 
 
 

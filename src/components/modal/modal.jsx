@@ -1,4 +1,5 @@
 import { createPortal } from 'react-dom';
+import { useSelector } from 'react-redux';
 import styles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -9,22 +10,27 @@ import {
   textType,
   childrenType
 } from '../../types';
+import { useDispatch } from 'react-redux';
+import { removeIngredient, closeOrder } from '../../services/actions/actions';
 
 function Modal({
   isOpenModal,
-  isCloseModal,
   textTitle,
   children
 }){
   const modalRoot = document.querySelector('#root-modal');
+  const refOverlay = useRef();
+  const dispatch = useDispatch();
+  const ingredient = useSelector(store=>store.ingredient);
   const classPopup = isOpenModal ?
     `${styles.popup} ${styles.popup_opened}` :
     `${styles.popup}`;
-  const refOverlay = useRef();
 
   /** закрыть модальное окно */
   const handleCloseModal = () => {
-    isCloseModal('')
+    Object.keys(ingredient).length
+    ? dispatch(removeIngredient())
+    : dispatch(closeOrder());
   };
 
   /** закрыть модальное окно по ESC и overlay */
@@ -67,7 +73,6 @@ function Modal({
 
 createPortal.protoTypes = {
   isOpenModal: boolType.isRequired,
-  isCloseModal: functionType.isRequired,
   textTitle: textType.isRequired,
   children: childrenType.isRequired
 };

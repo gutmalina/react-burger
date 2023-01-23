@@ -1,6 +1,6 @@
-import { useContext, useEffect, useMemo, useState } from 'react';
-import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
-import { getOrder } from '../../utils/burger-api';
+import { useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOrderAction } from '../../services/actions/actions';
 import styles from './burger-constructor.module.css';
 import {
   ConstructorElement,
@@ -14,16 +14,20 @@ import {
 } from '../../utils/constants';
 import ScrollBarConstructor from '../scroll-bar-constructor/scroll-bar-constructor';
 import { functionType } from '../../types/index';
+import { useDrop } from 'react-dnd/dist/hooks/useDrop';
 
 function BurgerConstructor({ setOrder }){
-
-  const ingredientsAll = useContext(BurgerConstructorContext);
+  const ingredientsAll = useSelector(store=>store.ingredients);
   const [isBun, setIsBun] = useState([]);
   const [isInsideBun, setIsInsideBun] = useState([]);
   const [isBurgerSelected, setIsBurgerSelected] = useState([]);
   const [isResult, setIsResult] = useState(0);
   const [idIngredients, setIdIngredients] = useState([]);
+  const dispatch = useDispatch();
   const arrPrice = [];
+  const [, dropTargetRef] = useDrop({
+    accept: 'main'
+  });
 
   const handleDataOfBurger = () =>{
     const arrId = [];
@@ -54,15 +58,13 @@ function BurgerConstructor({ setOrder }){
 
    /** передать заказ и получить номер заказа */
   const getNumberOrder = () =>{
-    getOrder(idIngredients)
-      .then((data)=>{
-        setOrder(data);
-      })
-      .catch((err)=>(console.log(err)))
+    dispatch(getOrderAction(idIngredients))
   };
 
   return(
-    <div className={styles.container}>
+    <div
+      ref={dropTargetRef}
+      className={styles.container}>
       <ConstructorElement
         type="top"
         isLocked={true}
@@ -74,7 +76,8 @@ function BurgerConstructor({ setOrder }){
       <ScrollBar
         typeScroll={SCROLL_BAR_TYPE_DETAILS_ORDER}>
           {
-            <ScrollBarConstructor ingredientInside={isInsideBun}/>
+            <ScrollBarConstructor
+              ingredientInside={isInsideBun || []}/>
           }
       </ScrollBar>
       <ConstructorElement

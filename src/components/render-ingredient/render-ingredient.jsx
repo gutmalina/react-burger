@@ -1,13 +1,12 @@
-import styles from './render-card.module.css';
-import Card from '../card/card';
+import styles from './render-ingredient.module.css';
+import Ingredient from '../ingredient/ingredient';
 import {
   textType,
   arrayIngredientsType,
   functionType
 } from '../../types/index';
 
-function RenderCard({
-  setCardIngredient,
+function RenderIngredient({
   groupIngredients,
   typeGroup
 }){
@@ -20,8 +19,7 @@ function RenderCard({
       <section className={`${styles.cards} ml-4 mr-4`}>
         {
           groupIngredients.map((card) => (
-            <Card
-              onOpenModal={setCardIngredient}
+            <Ingredient
               card={card}
               key={card._id}/>
           ))
@@ -31,10 +29,9 @@ function RenderCard({
   );
 };
 
-RenderCard.propTypes = {
-  setCardIngredient: functionType.isRequired,
+RenderIngredient.propTypes = {
   groupIngredients: arrayIngredientsType.isRequired,
   typeGroup: textType.isRequired
 };
 
-export default RenderCard;
+export default RenderIngredient;

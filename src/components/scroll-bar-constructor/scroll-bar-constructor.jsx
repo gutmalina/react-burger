@@ -6,6 +6,7 @@ import {
 import { arrayIngredientsType } from '../../types/index';
 
 function ScrollBarConstructor({ingredientInside}){
+
   return (
     <>
       {

@@ -1,6 +1,5 @@
-import { useContext } from 'react';
-import { BurgerConstructorContext } from '../../contexts/BurgerConstructorContext';
-import RenderCard from '../render-card/render-card';
+import { useSelector } from 'react-redux';
+import RenderIngredient from '../render-ingredient/render-ingredient';
 import {
   TAG_BAR_BUN,
   TAG_BAR_MAIN,
@@ -9,10 +8,9 @@ import {
   FILTER_MAIN,
   FILTER_SAUCE
 } from '../../utils/constants';
-import { functionType } from '../../types/index';
 
-function ScrollBarIngredients({ setCardIngredient }){
-  const ingredientsAll = useContext(BurgerConstructorContext);
+function ScrollBarIngredients(){
+  const ingredientsAll = useSelector(store=>store.ingredients);
   const getGroup = (array, type) => {
     return array.filter((card) => (
       card.type === type
@@ -21,27 +19,20 @@ function ScrollBarIngredients({ setCardIngredient }){
 
   return(
     <>
-      <RenderCard
-        setCardIngredient={setCardIngredient}
+      <RenderIngredient
         typeGroup={TAG_BAR_BUN}
         groupIngredients={getGroup(ingredientsAll, FILTER_BUN)}
       />
-      <RenderCard
-        setCardIngredient={setCardIngredient}
+      <RenderIngredient
         typeGroup={TAG_BAR_SAUCE}
         groupIngredients={getGroup(ingredientsAll, FILTER_SAUCE)}
       />
-      <RenderCard
-        setCardIngredient={setCardIngredient}
+      <RenderIngredient
         typeGroup={TAG_BAR_MAIN}
         groupIngredients={getGroup(ingredientsAll, FILTER_MAIN)}
       />
     </>
   );
-};
-
-ScrollBarIngredients.propTypes = {
-  setCardIngredient: functionType.isRequired
 };
 
 export default ScrollBarIngredients;
