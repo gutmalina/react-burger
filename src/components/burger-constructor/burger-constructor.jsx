@@ -1,6 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrderAction } from '../../services/actions/actions';
+import {
+  getOrderAction,
+  addBurgerBun,
+  addBurgerFilling,
+  sumOrder } from '../../services/actions/actions';
 import styles from './burger-constructor.module.css';
 import {
   ConstructorElement,
@@ -10,88 +14,141 @@ import {
 import ScrollBar from '../scroll-bar/scroll-bar';
 import {
   SCROLL_BAR_TYPE_DETAILS_ORDER,
-  TEXT_BUTTON_MAKE_ORDER
+  TEXT_BUTTON_MAKE_ORDER,
+  FILTER_BUN,
+  FILTER_MAIN,
+  FILTER_SAUCE
 } from '../../utils/constants';
 import ScrollBarConstructor from '../scroll-bar-constructor/scroll-bar-constructor';
-import { functionType } from '../../types/index';
 import { useDrop } from 'react-dnd/dist/hooks/useDrop';
 
-function BurgerConstructor({ setOrder }){
-  const ingredientsAll = useSelector(store=>store.ingredients);
-  const [isBun, setIsBun] = useState([]);
-  const [isInsideBun, setIsInsideBun] = useState([]);
-  const [isBurgerSelected, setIsBurgerSelected] = useState([]);
-  const [isResult, setIsResult] = useState(0);
-  const [idIngredients, setIdIngredients] = useState([]);
+function BurgerConstructor(){
+  const {burger, summed} = useSelector(store=>({
+    burger: store.burger,
+    summed: store.sum
+  }));
   const dispatch = useDispatch();
-  const arrPrice = [];
+
   const [, dropTargetRef] = useDrop({
-    accept: 'main'
+    accept: [FILTER_BUN, FILTER_MAIN, FILTER_SAUCE],
+    drop(card) {
+      card.type === FILTER_BUN
+      ? dispatch(addBurgerBun(card))
+      : dispatch(addBurgerFilling(card));
+    },
   });
 
-  const handleDataOfBurger = () =>{
-    const arrId = [];
-    for(let i=0; i < isBurgerSelected.length; i++){
-      arrPrice.push(isBurgerSelected[i].price);
-      arrId.push(isBurgerSelected[i]._id)
+//   Да, можно добавить новый тип, например в компоненте элемента конструктора:
+
+// const [{ isDragging }, drag] = useDrag({
+// type: "SORT_INGREDIENT",
+// item: () => {
+// return { ingredient, index };
+// },
+// collect: (monitor) => ({
+// isDragging: monitor.isDragging(),
+// }),
+// });
+
+// Там же реализовать хук useDrop, в котором будет отправка экшена. И создать реф, который повесить на элемент конструктора:
+
+// const ref = useRef(null);
+// drag(drop(ref));
+
+
+  /** получить ID ингридиентов бургера */
+  const handleIdIngredient = useMemo(()=>{
+    const arrBurger  = burger.filling.concat(burger.bun, burger.bun)
+    let result = arrBurger.map(a => a._id);
+    return result
+  }, [burger]);
+
+
+  const resultArr = (arr)=>{
+    return arr.map(a=>a.price).reduce((acc, sum)=>{return acc+sum}, 0)
+  }
+
+  /** получить сумму заказа */
+  const handleResult = useMemo(()=>{
+    let result
+    if(!Object.keys(burger.bun).length){
+      result = resultArr(burger.filling)
+    } else {
+      const arrBurger  = burger.filling.concat(burger.bun, burger.bun)
+      result = resultArr(arrBurger)
     }
-    setIdIngredients(arrId)
-    return (arrPrice)
-  };
+    return result
+  }, [burger]);
 
   useEffect(()=>{
-    const arrAllBun = ingredientsAll.filter((item=>item.type === 'bun'));
-    const bun = {...arrAllBun[Math.floor(Math.random() * arrAllBun.length)]};
-    const arrInsideBun = ingredientsAll.filter((item=>item.type !== 'bun'));
-    const inside = arrInsideBun.filter((item)=>Math.random() > 0.5);
-    const burger = inside.concat(bun, bun)
-    setIsBun(bun)
-    setIsInsideBun(inside);
-    setIsBurgerSelected(burger);
-  }, [ingredientsAll]);
-
-  const handleResult = useMemo(()=>{
-    handleDataOfBurger();
-    const result = arrPrice.reduce((pre, sum)=>{ return pre + sum}, 0);
-    setIsResult(result);
-  }, [isBurgerSelected]);
+    dispatch(sumOrder(handleResult))
+  }, [burger])
 
    /** передать заказ и получить номер заказа */
   const getNumberOrder = () =>{
-    dispatch(getOrderAction(idIngredients))
+    dispatch(getOrderAction(handleIdIngredient))
   };
 
   return(
     <div
       ref={dropTargetRef}
       className={styles.container}>
-      <ConstructorElement
-        type="top"
-        isLocked={true}
-        text={isBun.name}
-        price={isBun.price}
-        thumbnail={isBun.image}
-        extraClass={`${styles.element} mb-4`}
-      />
+        {
+          Object.keys(burger.bun).length
+          ?
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={burger.bun.name}
+            price={burger.bun.price}
+            thumbnail={burger.bun.image}
+            extraClass={`${styles.element} mb-4`}
+          />
+          :
+          <ConstructorElement
+            type="top"
+            text='Выберите булку'
+            extraClass={`${styles.element_default} mb-4`}
+          />
+        }
       <ScrollBar
         typeScroll={SCROLL_BAR_TYPE_DETAILS_ORDER}>
           {
+            burger.filling.length
+            ?
             <ScrollBarConstructor
-              ingredientInside={isInsideBun || []}/>
+              ingredientInside={burger.filling || []}
+            />
+            :
+            <ConstructorElement
+              text='Выберите начинку'
+              extraClass={`${styles.element_default} mb-4`}
+            />
           }
       </ScrollBar>
-      <ConstructorElement
-        type="bottom"
-        isLocked={true}
-        text={isBun.name}
-        price={isBun.price}
-        thumbnail={isBun.image}
-        extraClass={`${styles.element} mt-1 mb-10`}
-      />
+      {
+        Object.keys(burger.bun).length
+        ?
+        <ConstructorElement
+          type="bottom"
+          isLocked={true}
+          text={burger.bun.name}
+          price={burger.bun.price}
+          thumbnail={burger.bun.image}
+          extraClass={`${styles.element} mt-1 mb-10`}
+        />
+        :
+        <ConstructorElement
+          type="bottom"
+          text='Выберите булку'
+          extraClass={`${styles.element_default} mt-1 mb-10`}
+        />
+      }
+
       <article className={`${styles.order} mr-4`}>
         <span
           className={`${styles.result} text text_type_digits-medium`}>
-            {isResult || 0}
+            {summed || 0}
         </span>
         <CurrencyIcon
           type="primary"
@@ -107,10 +164,6 @@ function BurgerConstructor({ setOrder }){
       </article>
     </div>
   );
-};
-
-BurgerConstructor.protoTypes = {
-  setOrder: functionType.isRequired
 };
 
 export default BurgerConstructor;

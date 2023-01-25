@@ -2,26 +2,31 @@ import {
   GET_INGREDIENTS,
   GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_SUCCESS,
-  GET_BURGER,
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   MAKE_ORDER,
   MAKE_ORDER_FAILED,
   MAKE_ORDER_SUCCESS,
-  CLOSE_ORDER  } from '../actions/actions';
+  CLOSE_ORDER,
+  ADD_BURGER_BUN,
+  ADD_BURGER_FILLING,
+  REMOVE_BURGER_FILLING,
+  SUM_ORDER } from '../actions/actions';
 
 export const initialStore = {
   ingredients: [],
   ingredientsFailed: false,
   ingredientsRequest: false,
-  burger: {
-    bun: {},
-    inside: {}
-  },
+  burger:
+    {
+      bun: {},
+      filling: []
+    },
   ingredient: {},
   order: {},
   orderFailed: false,
-  orderRequest: false
+  orderRequest: false,
+  sum: 0
 };
 
 export const rootReducer = (state=initialStore, action) => {
@@ -47,9 +52,34 @@ export const rootReducer = (state=initialStore, action) => {
         ingredientsFailed: true
       }
     }
-    case GET_BURGER: {
+    case ADD_BURGER_BUN: {
       return {
-        ...state
+        ...state,
+        burger:
+          {
+            ...state.burger,
+            bun: action.bun
+          }
+      }
+    }
+    case ADD_BURGER_FILLING: {
+      return {
+        ...state,
+        burger:
+          {
+            ...state.burger,
+            filling: [...state.burger.filling, action.filling]
+          }
+      }
+    }
+    case REMOVE_BURGER_FILLING: {
+      return {
+        ...state,
+        burger:
+          {
+            ...state.burger,
+            filling: [...state.burger.filling.filter(item=> item.keyid !== action.keyid)]
+          }
       }
     }
     case ADD_INGREDIENT: {
@@ -91,6 +121,12 @@ export const rootReducer = (state=initialStore, action) => {
         order: {},
         orderFailed: false,
         orderRequest: false
+      }
+    }
+    case SUM_ORDER: {
+      return {
+        ...state,
+        sum: action.sum
       }
     }
     default:

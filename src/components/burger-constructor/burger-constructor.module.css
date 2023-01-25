@@ -9,7 +9,17 @@
 .element{
   margin-left: 48px;
 }
-
+.element_default{
+  display: flex;
+  justify-content: center;
+  margin-left: 48px;
+}
+.element_default img{
+  display: none;
+}
+.element_default svg{
+  display: none;
+}
 .order{
   display: flex;
   justify-content: flex-end;
@@ -17,8 +27,8 @@
 }
 
 .order > svg {
-width: 33px;
-height: 33px;
+  width: 33px;
+  height: 33px;
 }
 
 .result{

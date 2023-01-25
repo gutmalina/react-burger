@@ -4,17 +4,28 @@ import {
   Counter
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ingredientsType } from '../../types/index';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addIngredient } from '../../services/actions/actions';
 import { useDrag } from 'react-dnd/dist/hooks';
+import { useMemo, useState } from 'react';
 
 function Ingredient({ card }){
-  const { name, price, image} = card;
+  const { name, price, image } = card;
+  const [count, setCount] = useState(0);
+  const burger = useSelector(store=>store.burger)
   const dispatch = useDispatch()
   const [, dragRef] = useDrag({
-    type: 'main',
-    item: card.id
-  })
+    type: card.type,
+    item: card
+  });
+
+  useMemo(()=>{
+    const arrBurger  = burger.filling.concat(burger.bun, burger.bun);
+    const arrId = arrBurger.map(a=>a._id);
+    setCount(arrId.filter(a=>a === card._id).length);
+  }, [burger]);
+
+  const countClass = count ? '': styles.counter_hidden;
 
   const postDataCardOpenModal=(e)=>{
     e.stopPropagation()
@@ -27,8 +38,9 @@ function Ingredient({ card }){
       className={styles.card}
       ref={dragRef}>
       <Counter
-        count={1}
+        count={count}
         size="default"
+        extraClass={countClass}
       />
       <img
         className={`${styles.image} mr-4 mb-2 ml-4`}

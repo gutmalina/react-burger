@@ -4,8 +4,11 @@ import {
   DragIcon
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { arrayIngredientsType } from '../../types/index';
+import { useDispatch } from 'react-redux';
+import { removeBurgerFilling } from '../../services/actions/actions';
 
 function ScrollBarConstructor({ingredientInside}){
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -13,7 +16,7 @@ function ScrollBarConstructor({ingredientInside}){
         ingredientInside.map((card) => (
           <div
             {...card}
-            key={card._id}
+            key={card.keyid}
             className={styles.details_container}>
             <div className={styles.icon}>
               <DragIcon type="primary" />
@@ -23,6 +26,7 @@ function ScrollBarConstructor({ingredientInside}){
               price={card.price}
               thumbnail={card.image}
               extraClass='mb-4 ml-2'
+              handleClose={()=>{dispatch(removeBurgerFilling(card.keyid))}}
             />
           </div>
         ))

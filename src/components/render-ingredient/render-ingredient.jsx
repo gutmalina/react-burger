@@ -2,8 +2,7 @@ import styles from './render-ingredient.module.css';
 import Ingredient from '../ingredient/ingredient';
 import {
   textType,
-  arrayIngredientsType,
-  functionType
+  arrayIngredientsType
 } from '../../types/index';
 
 function RenderIngredient({
