@@ -1,16 +1,13 @@
-.scroll_bar{
+.scroll_bar {
   width: 600px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
-.scroll_bar_ingredients{
+.scroll_bar_ingredients {
   height: 715px;
 }
 
-.scroll_bar_details{
+.scroll_bar_details {
   max-height: 477px;
 }
-
-
-

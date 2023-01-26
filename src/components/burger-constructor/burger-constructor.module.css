@@ -1,25 +1,26 @@
-.container{
-}
-.list{
+.list {
   padding-left: 0;
   list-style: none;
 }
-.item{}
 
-.element{
+.element {
   margin-left: 48px;
 }
-.element_default{
+
+.element_default {
   display: flex;
   justify-content: center;
   margin-left: 48px;
 }
-.element_default img{
+
+.element_default img {
   display: none;
 }
-.element_default svg{
+
+.element_default svg {
   display: none;
 }
+
 .order{
   display: flex;
   justify-content: flex-end;
@@ -31,10 +32,10 @@
   height: 33px;
 }
 
-.result{
+.result {
   margin-right: 10px;
 }
 
-.btn{
+.btn {
   margin-left: 42px;
 }

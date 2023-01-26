@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useInView } from 'react-intersection-observer';
 import RenderIngredient from '../render-ingredient/render-ingredient';
+import { activeTabBar } from '../../services/actions/actions';
 import {
   TAB_BAR_BUN,
   TAB_BAR_MAIN,
@@ -9,12 +11,12 @@ import {
   FILTER_MAIN,
   FILTER_SAUCE
 } from '../../utils/constants';
-import { useInView } from 'react-intersection-observer';
-import { activeTabBar } from '../../services/actions/actions';
 
 function ScrollBarIngredients(rootRef){
   const dispatch = useDispatch();
   const ingredientsAll = useSelector(store=>store.ingredients);
+
+  /** фильтр ингридиентво по типу */
   const getGroup = (array, type) => {
     return array.filter((card) => (
       card.type === type
@@ -25,6 +27,7 @@ function ScrollBarIngredients(rootRef){
   const [sauceRef, inViewSauce] = useInView();
   const [mainRef, inViewMain] = useInView();
 
+  /** навигация по типу ингридиентов */
   useEffect(()=>{
     if(!inViewBun && inViewSauce){
       dispatch(activeTabBar('sauce'))
@@ -52,7 +55,6 @@ function ScrollBarIngredients(rootRef){
         typeGroup={TAB_BAR_MAIN}
         groupIngredients={getGroup(ingredientsAll, FILTER_MAIN)}
       />
-
     </>
   );
 };

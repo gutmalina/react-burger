@@ -10,6 +10,7 @@ import {
   CLOSE_ORDER,
   ADD_BURGER_BUN,
   ADD_BURGER_FILLING,
+  UPDATE_BURGER_FILLING,
   REMOVE_BURGER_FILLING,
   SUM_ORDER,
   ACTIVE_TAB_BAR } from '../actions/actions';
@@ -31,7 +32,7 @@ export const initialStore = {
   activeTab: 'bun'
 };
 
-export const rootReducer = (state=initialStore, action) => {
+export const rootReducer = (state= initialStore, action) => {
   switch (action.type) {
     case GET_INGREDIENTS:{
       return {
@@ -81,6 +82,16 @@ export const rootReducer = (state=initialStore, action) => {
           {
             ...state.burger,
             filling: [...state.burger.filling.filter(item=> item.keyid !== action.keyid)]
+          }
+      }
+    }
+    case UPDATE_BURGER_FILLING: {
+      return {
+        ...state,
+        burger:
+          {
+            ...state.burger,
+            filling: action.filling
           }
       }
     }

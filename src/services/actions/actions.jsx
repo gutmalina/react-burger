@@ -1,4 +1,5 @@
 import { getIngredients, getOrder } from "../../utils/burger-api";
+
 export const GET_INGREDIENTS = 'GET_INGREDIENTS';
 export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
@@ -10,6 +11,7 @@ export const MAKE_ORDER_SUCCESS = 'MAKE_ORDER_SUCCESS';
 export const CLOSE_ORDER = 'CLOSE_ORDER';
 export const ADD_BURGER_FILLING = 'ADD_BURGER_FILLING';
 export const REMOVE_BURGER_FILLING = 'REMOVE_BURGER_FILLING';
+export const UPDATE_BURGER_FILLING = 'UPDATE_BURGER_FILLING';
 export const ADD_BURGER_BUN = 'ADD_BURGER_BUN';
 export const SUM_ORDER = 'SUM_ORDER';
 export const ACTIVE_TAB_BAR = 'ACTIVE_TAB_BAR';
@@ -86,6 +88,11 @@ export const closeOrder = () => ({
 export const addBurgerBun = (bun)=>({
   type: ADD_BURGER_BUN,
   bun
+});
+
+export const updateBurgerFilling = (filling)=>({
+  type: UPDATE_BURGER_FILLING,
+  filling
 });
 
 export const removeBurgerFilling = (keyid)=>({

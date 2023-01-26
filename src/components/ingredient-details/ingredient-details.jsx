@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import styles from './ingredient-details.module.css';
 import {
   MODAL_CARD_CALORIES,
@@ -5,7 +6,6 @@ import {
   MODAL_CARD_FAT,
   MODAL_CARD_CARBOHYDRATES
 } from '../../utils/constants';
-import { useSelector } from 'react-redux';
 
 function IngredientDetails(){
   const ingredient = useSelector(store=>store.ingredient);

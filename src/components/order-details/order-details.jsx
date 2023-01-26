@@ -2,7 +2,8 @@ import styles from './order-details.module.css';
 import { orderType } from '../../types';
 
 function OrderDetails({order}){
-const {number} = {...order.order}
+  const {number} = {...order.order};
+  
   return (
     <>
       <p className='text text_type_digits-large mt-10 mb-8'>

@@ -6,19 +6,22 @@ import {
   arrayIngredientsType
 } from '../../types/index';
 
-const RenderIngredient = forwardRef(({
-  groupIngredients,
-  typeGroup},
+const RenderIngredient = forwardRef((
+  {
+    groupIngredients,
+    typeGroup
+  },
   ref) => {
 
   return(
     <div className='mb-10'>
       <p
-
         className='text text_type_main-medium mb-6'>
         {typeGroup}
       </p>
-      <section ref={ref} className={`${styles.cards} ml-4 mr-4`}>
+      <section
+        ref={ref}
+        className={`${styles.cards} ml-4 mr-4`}>
         {
           groupIngredients.map((card) => (
             <Ingredient

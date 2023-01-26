@@ -1,7 +1,7 @@
-import styles from './modal-overlay.module.css';
 import { forwardRef } from 'react';
+import styles from './modal-overlay.module.css';
 
-const ModalOverlay= forwardRef(( {}, ref) => {
+const ModalOverlay= forwardRef(({}, ref) => {
   return(
     <div
       ref={ref}

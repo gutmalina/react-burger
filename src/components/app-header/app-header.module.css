@@ -1,9 +1,9 @@
-.header{
+.header {
   background-color: #1C1C21;
   margin: 40px 40px 0;
 }
 
-.nav{
+.nav {
   display: flex;
   align-items: center;
   margin: 0 320px;

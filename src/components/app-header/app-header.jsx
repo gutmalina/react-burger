@@ -1,11 +1,11 @@
-import styles from "./app-header.module.css";
-import NavTab from "../nav-tab/nav-tab";
 import {
   BurgerIcon,
   ListIcon,
   Logo,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from "./app-header.module.css";
+import NavTab from "../nav-tab/nav-tab";
 import {
   BUTTON_ICON_BURGER,
   BUTTON_ICON_LIST_ORDER,

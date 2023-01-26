@@ -1,17 +1,20 @@
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getOrderAction,
-  addBurgerBun,
-  addBurgerFilling,
-  sumOrder } from '../../services/actions/actions';
-import styles from './burger-constructor.module.css';
+import { useDrop } from 'react-dnd/dist/hooks/useDrop';
 import {
   ConstructorElement,
   CurrencyIcon,
   Button
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from './burger-constructor.module.css';
 import ScrollBar from '../scroll-bar/scroll-bar';
+import ScrollBarConstructor from '../scroll-bar-constructor/scroll-bar-constructor';
+import {
+  getOrderAction,
+  addBurgerBun,
+  addBurgerFilling,
+  sumOrder
+} from '../../services/actions/actions';
 import {
   SCROLL_BAR_TYPE_DETAILS_ORDER,
   TEXT_BUTTON_MAKE_ORDER,
@@ -19,8 +22,6 @@ import {
   FILTER_MAIN,
   FILTER_SAUCE
 } from '../../utils/constants';
-import ScrollBarConstructor from '../scroll-bar-constructor/scroll-bar-constructor';
-import { useDrop } from 'react-dnd/dist/hooks/useDrop';
 
 function BurgerConstructor(){
   const {burger, summed} = useSelector(store=>({
@@ -29,6 +30,7 @@ function BurgerConstructor(){
   }));
   const dispatch = useDispatch();
 
+  /** целевой контейнер для создания бургера */
   const [, dropTargetRef] = useDrop({
     accept: [FILTER_BUN, FILTER_MAIN, FILTER_SAUCE],
     drop(card) {
@@ -37,24 +39,6 @@ function BurgerConstructor(){
       : dispatch(addBurgerFilling(card));
     },
   });
-
-//   Да, можно добавить новый тип, например в компоненте элемента конструктора:
-
-// const [{ isDragging }, drag] = useDrag({
-// type: "SORT_INGREDIENT",
-// item: () => {
-// return { ingredient, index };
-// },
-// collect: (monitor) => ({
-// isDragging: monitor.isDragging(),
-// }),
-// });
-
-// Там же реализовать хук useDrop, в котором будет отправка экшена. И создать реф, который повесить на элемент конструктора:
-
-// const ref = useRef(null);
-// drag(drop(ref));
-
 
   /** получить ID ингридиентов бургера */
   const handleIdIngredient = useMemo(()=>{
@@ -69,7 +53,7 @@ function BurgerConstructor(){
   }
 
   /** получить сумму заказа */
-  const handleResult = useMemo(()=>{
+  const handleResult = useMemo((funcsumm)=>{
     let result
     if(!Object.keys(burger.bun).length){
       result = resultArr(burger.filling)
@@ -82,7 +66,7 @@ function BurgerConstructor(){
 
   useEffect(()=>{
     dispatch(sumOrder(handleResult))
-  }, [burger])
+  }, [burger, dispatch, handleResult]);
 
    /** передать заказ и получить номер заказа */
   const getNumberOrder = () =>{
