@@ -1,4 +1,3 @@
-import { bindActionCreators } from "@reduxjs/toolkit";
 import { getIngredients, getOrder } from "../../utils/burger-api";
 export const GET_INGREDIENTS = 'GET_INGREDIENTS';
 export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
@@ -13,6 +12,7 @@ export const ADD_BURGER_FILLING = 'ADD_BURGER_FILLING';
 export const REMOVE_BURGER_FILLING = 'REMOVE_BURGER_FILLING';
 export const ADD_BURGER_BUN = 'ADD_BURGER_BUN';
 export const SUM_ORDER = 'SUM_ORDER';
+export const ACTIVE_TAB_BAR = 'ACTIVE_TAB_BAR';
 
 export function getIngredientsAction() {
   return function(dispatch) {
@@ -108,4 +108,7 @@ export const sumOrder = (sum)=>({
   sum
 });
 
-
+export const activeTabBar = (activeTab)=>({
+  type: ACTIVE_TAB_BAR,
+  activeTab
+});

@@ -1,15 +1,19 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import RenderIngredient from '../render-ingredient/render-ingredient';
 import {
-  TAG_BAR_BUN,
-  TAG_BAR_MAIN,
-  TAG_BAR_SAUCE,
+  TAB_BAR_BUN,
+  TAB_BAR_MAIN,
+  TAB_BAR_SAUCE,
   FILTER_BUN,
   FILTER_MAIN,
   FILTER_SAUCE
 } from '../../utils/constants';
+import { useInView } from 'react-intersection-observer';
+import { activeTabBar } from '../../services/actions/actions';
 
-function ScrollBarIngredients(){
+function ScrollBarIngredients(rootRef){
+  const dispatch = useDispatch();
   const ingredientsAll = useSelector(store=>store.ingredients);
   const getGroup = (array, type) => {
     return array.filter((card) => (
@@ -17,20 +21,38 @@ function ScrollBarIngredients(){
     ))
   };
 
+  const [bunRef, inViewBun] = useInView();
+  const [sauceRef, inViewSauce] = useInView();
+  const [mainRef, inViewMain] = useInView();
+
+  useEffect(()=>{
+    if(!inViewBun && inViewSauce){
+      dispatch(activeTabBar('sauce'))
+    }else if(inViewMain && !inViewSauce && !inViewBun){
+      dispatch(activeTabBar('main'))
+    }else{
+      dispatch(activeTabBar('bun'))
+    }
+  }, [dispatch, inViewBun, inViewSauce, inViewMain])
+
   return(
     <>
       <RenderIngredient
-        typeGroup={TAG_BAR_BUN}
+        ref={bunRef}
+        typeGroup={TAB_BAR_BUN}
         groupIngredients={getGroup(ingredientsAll, FILTER_BUN)}
       />
       <RenderIngredient
-        typeGroup={TAG_BAR_SAUCE}
+        ref={sauceRef}
+        typeGroup={TAB_BAR_SAUCE}
         groupIngredients={getGroup(ingredientsAll, FILTER_SAUCE)}
       />
       <RenderIngredient
-        typeGroup={TAG_BAR_MAIN}
+        ref={mainRef}
+        typeGroup={TAB_BAR_MAIN}
         groupIngredients={getGroup(ingredientsAll, FILTER_MAIN)}
       />
+
     </>
   );
 };

@@ -11,7 +11,8 @@ import {
   ADD_BURGER_BUN,
   ADD_BURGER_FILLING,
   REMOVE_BURGER_FILLING,
-  SUM_ORDER } from '../actions/actions';
+  SUM_ORDER,
+  ACTIVE_TAB_BAR } from '../actions/actions';
 
 export const initialStore = {
   ingredients: [],
@@ -26,7 +27,8 @@ export const initialStore = {
   order: {},
   orderFailed: false,
   orderRequest: false,
-  sum: 0
+  sum: 0,
+  activeTab: 'bun'
 };
 
 export const rootReducer = (state=initialStore, action) => {
@@ -127,6 +129,12 @@ export const rootReducer = (state=initialStore, action) => {
       return {
         ...state,
         sum: action.sum
+      }
+    }
+    case ACTIVE_TAB_BAR: {
+      return {
+        ...state,
+        activeTab: action.activeTab
       }
     }
     default:

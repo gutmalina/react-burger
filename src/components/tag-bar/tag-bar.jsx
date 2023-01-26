@@ -1,35 +1,37 @@
-import React from 'react';
+import {useState} from 'react';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import {
-  TAG_BAR_BUN,
-  TAG_BAR_MAIN,
-  TAG_BAR_SAUCE
+  TAB_BAR_BUN,
+  TAB_BAR_MAIN,
+  TAB_BAR_SAUCE
 } from '../../utils/constants';
+import { useSelector } from 'react-redux';
 
-function TabBar() {
-  const [current, setCurrent] = React.useState('one');
+function TabBar () {
+  const [current, setCurrent] = useState('bun');
+  const activeTab = useSelector(store=>store.activeTab)
 
   return (
     <div
       style={{display: 'flex', marginBottom: 40}}
       >
       <Tab
-        value="one"
-        active={current === 'one'}
+        value="bun"
+        active={activeTab === 'bun'}
         onClick={setCurrent}>
-          {TAG_BAR_BUN}
+          {TAB_BAR_BUN}
       </Tab>
       <Tab
-        value="two"
-        active={current === 'two'}
+        value="sauce"
+        active={activeTab === 'sauce'}
         onClick={setCurrent}>
-          {TAG_BAR_SAUCE}
+          {TAB_BAR_SAUCE}
       </Tab>
       <Tab
-        value="three"
-        active={current === 'three'}
+        value="main"
+        active={activeTab === 'main'}
         onClick={setCurrent}>
-          {TAG_BAR_MAIN}
+          {TAB_BAR_MAIN}
       </Tab>
     </div>
   );

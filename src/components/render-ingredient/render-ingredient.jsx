@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import styles from './render-ingredient.module.css';
 import Ingredient from '../ingredient/ingredient';
 import {
@@ -5,17 +6,19 @@ import {
   arrayIngredientsType
 } from '../../types/index';
 
-function RenderIngredient({
+const RenderIngredient = forwardRef(({
   groupIngredients,
-  typeGroup
-}){
+  typeGroup},
+  ref) => {
 
   return(
     <div className='mb-10'>
-      <p className='text text_type_main-medium mb-6'>
+      <p
+
+        className='text text_type_main-medium mb-6'>
         {typeGroup}
       </p>
-      <section className={`${styles.cards} ml-4 mr-4`}>
+      <section ref={ref} className={`${styles.cards} ml-4 mr-4`}>
         {
           groupIngredients.map((card) => (
             <Ingredient
@@ -26,7 +29,7 @@ function RenderIngredient({
       </section>
     </div>
   );
-};
+});
 
 RenderIngredient.propTypes = {
   groupIngredients: arrayIngredientsType.isRequired,
