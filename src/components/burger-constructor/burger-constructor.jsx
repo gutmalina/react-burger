@@ -25,8 +25,8 @@ import {
 
 function BurgerConstructor(){
   const {burger, summed} = useSelector(store=>({
-    burger: store.burger,
-    summed: store.sum
+    burger: store.burgerConstructor.burger,
+    summed: store.order.sum
   }));
   const dispatch = useDispatch();
 
@@ -134,8 +134,7 @@ function BurgerConstructor(){
           className={`${styles.result} text text_type_digits-medium`}>
             {summed || 0}
         </span>
-        <CurrencyIcon
-          type="primary"
+        <CurrencyIcon type="primary"
         />
         <Button
           htmlType="button"

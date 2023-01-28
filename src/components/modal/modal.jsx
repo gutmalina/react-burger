@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay';
@@ -20,10 +19,10 @@ function Modal({
   const modalRoot = document.querySelector('#root-modal');
   const refOverlay = useRef();
   const dispatch = useDispatch();
-  const ingredient = useSelector(store=>store.ingredient);
-  const classPopup = isOpenModal ?
-    `${styles.popup} ${styles.popup_opened}` :
-    `${styles.popup}`;
+  const ingredient = useSelector(store=>store.ingredientDetailsModal.ingredient);
+  const classPopup = isOpenModal
+  ? `${styles.popup} ${styles.popup_opened}`
+  : `${styles.popup}`;
 
   /** закрыть модальное окно */
   const handleCloseModal = useCallback(() => {

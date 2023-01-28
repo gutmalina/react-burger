@@ -16,32 +16,17 @@ function AppHeader() {
   return (
     <div className={styles.header}>
       <ul className={styles.nav}>
-        <NavTab
-          textSpan={BUTTON_ICON_BURGER}>
-          {
-            <BurgerIcon
-              type="primary"/>
-          }
+        <NavTab textSpan={BUTTON_ICON_BURGER}>
+          <BurgerIcon type="primary"/>
         </NavTab>
-        <NavTab
-          textSpan={BUTTON_ICON_LIST_ORDER}>
-          {
-            <ListIcon
-              type="secondary"/>
-          }
+        <NavTab textSpan={BUTTON_ICON_LIST_ORDER}>
+          <ListIcon type="secondary"/>
         </NavTab>
-        <NavTab
-          type='logo'>
-          {
-            <Logo/>
-          }
+        <NavTab type='logo'>
+          <Logo/>
         </NavTab>
-        <NavTab
-          textSpan={BUTTON_ICON_PROFILE}>
-          {
-            <ProfileIcon
-              type="secondary"/>
-          }
+        <NavTab textSpan={BUTTON_ICON_PROFILE}>
+          <ProfileIcon type="secondary"/>
         </NavTab>
       </ul>
     </div>

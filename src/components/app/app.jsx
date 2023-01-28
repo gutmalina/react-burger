@@ -16,8 +16,8 @@ import {
 } from '../../utils/constants';
 
 function App() {
-  const ingredient = useSelector(store=>store.ingredient);
-  const order = useSelector(store=>store.order)
+  const ingredient = useSelector(store=>store.ingredientDetailsModal.ingredient);
+  const order = useSelector(store=>store.order.order)
   const dispatch = useDispatch()
 
   /** получить массива ингридиентов */
@@ -42,16 +42,11 @@ function App() {
       <Modal
         isOpenModal={Object.keys(ingredient).length}
         textTitle={MODAL_TITLE}>
-        {
-          <IngredientDetails/>
-        }
+        <IngredientDetails/>
       </Modal>
       <Modal
-        isOpenModal={order.success}>
-        {
-          <OrderDetails
-            order={order}/>
-        }
+        isOpenModal={order.success}>        >
+        <OrderDetails order={order}/>
       </Modal>
     </>
   );

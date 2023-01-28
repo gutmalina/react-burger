@@ -8,7 +8,7 @@ import {
 } from '../../utils/constants';
 
 function IngredientDetails(){
-  const ingredient = useSelector(store=>store.ingredient);
+  const ingredient = useSelector(store=>store.ingredientDetailsModal.ingredient);
 
   return(
     <>

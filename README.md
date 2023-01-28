@@ -44,6 +44,7 @@
     - UI-компонентов [Яндекс.Практикум.Реакт](https://github.com/yandex-praktikum/react-developer-burger-ui-components)
     - [react-dnd](https://www.npmjs.com/package/react-dnd)
     - [react-intersection-observer](https://www.npmjs.com/package/react-intersection-observer)
+    - [uuid](https://www.npmjs.com/package/uuid)
  
 
 ### Ссылки:

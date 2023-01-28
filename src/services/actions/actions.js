@@ -1,4 +1,5 @@
 import { getIngredients, getOrder } from "../../utils/burger-api";
+import { v4 as random } from 'uuid';
 
 export const GET_INGREDIENTS = 'GET_INGREDIENTS';
 export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
@@ -102,13 +103,8 @@ export const removeBurgerFilling = (keyid)=>({
 
 export const addBurgerFilling = (filling)=>({
   type: ADD_BURGER_FILLING,
-  filling: {...filling, keyid: randomInteger(0, 1000)}
+  filling: {...filling, keyid: random()}
 });
-
- /** случайное число от min до (max+1) */
-const randomInteger =(min, max)=> {
-  return Math.floor(min + Math.random() * (max + 1 - min));
-};
 
 export const sumOrder = (sum)=>({
   type: SUM_ORDER,

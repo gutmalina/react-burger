@@ -12,15 +12,16 @@ import { ingredientsType } from '../../types/index';
 function Ingredient({ card }){
   const { name, price, image } = card;
   const [count, setCount] = useState(0);
-  const burger = useSelector(store=>store.burger)
+  const burger = useSelector(store=>store.burgerConstructor.burger)
   const dispatch = useDispatch()
 
-  /** перетаскиваемый элемент - ингедиент в бургер */
+  /** перетаскиваемый элемент - ингредиент в бургер */
   const [, dragRef] = useDrag({
     type: card.type,
     item: card
   });
 
+  /** счетчик выбранных ингридиентов */
   const handleCountOrderIngredient = useMemo(()=>{
     const arrBurger  = burger.filling.concat(burger.bun, burger.bun);
     const arrId = arrBurger.map(a=>a._id);

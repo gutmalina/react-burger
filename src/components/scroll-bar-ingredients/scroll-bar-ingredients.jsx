@@ -14,7 +14,7 @@ import {
 
 function ScrollBarIngredients(rootRef){
   const dispatch = useDispatch();
-  const ingredientsAll = useSelector(store=>store.ingredients);
+  const ingredientsAll = useSelector(store=>store.ingredients.ingredients);
 
   /** фильтр ингридиентво по типу */
   const getGroup = (array, type) => {

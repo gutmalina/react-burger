@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import { useSelector } from 'react-redux';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from './tab-bar.module.css';
 import {
   TAB_BAR_BUN,
   TAB_BAR_MAIN,
@@ -9,12 +10,10 @@ import {
 
 function TabBar () {
   const [current, setCurrent] = useState('bun');
-  const activeTab = useSelector(store=>store.activeTab);
+  const activeTab = useSelector(store=>store.ingredients.activeTab);
 
   return (
-    <div
-      style={{display: 'flex', marginBottom: 40}}
-      >
+    <div className={styles.container}>
       <Tab
         value="bun"
         active={activeTab === 'bun'}

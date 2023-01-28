@@ -25,7 +25,7 @@ function ScrollBarConstructor({ingredientInside}){
             index={index}
             moveCard={moveCard}
           />
-          ))
+        ))
       }
     </>
   );
