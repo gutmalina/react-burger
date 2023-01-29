@@ -30,11 +30,11 @@ function ScrollBarIngredients(rootRef){
   /** навигация по типу ингридиентов */
   useEffect(()=>{
     if(!inViewBun && inViewSauce){
-      dispatch(activeTabBar('sauce'))
+      dispatch(activeTabBar(FILTER_SAUCE))
     }else if(inViewMain && !inViewSauce && !inViewBun){
-      dispatch(activeTabBar('main'))
+      dispatch(activeTabBar(FILTER_MAIN))
     }else{
-      dispatch(activeTabBar('bun'))
+      dispatch(activeTabBar(FILTER_BUN))
     }
   }, [dispatch, inViewBun, inViewSauce, inViewMain])
 
