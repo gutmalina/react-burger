@@ -1,9 +1,14 @@
-.details_container{
+.details_container {
   display: flex;
   align-items: center;
   margin-left: 16px;
+  cursor: pointer;
 }
 
-.icon{
+.opacity {
+  opacity: 0;
+}
+
+.icon {
   margin-bottom: 10px;
 }

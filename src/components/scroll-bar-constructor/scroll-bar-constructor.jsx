@@ -1,29 +1,30 @@
-import styles from './scroll-bar-constructor.module.css';
-import {
-  ConstructorElement,
-  DragIcon
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch } from 'react-redux';
+import RenderBurgerInside from '../render-burger-inside/render-burger-inside';
+import { updateBurgerFilling } from '../../services/actions/actions';
 import { arrayIngredientsType } from '../../types/index';
 
 function ScrollBarConstructor({ingredientInside}){
+  const dispatch = useDispatch();
+
+  /** сортировка при перетаскивании начинки бургера */
+  const moveCard = (dragIndex, hoverIndex) => {
+    const newIngredients = [...ingredientInside];
+    let dragIngredient = newIngredients[dragIndex];
+    newIngredients.splice(dragIndex, 1);
+    newIngredients.splice(hoverIndex, 0, dragIngredient);
+    dispatch(updateBurgerFilling(newIngredients));
+  };
+
   return (
     <>
       {
-        ingredientInside.map((card) => (
-          <div
-            {...card}
-            key={card._id}
-            className={styles.details_container}>
-            <div className={styles.icon}>
-              <DragIcon type="primary" />
-            </div>
-            <ConstructorElement
-              text={card.name}
-              price={card.price}
-              thumbnail={card.image}
-              extraClass='mb-4 ml-2'
-            />
-          </div>
+        ingredientInside.map((card, index) => (
+          <RenderBurgerInside
+            card={card}
+            key={card.keyid}
+            index={index}
+            moveCard={moveCard}
+          />
         ))
       }
     </>

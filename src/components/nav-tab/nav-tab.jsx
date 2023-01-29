@@ -10,12 +10,12 @@ function NavTab({
   textSpan,
   children}){
 
-  const classNameItem = (type)?
-    styles.nav_logo :
-    styles.nav_item ;
-  const classNameSpan = (textSpan === BUTTON_ICON_BURGER) ?
-    `${styles.nav_span} text text_type_main-default` :
-    `${styles.nav_span} text text_type_main-default text_color_inactive`;
+  const classNameItem = (type)
+  ? styles.nav_logo
+  : styles.nav_item ;
+  const classNameSpan = (textSpan === BUTTON_ICON_BURGER)
+  ? `${styles.nav_span} text text_type_main-default`
+  : `${styles.nav_span} text text_type_main-default text_color_inactive`;
 
   return(
     // eslint-disable-next-line jsx-a11y/anchor-is-valid

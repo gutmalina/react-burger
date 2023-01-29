@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import styles from './ingredient-details.module.css';
 import {
   MODAL_CARD_CALORIES,
@@ -5,26 +6,19 @@ import {
   MODAL_CARD_FAT,
   MODAL_CARD_CARBOHYDRATES
 } from '../../utils/constants';
-import { ingredientsType } from '../../types';
 
-function IngredientDetails({onCard}){
-  const {
-    name,
-    image,
-    calories,
-    proteins,
-    fat,
-    carbohydrates} = onCard;
+function IngredientDetails(){
+  const ingredient = useSelector(store=>store.ingredientDetailsModal.ingredient);
 
   return(
     <>
       <img
         className={`${styles.image} mt-2 mb-5`}
-        src={image}
-        alt={name}
+        src={ingredient.image}
+        alt={ingredient.name}
       />
       <p className={`${styles.subtitle} text text_type_main-medium mb-4`}
-        >{name}
+        >{ingredient.name}
       </p>
       <ul className={styles.group}>
         <li className={styles.item}>
@@ -32,7 +26,7 @@ function IngredientDetails({onCard}){
             {MODAL_CARD_CALORIES}
           </h4>
           <p className='text text_type_digits-default text_color_inactive'>
-            {calories}
+            {ingredient.calories}
           </p>
         </li>
         <li className={styles.item}>
@@ -40,7 +34,7 @@ function IngredientDetails({onCard}){
             {MODAL_CARD_PROTEINS}
           </h4>
           <p className='text text_type_digits-default text_color_inactive'>
-            {proteins}
+            {ingredient.proteins}
           </p>
         </li>
         <li className={styles.item}>
@@ -48,7 +42,7 @@ function IngredientDetails({onCard}){
             {MODAL_CARD_FAT}
           </h4>
           <p className='text text_type_digits-default text_color_inactive'>
-            {fat}
+            {ingredient.fat}
           </p>
         </li>
         <li className={styles.item}>
@@ -56,16 +50,12 @@ function IngredientDetails({onCard}){
             {MODAL_CARD_CARBOHYDRATES}
           </h4>
           <p className='text text_type_digits-default text_color_inactive'>
-            {carbohydrates}
+            {ingredient.carbohydrates}
           </p>
         </li>
       </ul>
     </>
   );
-};
-
-IngredientDetails.propType = {
-  onCard: ingredientsType.isRequired
 };
 
 export default IngredientDetails;

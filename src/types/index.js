@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
 export const textType = PropTypes.string;
+export const numberType = PropTypes.number;
 export const childrenType = PropTypes.element;
 export const boolType = PropTypes.bool;
 export const functionType = PropTypes.func;

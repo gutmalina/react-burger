@@ -1,29 +1,18 @@
-import styles from './burger-ingredients.module.css';
-import TabBar from '../tag-bar/tag-bar';
+import TabBar from '../tab-bar/tab-bar';
 import ScrollBar from '../scroll-bar/scroll-bar';
-import { SCROLL_BAR_TYPE_INGREDIENTS } from '../../utils/constants';
-import { functionType } from '../../types/index';
 import ScrollBarIngredients from '../scroll-bar-ingredients/scroll-bar-ingredients';
+import { SCROLL_BAR_TYPE_INGREDIENTS } from '../../utils/constants';
 
-function BurgerIngredients({ setCardIngredient }){
+function BurgerIngredients(){
 
   return(
-    <div
-      className={styles.container}>
+    <div>
       <TabBar/>
-      <ScrollBar
-        typeScroll={SCROLL_BAR_TYPE_INGREDIENTS}>
-          {
-            <ScrollBarIngredients
-              setCardIngredient={setCardIngredient}/>
-          }
+      <ScrollBar typeScroll={SCROLL_BAR_TYPE_INGREDIENTS}>
+        <ScrollBarIngredients/>
       </ScrollBar>
     </div>
   );
-};
-
-BurgerIngredients.protoTypes = {
-  setCardIngredient: functionType.isRequired
 };
 
 export default BurgerIngredients;

@@ -1,9 +1,9 @@
-.nav_link{
+.nav_link {
   text-decoration: none;
   color: inherit;
 }
 
-.nav_item{
+.nav_item {
   display: grid;
   grid-template-columns: auto auto;
   gap: 0 8px;
@@ -11,16 +11,16 @@
   padding: 20px 20px;
 }
 
-.nav_item:nth-of-type(1){
+.nav_item:nth-of-type(1) {
   margin-right: 8px;
 }
 
-.nav_logo svg{
+.nav_logo svg {
   margin-left: 105px;
   margin-right: 288px;
   margin-top: 6px;
 }
 
-.nav_span{
+.nav_span {
   width: max-content;
 }

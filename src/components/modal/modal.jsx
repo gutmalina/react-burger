@@ -1,31 +1,35 @@
+import { useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useEffect, useRef } from 'react';
+import { removeIngredient, closeOrder } from '../../services/actions/actions';
 import {
   boolType,
-  functionType,
   textType,
   childrenType
 } from '../../types';
 
 function Modal({
   isOpenModal,
-  isCloseModal,
   textTitle,
   children
 }){
   const modalRoot = document.querySelector('#root-modal');
-  const classPopup = isOpenModal ?
-    `${styles.popup} ${styles.popup_opened}` :
-    `${styles.popup}`;
   const refOverlay = useRef();
+  const dispatch = useDispatch();
+  const ingredient = useSelector(store=>store.ingredientDetailsModal.ingredient);
+  const classPopup = isOpenModal
+  ? `${styles.popup} ${styles.popup_opened}`
+  : `${styles.popup}`;
 
   /** закрыть модальное окно */
-  const handleCloseModal = () => {
-    isCloseModal('')
-  };
+  const handleCloseModal = useCallback(() => {
+    Object.keys(ingredient).length
+    ? dispatch(removeIngredient())
+    : dispatch(closeOrder());
+  }, [dispatch, ingredient]);
 
   /** закрыть модальное окно по ESC и overlay */
   useEffect(()=>{
@@ -41,7 +45,7 @@ function Modal({
       document.removeEventListener('keydown', handleClose)
       document.removeEventListener( 'click', handleClose);
     };
-  }, [isOpenModal]);
+  }, [isOpenModal, handleCloseModal]);
 
   return createPortal(
     <div className={classPopup}>
@@ -67,7 +71,6 @@ function Modal({
 
 createPortal.protoTypes = {
   isOpenModal: boolType.isRequired,
-  isCloseModal: functionType.isRequired,
   textTitle: textType.isRequired,
   children: childrenType.isRequired
 };
