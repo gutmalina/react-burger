@@ -12,8 +12,23 @@ import OrderDetails from '../order-details/order-details';
 import { getIngredientsAction } from '../../services/actions/actions';
 import {
   TITLE_LEAD,
-  MODAL_TITLE
+  MODAL_TITLE,
+  PAGE_LOGIN,
+  PAGE_REGISTER,
+  PAGE_PASSWORD,
+  GO_IN,
+  SIGN_UP,
+  RESTORE,
+  SAVE
 } from '../../utils/constants';
+import {
+  Page,
+  LoginPage,
+  RegisterPage,
+  ForgotPasswordPage,
+  ResetPasswordPage
+ } from '../../pages/index';
+
 
 function App() {
   const ingredient = useSelector(store=>store.ingredientDetailsModal.ingredient);
@@ -28,6 +43,26 @@ function App() {
   return (
     <>
       <AppHeader/>
+      {/* <Page
+        textTitle={PAGE_LOGIN}
+        textButton={GO_IN}>
+        <LoginPage/>
+      </Page> */}
+      {/* <Page
+        textTitle={PAGE_REGISTER}
+        textButton={SIGN_UP}>
+        <RegisterPage/>
+      </Page> */}
+      {/* <Page
+        textTitle={PAGE_PASSWORD}
+        textButton={RESTORE}>
+        <ForgotPasswordPage/>
+      </Page> */}
+      {/* <Page
+        textTitle={PAGE_PASSWORD}
+        textButton={SAVE}>
+        <ResetPasswordPage/>
+      </Page> */}
       <section className={styles.main}>
         <h1 className="text text_type_main-large mt-10 mb-5">
           {TITLE_LEAD}
@@ -45,7 +80,7 @@ function App() {
         <IngredientDetails/>
       </Modal>
       <Modal
-        isOpenModal={order.success}>        >
+        isOpenModal={order.success}>
         <OrderDetails order={order}/>
       </Modal>
     </>
