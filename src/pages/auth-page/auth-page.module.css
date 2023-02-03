@@ -1,0 +1,63 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 181px;
+}
+
+.main_profile{
+  display: flex;
+  padding-top: 121px;
+}
+
+.nav {
+  display: flex;
+  list-style: none;
+  flex-direction: column;
+  max-width: 320px;
+  padding: 0;
+  margin: 0 62px 0 380px;
+}
+
+.link {
+  text-decoration: none;
+  height: 64px;
+  line-height: 64px;
+  color: #F2F2F3;
+}
+
+.link_inactive {
+  color: #8585AD
+}
+
+.subtitle {
+  opacity: .4;
+}
+.container_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputs {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.button_cancel {
+  background: inherit;
+  color: #4C4CFF;
+  padding: 0;
+  margin-right: 12px;
+  border: none;
+  cursor: pointer;
+}
+

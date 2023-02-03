@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from './nav-tab.module.css';
 import { BUTTON_ICON_BURGER } from '../../utils/constants';
 import {
@@ -6,6 +7,7 @@ import {
 } from '../../types/index';
 
 function NavTab({
+  onTo,
   type,
   textSpan,
   children}){
@@ -18,17 +20,16 @@ function NavTab({
   : `${styles.nav_span} text text_type_main-default text_color_inactive`;
 
   return(
-    // eslint-disable-next-line jsx-a11y/anchor-is-valid
-    <a
-      className={styles.nav_link}
-      href='#'>
+    <Link
+      to={onTo}
+      className={styles.nav_link}>
       <li className={classNameItem}>
         {children}
         <span className={classNameSpan}>
           {textSpan}
         </span>
       </li>
-    </a>
+    </Link>
   );
 };
 

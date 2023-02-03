@@ -1,17 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import styles from './app.module.css';
+import { Routes as Switch, Route, Navigate} from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 import { getIngredientsAction } from '../../services/actions/actions';
+import { getProfileAction } from '../../services/actions/user';
 import {
-  TITLE_LEAD,
   MODAL_TITLE,
   PAGE_LOGIN,
   PAGE_REGISTER,
@@ -19,61 +15,95 @@ import {
   GO_IN,
   SIGN_UP,
   RESTORE,
-  SAVE
+  SAVE,
+  CANCEL,
+  PATH_HOME,
+  PATH_LOGIN,
+  PATH_REGISTER,
+  PATH_FORGOT_PASSWORD,
+  PATH_RESET_PASSWORD,
+  PATH_PROFILE
 } from '../../utils/constants';
 import {
-  Page,
+  HomePage,
+  AuthPage,
   LoginPage,
   RegisterPage,
   ForgotPasswordPage,
-  ResetPasswordPage
+  ResetPasswordPage,
+  ProfilePage
  } from '../../pages/index';
 
 
 function App() {
   const ingredient = useSelector(store=>store.ingredientDetailsModal.ingredient);
-  const order = useSelector(store=>store.order.order)
-  const dispatch = useDispatch()
+  const { order, loggedIn } = useSelector(store=>({
+    order: store.order.order,
+    loggedIn: store.authentication.loggedIn}));
+  const dispatch = useDispatch();
 
-  /** получить массива ингридиентов */
+  /** получить массива ингридиентов и данные пользователя */
   useEffect(()=>{
-      dispatch(getIngredientsAction())
-  }, [dispatch]);
+    if(loggedIn){
+      Promise
+        .all([dispatch(getIngredientsAction()), dispatch(getProfileAction())])
+     .then()
+     .catch((err)=>{
+      console.log(err)
+     })
+    }
+  }, [dispatch, loggedIn]);
 
   return (
     <>
       <AppHeader/>
-      {/* <Page
-        textTitle={PAGE_LOGIN}
-        textButton={GO_IN}>
-        <LoginPage/>
-      </Page> */}
-      {/* <Page
-        textTitle={PAGE_REGISTER}
-        textButton={SIGN_UP}>
-        <RegisterPage/>
-      </Page> */}
-      {/* <Page
-        textTitle={PAGE_PASSWORD}
-        textButton={RESTORE}>
-        <ForgotPasswordPage/>
-      </Page> */}
-      {/* <Page
-        textTitle={PAGE_PASSWORD}
-        textButton={SAVE}>
-        <ResetPasswordPage/>
-      </Page> */}
-      <section className={styles.main}>
-        <h1 className="text text_type_main-large mt-10 mb-5">
-          {TITLE_LEAD}
-        </h1>
-        <div className={styles.make_burger}>
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients/>
-            <BurgerConstructor/>
-          </DndProvider>
-        </div>
-      </section>
+      <Switch>
+        {/* <Route
+          path={PATH_HOME}
+          exact={true}
+          element={
+            LoggedIn
+            ? <HomePage/>
+            : <Navigate to={PATH_LOGIN} />}/> */}
+        <Route path={PATH_HOME} exact={true} element={<HomePage/>}/>
+        <Route
+          path={PATH_PROFILE}
+          exact={true}
+          element={
+            <AuthPage>
+              <ProfilePage
+                textButtonSave={SAVE}
+                textButtonCancel={CANCEL}/>
+            </AuthPage>}/>
+        <Route
+          path={PATH_LOGIN}
+          exact={true}
+          element={
+            <AuthPage textTitle={PAGE_LOGIN}>
+              <LoginPage textButton={GO_IN}/>
+            </AuthPage>}/>
+        <Route
+          path={PATH_REGISTER}
+          exact={true}
+          element={
+            <AuthPage textTitle={PAGE_REGISTER}>
+              <RegisterPage textButton={SIGN_UP}/>
+            </AuthPage>}/>
+        <Route
+          path={PATH_FORGOT_PASSWORD}
+          exact={true}
+          element={
+            <AuthPage textTitle={PAGE_PASSWORD}>
+              <ForgotPasswordPage textButton={RESTORE}/>
+            </AuthPage>}/>
+        <Route
+          path={PATH_RESET_PASSWORD}
+          exact={true}
+          element={
+            <AuthPage textTitle={PAGE_PASSWORD}>
+              <ResetPasswordPage textButton={SAVE}/>
+            </AuthPage>}/>
+      </Switch>
       <Modal
         isOpenModal={Object.keys(ingredient).length}
         textTitle={MODAL_TITLE}>

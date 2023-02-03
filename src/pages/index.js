@@ -1,13 +1,17 @@
-import { Page } from "./page/page";
-import { LoginPage } from "./login/login";
-import { RegisterPage } from "./register/register";
-import { ForgotPasswordPage } from "./forgot-password/forgot-password";
-import { ResetPasswordPage } from "./reset-password/reset-password";
+import { HomePage } from "./home-page";
+import { AuthPage } from "./auth-page";
+import { LoginPage } from "./login";
+import { RegisterPage } from "./register";
+import { ForgotPasswordPage } from "./forgot-password";
+import { ResetPasswordPage } from "./reset-password";
+import { ProfilePage } from "./profile";
 
 export {
-  Page,
+  HomePage,
+  AuthPage,
   LoginPage,
   RegisterPage,
   ForgotPasswordPage,
-  ResetPasswordPage
+  ResetPasswordPage,
+  ProfilePage
 };
