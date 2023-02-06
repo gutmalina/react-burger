@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { registrationAction } from "../../services/actions/registration";
+import { registrationAction } from "../../services/actions/user";
 import styles from '../auth-page/auth-page.module.css';
 import {
   Input,
@@ -29,7 +29,7 @@ function RegisterPage({textButton}){
   /** зарегистрировать пользователя */
   const handleSubmint = (e) => {
     e.preventDefault();
-    dispatch(registrationAction({name: valueName, email: valueEmail, password: valuePassword}))
+    dispatch(registrationAction({name: valueName, email: valueEmail, password: valuePassword}));
   };
 
   return(

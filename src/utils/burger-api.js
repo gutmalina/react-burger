@@ -113,3 +113,18 @@ export const sendNewPassword = (data) => {
   })
   .then(checkResponse)
 };
+
+/** выход из системы */
+export const logoutRequest = () => {
+  return fetch(`${BASE_URL}/auth/logout`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem('refreshToken')
+    })
+  })
+  .then(checkResponse)
+};

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { authenticationAction } from "../../services/actions/authentication";
+import { authenticationAction } from "../../services/actions/user";
 import styles from '../auth-page/auth-page.module.css';
 import {
   EmailInput,

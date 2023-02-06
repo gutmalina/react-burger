@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from './nav-tab.module.css';
-import { BUTTON_ICON_BURGER } from '../../utils/constants';
 import {
   textType,
   childrenType
@@ -8,33 +7,28 @@ import {
 
 function NavTab({
   onTo,
-  type,
   textSpan,
   children}){
 
-  const classNameItem = (type)
-  ? styles.nav_logo
-  : styles.nav_item ;
-  const classNameSpan = (textSpan === BUTTON_ICON_BURGER)
-  ? `${styles.nav_span} text text_type_main-default`
-  : `${styles.nav_span} text text_type_main-default text_color_inactive`;
+  const activeClassLink = `${styles.link} text text_type_main-default`;
+  const inActiveClassLink = `${styles.link} ${styles.link_inactive} text text_type_main-default text_color_inactive`
 
   return(
-    <Link
+    <NavLink
       to={onTo}
-      className={styles.nav_link}>
-      <li className={classNameItem}>
+      className={({ isActive }) =>
+      isActive ? activeClassLink : inActiveClassLink}>
+      <li className={styles.nav_item}>
         {children}
-        <span className={classNameSpan}>
+        <span>
           {textSpan}
         </span>
       </li>
-    </Link>
+    </NavLink>
   );
 };
 
 NavTab.propTypes = {
-  type: textType,
   textSpan: textType,
   children: childrenType.isRequired
 };

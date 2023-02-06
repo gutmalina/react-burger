@@ -11,9 +11,8 @@ import {
   BUTTON_ICON_LIST_ORDER,
   BUTTON_ICON_PROFILE,
   PATH_HOME,
-  PATH_LOGIN,
   PATH_PROFILE,
-  PATH_RESET_PASSWORD
+  PATH_NOT_FOUND
 } from '../../utils/constants';
 
 function AppHeader() {
@@ -26,15 +25,13 @@ function AppHeader() {
             <BurgerIcon type="primary"/>
         </NavTab>
         <NavTab
-          onTo={PATH_RESET_PASSWORD}
+          onTo={PATH_NOT_FOUND}
           textSpan={BUTTON_ICON_LIST_ORDER}>
             <ListIcon type="secondary"/>
         </NavTab>
-        <NavTab
-          onTo={PATH_LOGIN}
-          type='logo'>
+        <div className={styles.logo}>
           <Logo/>
-        </NavTab>
+        </div>
         <NavTab
           onTo={PATH_PROFILE}
           textSpan={BUTTON_ICON_PROFILE}>
