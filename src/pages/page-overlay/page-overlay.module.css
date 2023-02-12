@@ -5,9 +5,14 @@
   padding-top: 181px;
 }
 
-.main_profile{
+.main_profile {
   display: flex;
   padding-top: 121px;
+}
+
+.main_ingredient_details {
+  display: flex;
+  padding-top: 135px;
 }
 
 .nav {
@@ -52,6 +57,10 @@
   margin-top: 8px;
 }
 
+.buttons_hidden {
+  display: none;
+}
+
 .button_cancel {
   background: inherit;
   color: #4C4CFF;
@@ -61,3 +70,10 @@
   cursor: pointer;
 }
 
+.icon_password {
+
+}
+
+.icon svg {
+  /* display: none; */
+}

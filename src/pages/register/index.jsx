@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registrationAction } from "../../services/actions/user";
-import styles from '../auth-page/auth-page.module.css';
+import styles from '../page-overlay/page-overlay.module.css';
 import {
   Input,
   EmailInput,
   PasswordInput,
   Button
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { INPUT_NAME } from "../../utils/constants";
+import { inputConstants } from "../../utils/constants";
 
 function RegisterPage({textButton}){
+  const { NAME } = inputConstants;
   const [valueName, setValueName] = useState('');
   const [valueEmail, setValueEmail] = useState('');
   const [valuePassword, setValuePassword] = useState('');
@@ -39,7 +40,7 @@ function RegisterPage({textButton}){
       <fieldset className={styles.inputs}>
         <Input
           type={'text'}
-          placeholder={INPUT_NAME}
+          placeholder={NAME}
           onChange={onChangeName}
           icon={false}
           value={valueName}

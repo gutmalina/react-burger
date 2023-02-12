@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { forgotPassword } from "../../services/actions/user";
-import styles from '../auth-page/auth-page.module.css';
+import { forgotPasswordAction } from "../../services/actions/user";
+import styles from '../page-overlay/page-overlay.module.css';
 import {
   EmailInput,
   Button
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { INPUT_EMAIL } from "../../utils/constants";
+import { inputConstants } from "../../utils/constants";
 import { useDispatch } from "react-redux";
 
 function ForgotPasswordPage({textButton}){
+  const {EMAIL} = inputConstants;
   const dispatch = useDispatch();
   const [value, setValue] = useState('')
   const onChange = e => {
@@ -17,7 +18,7 @@ function ForgotPasswordPage({textButton}){
 
   const handleSubmint = (e) => {
     e.preventDefault();
-    dispatch(forgotPassword(value))
+    dispatch(forgotPasswordAction(value))
   };
 
   return(
@@ -26,7 +27,7 @@ function ForgotPasswordPage({textButton}){
       onSubmit={handleSubmint}>
       <fieldset className={styles.inputs}>
         <EmailInput
-          placeholder={INPUT_EMAIL}
+          placeholder={EMAIL}
           onChange={onChange}
           value={value}
           name={'email'}

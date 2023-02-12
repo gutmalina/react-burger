@@ -1,53 +1,87 @@
-export const BUTTON_ICON_BURGER='Конструктор';
-export const BUTTON_ICON_LIST_ORDER='Лента заказов';
-export const BUTTON_ICON_PROFILE='Личный кабинет';
-export const TITLE_LEAD = 'Соберите бургер';
-export const TAB_BAR_BUN='Булки';
-export const TAB_BAR_MAIN='Начинки';
-export const TAB_BAR_SAUCE='Соусы';
-export const FILTER_BUN='bun';
-export const FILTER_MAIN='main';
-export const FILTER_SAUCE='sauce';
-export const SCROLL_BAR_TYPE_INGREDIENTS = 'ingredients';
-export const SCROLL_BAR_TYPE_DETAILS_ORDER = 'detailsOrder';
-export const TEXT_BUTTON_MAKE_ORDER = 'Оформить заказ';
-export const MODAL_TITLE = 'Детали ингредиента';
-export const MODAL_CARD_CALORIES = 'Калории,ккал';
-export const MODAL_CARD_PROTEINS = 'Белки, г';
-export const MODAL_CARD_FAT = 'Жиры, г';
-export const MODAL_CARD_CARBOHYDRATES = 'Углеводы, г';
-export const PAGE_LOGIN = 'Вход';
-export const PAGE_REGISTER = 'Регистрация';
-export const PAGE_PASSWORD = 'Восстановление пароля';
-export const PAGE_NOT_FOUND = 'Страница не найдена';
-export const PAGE_NOT_FOUND_SUBTITLE = '404';
-export const GO_IN = 'Войти';
-export const SIGN_UP = 'Зарегистрироваться';
-export const RESTORE = 'Восстановить';
-export const RESTORE_PASSWORD= 'Восстановить пароль';
-export const SAVE = 'Сохранить';
-export const CANCEL = 'Отменить';
-export const BACK = 'Назад';
-export const NEW_USER = 'Вы — новый пользователь?';
-export const FORGOT_PASSWORD = 'Забыли пароль?';
-export const ALREADY_REGISTERED = 'Уже зарегистрированы?';
-export const REMEMBER_PASSWORD = 'Вспомнили пароль?';
-export const INPUT_NAME = 'Имя';
-export const INPUT_LOGIN = 'Логин';
-export const INPUT_EMAIL = 'Укажите e-mail';
-export const INPUT_WRITE_NEW_PASSWORD = 'Введите новый пароль';
-export const INPUT_WRITE_CODE = 'Введите код из письма';
-export const PATH_HOME = '/';
-export const PATH_LOGIN = '/login';
-export const PATH_REGISTER = '/register';
-export const PATH_FORGOT_PASSWORD = '/forgot-password';
-export const PATH_RESET_PASSWORD = '/reset-password';
-export const PATH_PROFILE = '/profile';
-export const PATH_ORDER_HISTORY = '/profile/orders';
-export const PATH_NOT_FOUND = '*';
-export const PROFILE_PAGE_SUBTITLE = 'В этом разделе вы можете изменить свои персональные данные';
-export const PROFILE = 'Профиль';
-export const ORDER_HISTORY = 'История заказов';
-export const EXIT = 'Выход';
-export const ACCESS_TOKEN = 'accessToken';
-export const REFRESH_TOKEN = 'refreshToken';
+export const headerConstants = {
+  CONSTRUCTOR: "Конструктор",
+  LIST_ORDER: "Лента заказов",
+  PERSONAL_ACCOUNT: "Личный кабинет",
+};
+
+export const scrollBarConstants = {
+  TYPE_INGREDIENTS: "ingredients",
+  TYPE_DETAILS_ORDER: "detailsOrder",
+};
+
+export const buttonConstants = {
+  MAKE_ORDER: "Оформить заказ",
+  REGISTER: "Зарегистрироваться",
+  GO_IN: "Войти",
+  RESTORE: "Восстановить",
+  SAVE: "Сохранить",
+};
+
+export const linkConstants = {
+  REGISTER_LINK: "Зарегистрироваться",
+  RESTORE_PASSWORD: "Восстановить пароль",
+  GO_IN: "Войти",
+  CANCEL: "Отменить",
+  BACK: "Назад",
+  PROFILE_LINK: "Профиль",
+  ORDER_HISTORY_LINK: "История заказов",
+  EXIT: "Выход",
+};
+
+export const inputConstants = {
+  NAME: "Имя",
+  LOGIN_NANE: "Логин",
+  EMAIL: "Укажите e-mail",
+  WRITE_NEW_PASSWORD: "Введите новый пароль",
+  WRITE_CODE: "Введите код из письма",
+};
+
+export const textConstants = {
+  DO_GAMBURGER: "Соберите бургер",
+  DETAILS_INGREDIENT: "Детали ингредиента",
+  LOGIN: "Вход",
+  REGISTRATION: "Регистрация",
+  FORGOT_PASSWORD: "Восстановление пароля",
+  NOT_FOUND_TEXT: "Страница не найдена",
+  NOT_FOUND_NUMBER: "404",
+  YOU_NEW_USER: "Вы — новый пользователь?",
+  FORGOT_YOUR_PASSWORD: "Забыли пароль?",
+  ALREADY_REGISTERED: "Уже зарегистрированы?",
+  REMEMBER_PASSWORD: "Вспомнили пароль?",
+  PROFILE_PAGE_SUBTITLE:
+    "В этом разделе вы можете изменить свои персональные данные",
+  SELECT_BUN: "Выберите булку",
+  SELECT_FILLING: "Выберите начинку",
+};
+
+export const ingredientConstants = {
+  BUN_EN: "bun",
+  MAIN_EN: "main",
+  SAUCE_EN: "sauce",
+  BUN_RU: "Булки",
+  MAIN_RU: "Начинки",
+  SAUCE_RU: "Соусы",
+  CALORIES: "Калории,ккал",
+  PROTEINS: "Белки, г",
+  FAT: "Жиры, г",
+  CARBOHYDRATES: "Углеводы, г",
+};
+
+export const pathConstants = {
+  HOME: "/",
+  SIGN_IN: "/login",
+  SIGN_UP: "/register",
+  FORGOT: "/forgot-password",
+  RESET: "/reset-password",
+  PROFILE: "/profile",
+  ORDER_HISTORY: "/profile/orders",
+  INGREDIENTS: "/ingredients/:",
+  INGREDIENTS_ID: "/ingredients/:id",
+  NOT_FOUND: "*",
+};
+
+export const tokenConstants = {
+  ACCESS_TOKEN: "accessToken",
+  REFRESH_TOKEN: "refreshToken",
+  PASSWORD: "password",
+};

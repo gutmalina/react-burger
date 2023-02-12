@@ -1,90 +1,152 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import styles from '../auth-page/auth-page.module.css';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { editProfileAction } from "../../services/actions/user";
+import { getCookie } from "../../utils/cookie";
+import styles from "../page-overlay/page-overlay.module.css";
 import {
   Input,
   EmailInput,
   PasswordInput,
-  Button
+  Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {
-  INPUT_NAME,
-  INPUT_LOGIN
- } from "../../utils/constants";
+import { inputConstants, tokenConstants } from "../../utils/constants";
 
+function ProfilePage({ buttonSave, linkCancel }) {
+  const { NAME, LOGIN } = inputConstants;
+  const { PASSWORD, ACCESS_TOKEN } = tokenConstants;
+  const dispatch = useDispatch();
+  const { name, email, isEditFailedToken } = useSelector((store) => ({
+    name: store.user.name,
+    email: store.user.email,
+    isEditFailedToken: store.user.isEditFailedToken
+  }));
+  const password = localStorage.getItem(PASSWORD);
+  const token = getCookie(ACCESS_TOKEN);
 
-function ProfilePage({
-  textButtonSave,
-  textButtonCancel
-}){
-  const { name, email } = useSelector(store=>({
-    name: store.user.userName,
-    email: store.user.userEmail}));
-  const [valueName, setValueName] = useState(name);
-  const [valueEmail, setValueEmail] = useState(email);
-  const [valuePassword, setValuePassword] = useState('');
+  const [valueName, setValueName] = useState(name || '');
+  const [valueEmail, setValueEmail] = useState(email || '');
+  const [valuePassword, setValuePassword] = useState(password || '');
 
-  const onChangeName = e => {
+  const [isDisabledName, setIsDisabledName] = useState(true);
+  const [isDisabledEmail, setIsDisabledEmail] = useState(true);
+  const [isDisabledPassword, setIsDisabledPassword] = useState(true);
+  const [isHiddenButtons, setIsHiddenButton] = useState(true);
+
+  const [iconPassword, setIconPassword] = useState('EditIcon');
+  const buttonClassName = isHiddenButtons
+    ? styles.buttons_hidden
+    : styles.buttons;
+
+  const onChangeName = (e) => {
     setValueName(e.target.value);
+    setIsHiddenButton(false);
   };
-  const onChangeEmail = e => {
-    setValueEmail(e.target.value)
+  const onChangeEmail = (e) => {
+    setValueEmail(e.target.value);
+    setIsHiddenButton(false);
   };
-  const onChangePassword = e => {
-    setValuePassword(e.target.value)
+  const onChangePassword = (e) => {
+    setValuePassword(e.target.value);
+    setIsHiddenButton(false);
   };
 
   /** обновить данные пользователя */
   const handleSubmint = (e) => {
     e.preventDefault();
+    dispatch(
+      editProfileAction({
+        name: valueName,
+        email: valueEmail,
+        password: valuePassword,
+      })
+    );
   };
 
+  /**повторить отправку данных при изменении токена */
+  useEffect(() => {
+    if(token && isEditFailedToken){
+        dispatch(editProfileAction())
+      }
+  }, [dispatch, token, isEditFailedToken]);
+
+  /** скрыть кнопки, деактивировать поля ввода */
+  const inactiveElement = () => {
+    setIsDisabledName(true);
+    setIsDisabledEmail(true);
+    setIsDisabledPassword(true);
+    setIsHiddenButton(true);
+  };
+
+  /** отменить изменения в полях Input и вернуть начальные значения */
+  const cancelChanges = () => {
+    setValueName(name);
+    setValueEmail(email);
+    setValuePassword(password);
+    inactiveElement();
+  };
+
+  /** disabled input и button после обновления данных  */
+  useEffect(() => {
+    inactiveElement();
+  }, [name, email]);
+
+
   return (
-    <form
-      className={styles.container_form}
-      onSubmit={handleSubmint}>
+    <form className={styles.container_form} onSubmit={handleSubmint}>
       <fieldset className={styles.inputs}>
         <Input
-          type={'text'}
-          placeholder={INPUT_NAME}
+          type={"text"}
+          placeholder={NAME}
           onChange={onChangeName}
-          icon="EditIcon"
+          icon={isDisabledName ? "EditIcon" : "CloseIcon"}
           value={valueName}
-          name={'name'}
+          name={"name"}
           extraClass="mb-6"
+          onIconClick={() => {
+            setIsDisabledName(false);
+          }}
+          disabled={isDisabledName}
         />
         <EmailInput
-          placeholder={INPUT_LOGIN}
+          placeholder={LOGIN}
           onChange={onChangeEmail}
           value={valueEmail}
-          name={'email'}
-          icon="EditIcon"
+          name={"email"}
+          icon={isDisabledEmail ? "EditIcon" : "CloseIcon"}
           extraClass="mb-6"
+          onIconClick={() => {
+            setIsDisabledEmail(false);
+          }}
+          disabled={isDisabledEmail}
         />
         <PasswordInput
           onChange={onChangePassword}
           value={valuePassword}
-          name={'password'}
-          icon="EditIcon"
-          extraClass="mb-4"
-          autoComplete='true'
+          name={"password"}
+          icon={iconPassword}
+          extraClass={`${styles.icon} "mb-4"`}
+          autoComplete="true"
+          onIconClick={() => {
+            setIsDisabledPassword(false);
+            setIconPassword("ShowIcon")
+          }}
+          disabled={isDisabledPassword}
         />
       </fieldset>
-      <div className={styles.buttons}>
+      <div className={buttonClassName}>
         <button
           type="button"
-          className={`${styles.button_cancel} text text_type_main-default`}>
-          {textButtonCancel}
+          className={`${styles.button_cancel} text text_type_main-default`}
+          onClick={cancelChanges}
+        >
+          {linkCancel}
         </button>
-        <Button
-          htmlType="submit"
-          type="primary"
-          size="medium">
-          {textButtonSave}
+        <Button htmlType="submit" type="primary" size="medium">
+          {buttonSave}
         </Button>
       </div>
     </form>
   );
-};
+}
 
 export { ProfilePage };

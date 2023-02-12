@@ -1,18 +1,16 @@
 import { useState } from "react";
-import { newPassword } from "../../services/actions/user";
-import styles from '../auth-page/auth-page.module.css';
+import { newPasswordAction } from "../../services/actions/user";
+import styles from '../page-overlay/page-overlay.module.css';
 import {
   Input,
   PasswordInput,
   Button
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {
-  INPUT_WRITE_NEW_PASSWORD,
-  INPUT_WRITE_CODE
-} from "../../utils/constants";
+import { inputConstants } from "../../utils/constants";
 import { useDispatch } from "react-redux";
 
 function ResetPasswordPage({textButton}){
+  const {WRITE_CODE, WRITE_NEW_PASSWORD} = inputConstants;
   const dispatch = useDispatch();
   const [valuePassword, setValuePassword] = useState('');
   const [valueCode, setValueCode] = useState('');
@@ -27,7 +25,7 @@ function ResetPasswordPage({textButton}){
   /** зарегистрировать пользователя */
   const handleSubmint = (e) => {
     e.preventDefault();
-    dispatch(newPassword({password: valuePassword, code: valueCode}));
+    dispatch(newPasswordAction({password: valuePassword, code: valueCode}));
   };
 
   return(
@@ -36,7 +34,7 @@ function ResetPasswordPage({textButton}){
       onSubmit={handleSubmint}>
       <fieldset className={styles.inputs}>
         <PasswordInput
-          placeholder={INPUT_WRITE_NEW_PASSWORD}
+          placeholder={WRITE_NEW_PASSWORD}
           onChange={onChangePassword}
           value={valuePassword}
           name={'password'}
@@ -45,7 +43,7 @@ function ResetPasswordPage({textButton}){
         />
         <Input
           type={'text'}
-          placeholder={INPUT_WRITE_CODE}
+          placeholder={WRITE_CODE}
           onChange={onChangeCode}
           icon={false}
           value={valueCode}

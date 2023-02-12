@@ -6,35 +6,30 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./app-header.module.css";
 import NavTab from "../nav-tab/nav-tab";
-import {
-  BUTTON_ICON_BURGER,
-  BUTTON_ICON_LIST_ORDER,
-  BUTTON_ICON_PROFILE,
-  PATH_HOME,
-  PATH_PROFILE,
-  PATH_NOT_FOUND
-} from '../../utils/constants';
+import { headerConstants, pathConstants } from "../../utils/constants";
 
 function AppHeader() {
+  const {HOME, NOT_FOUND, PROFILE} = pathConstants;
+  
   return (
     <div className={styles.header}>
       <ul className={styles.nav}>
         <NavTab
-          onTo={PATH_HOME}
-          textSpan={BUTTON_ICON_BURGER}>
+          onTo={HOME}
+          textSpan={headerConstants.CONSTRUCTOR}>
             <BurgerIcon type="primary"/>
         </NavTab>
         <NavTab
-          onTo={PATH_NOT_FOUND}
-          textSpan={BUTTON_ICON_LIST_ORDER}>
+          onTo={NOT_FOUND}
+          textSpan={headerConstants.LIST_ORDER}>
             <ListIcon type="secondary"/>
         </NavTab>
         <div className={styles.logo}>
           <Logo/>
         </div>
         <NavTab
-          onTo={PATH_PROFILE}
-          textSpan={BUTTON_ICON_PROFILE}>
+          onTo={PROFILE}
+          textSpan={headerConstants.PERSONAL_ACCOUNT}>
             <ProfileIcon type="secondary"/>
         </NavTab>
       </ul>

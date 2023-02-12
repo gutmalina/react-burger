@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import RenderBurgerInside from '../render-burger-inside/render-burger-inside';
-import { updateBurgerFilling } from '../../services/actions/actions';
+import { updateBurgerFilling } from '../../services/actions/burger-constructor';
 import { arrayIngredientsType } from '../../types/index';
 
 function ScrollBarConstructor({ingredientInside}){

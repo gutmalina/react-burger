@@ -1,135 +1,189 @@
-import {
-  REGISTER_REQUEST,
-  REGISTER_SUCCESS,
-  REGISTER_FAILED,
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAILED,
-  USER_REQUEST,
-  USER_SUCCESS,
-  USER_FAILED,
-  USER_DELETE,
-  USER_EMAIL_SUCCESS,
-  USER_NEW_PASSWORD_SUCCESS,
-  LOGOUT_REQUEST,
-  LOGOUT_SUCCESS,
-  LOGOUT_FAILED
- } from "../actions/user";
+import { registration, login, getUser, editUser, forgot, reset, logout } from "../actions/user";
+
+const {REGISTER, REGISTER_SUCCESS, REGISTER_FAILED } = registration;
+const { LOGIN, LOGIN_SUCCESS, LOGIN_FAILED } = login;
+const { GET_USER, GET_USER_SUCCESS, GET_USER_FAILED } = getUser;
+const { EDIT, EDIT_SUCCESS, EDIT_FAILED, EDIT_FAILED_TOKEN } = editUser;
+const { FORGOT, FORGOT_SUCCESS, FORGOT_FAILED } = forgot;
+const { RESET, RESET_SUCCESS, RESET_FAILED } = reset;
+const { LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILED, USER_DELETE } = logout;
 
 const initialStore = {
-  registerRequest: false,
-  registerFailed: false,
-  loginRequest: false,
-  loginFailed: false,
-  loggedIn: false,
-  userName: '',
-  userEmail: '',
-  userRequest: false,
-  userFailed: false,
-  logoutRequest: false,
-  logoutFailed: false,
+  name: "",
+  email: "",
+  isLoggedIn: false,
+  isForgot: false,
+  isReset: false,
+
+  isRegisterRequest: false,
+  isRegisterFailed: false,
+
+  isLoginRequest: false,
+  isLoginFailed: false,
+
+  isGetRequest: false,
+  isGetFailed: false,
+
+  isEditRequest: false,
+  isEditFailed: false,
+  isEditFailedToken: false,
+
+  isForgotRequest: false,
+  isForgotFailed: false,
+
+  isResetRequest: false,
+  isResetFailed: false,
+
+  isLogoutRequest: false,
+  isLogoutFailed: false,
 };
 
-export const userReducer = (state= initialStore, action) => {
+export const userReducer = (state = initialStore, action) => {
   switch (action.type) {
-    case REGISTER_REQUEST:
+    case REGISTER:
       return {
         ...state,
-        registerRequest: true,
-        registerFailed: false
-      }
+        isRegisterRequest: true,
+        isRegisterFailed: false,
+      };
     case REGISTER_SUCCESS:
       return {
         ...state,
-        registerRequest: false,
-        loggedIn: true
-      }
+        isRegisterRequest: false,
+        isLoggedIn: true,
+      };
     case REGISTER_FAILED:
       return {
         ...state,
-        loggedIn: false,
-        registerFailed: true
-      }
-    case LOGIN_REQUEST:
+        isLoggedIn: false,
+        isRegisterFailed: true,
+      };
+    case LOGIN:
       return {
         ...state,
-        loginRequest: true,
-        loggedIn: false,
-        loginFailed: false
-      }
+        isLoginRequest: true,
+        isLoggedIn: false,
+        isLoginFailed: false,
+      };
     case LOGIN_SUCCESS:
       return {
         ...state,
-        loginRequest: false,
-        loggedIn: true
-      }
+        isForgot: false,
+        isReset: false,
+        isLoginRequest: false,
+        isLoggedIn: true,
+      };
     case LOGIN_FAILED:
       return {
         ...state,
-        loggedIn: false,
-        loginFailed: true
-      }
-    case USER_REQUEST:{
+        isLoggedIn: false,
+        isLoginFailed: true,
+      };
+    case GET_USER:
       return {
         ...state,
-        userRequest: true,
-        userFailed: false
-      }
-    }
-    case USER_SUCCESS:{
+        isGetRequest: true,
+        isGetFailed: false,
+      };
+    case GET_USER_SUCCESS:
       return {
         ...state,
-        userName: action.user.name,
-        userEmail: action.user.email,
-        userRequest: false
-      }
-    }
-    case USER_FAILED:{
+        name: action.user.name,
+        email: action.user.email,
+        isLoggedIn: true,
+        isGetRequest: false,
+      };
+    case GET_USER_FAILED:
       return {
         ...state,
-        userRequest: false,
-        userFailed: true
-      }
-    }
-    case USER_DELETE:{
+        isGetRequest: false,
+        isGetFailed: true,
+      };
+    case EDIT:
       return {
         ...state,
-        userName: '',
-        userEmail: ''
-      }
-    }
-    case USER_EMAIL_SUCCESS:{
+        isEditRequest: true,
+        isEditFailed: false,
+      };
+    case EDIT_SUCCESS:
       return {
         ...state,
-        isForgot: action.isForgot,
-        isRequest: false,
-      }
-    }
-    case USER_NEW_PASSWORD_SUCCESS:{
+        name: action.user.name,
+        email: action.user.email,
+        isEditRequest: false,
+        isEditFailedToken: false,
+      };
+    case EDIT_FAILED:
       return {
         ...state,
-        isReset: action.isReset,
-        isRequest: false,
-      }
-    }
-    case LOGOUT_REQUEST:
+        isEditRequest: false,
+        isEditFailed: true,
+      };
+    case EDIT_FAILED_TOKEN:
       return {
         ...state,
-        logoutRequest: true,
-        logoutFailed: false
-      }
+        isEditFailedToken: true,
+      };
+    case FORGOT:
+      return {
+        ...state,
+        isForgotRequest: true,
+        isForgotFailed: false,
+      };
+    case FORGOT_SUCCESS:
+      return {
+        ...state,
+        isForgot: true,
+        isForgotRequest: false,
+      };
+    case FORGOT_FAILED:
+      return {
+        ...state,
+        isForgotRequest: false,
+        isForgotFailed: true,
+      };
+    case RESET:
+      return {
+        ...state,
+        isResetRequest: true,
+        isResetFailed: false,
+      };
+    case RESET_SUCCESS:
+      return {
+        ...state,
+        isReset: true,
+        isResetRequest: false,
+      };
+    case RESET_FAILED:
+      return {
+        ...state,
+        isResetRequest: false,
+        isResetFailed: true,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        isLogoutRequest: true,
+        isLogoutFailed: false,
+      };
     case LOGOUT_SUCCESS:
       return {
         ...state,
-        logoutRequest: false,
-        loggedIn: false
-      }
+        isLogoutRequest: false,
+        isLoggedIn: false,
+      };
     case LOGOUT_FAILED:
       return {
         ...state,
-        logoutFailed: true
-      }
+        isLogoutFailed: true,
+      };
+    case USER_DELETE:
+      return {
+        ...state,
+        name: "",
+        email: "",
+      };
     default:
-      return state
+      return state;
   }
 };

@@ -2,19 +2,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import RenderIngredient from '../render-ingredient/render-ingredient';
-import { activeTabBar } from '../../services/actions/actions';
-import {
-  TAB_BAR_BUN,
-  TAB_BAR_MAIN,
-  TAB_BAR_SAUCE,
-  FILTER_BUN,
-  FILTER_MAIN,
-  FILTER_SAUCE
-} from '../../utils/constants';
+import { activeTabBarAction } from '../../services/actions/burger-ingredients';
+import { ingredientConstants } from '../../utils/constants';
 
 function ScrollBarIngredients(rootRef){
   const dispatch = useDispatch();
-  const ingredientsAll = useSelector(store=>store.ingredients.ingredients);
+  const ingredientsAll = useSelector(store=>store.burgerIngredients.ingredients);
+  const {SAUCE_EN, MAIN_EN, BUN_EN, SAUCE_RU, MAIN_RU, BUN_RU} = ingredientConstants;
 
   /** фильтр ингридиентво по типу */
   const getGroup = (array, type) => {
@@ -30,11 +24,11 @@ function ScrollBarIngredients(rootRef){
   /** навигация по типу ингридиентов */
   useEffect(()=>{
     if(!inViewBun && inViewSauce){
-      dispatch(activeTabBar(FILTER_SAUCE))
+      dispatch(activeTabBarAction(SAUCE_EN))
     }else if(inViewMain && !inViewSauce && !inViewBun){
-      dispatch(activeTabBar(FILTER_MAIN))
+      dispatch(activeTabBarAction(MAIN_EN))
     }else{
-      dispatch(activeTabBar(FILTER_BUN))
+      dispatch(activeTabBarAction(BUN_EN))
     }
   }, [dispatch, inViewBun, inViewSauce, inViewMain])
 
@@ -42,18 +36,18 @@ function ScrollBarIngredients(rootRef){
     <>
       <RenderIngredient
         ref={bunRef}
-        typeGroup={TAB_BAR_BUN}
-        groupIngredients={getGroup(ingredientsAll, FILTER_BUN)}
+        typeGroup={BUN_RU}
+        groupIngredients={getGroup(ingredientsAll, BUN_EN)}
       />
       <RenderIngredient
         ref={sauceRef}
-        typeGroup={TAB_BAR_SAUCE}
-        groupIngredients={getGroup(ingredientsAll, FILTER_SAUCE)}
+        typeGroup={SAUCE_RU}
+        groupIngredients={getGroup(ingredientsAll, SAUCE_EN)}
       />
       <RenderIngredient
         ref={mainRef}
-        typeGroup={TAB_BAR_MAIN}
-        groupIngredients={getGroup(ingredientsAll, FILTER_MAIN)}
+        typeGroup={MAIN_RU}
+        groupIngredients={getGroup(ingredientsAll, MAIN_EN)}
       />
     </>
   );

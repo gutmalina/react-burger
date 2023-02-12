@@ -1,13 +1,13 @@
 import styles from './order-details.module.css';
-import { orderType } from '../../types';
+import { useSelector } from 'react-redux';
 
-function OrderDetails({order}){
-  const {number} = {...order.order};
-  
+function OrderDetails(){
+  const order = useSelector(store=>store.order.order);
+
   return (
     <>
       <p className='text text_type_digits-large mt-10 mb-8'>
-        {number}
+        {order}
       </p>
       <p className='text text_type_main-medium'>
         идентификатор заказа
@@ -21,10 +21,6 @@ function OrderDetails({order}){
       </p>
     </>
   );
-};
-
-OrderDetails.propType = {
-  isOrder: orderType.isRequired
 };
 
 export default OrderDetails;

@@ -1,7 +1,7 @@
-function Orders(){
+function OrderPage(){
   return(
     <></>
   );
 };
 
-export { Orders };
+export { OrderPage };

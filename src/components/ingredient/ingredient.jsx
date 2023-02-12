@@ -1,44 +1,36 @@
 import { useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd/dist/hooks';
 import {
   CurrencyIcon,
   Counter
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './ingredient.module.css';
-import { addIngredient } from '../../services/actions/actions';
 import { ingredientsType } from '../../types/index';
 
-function Ingredient({ card }){
-  const { name, price, image } = card;
+function Ingredient({ ingredient }){
+
+  const { name, price, image, _id } = ingredient;
   const [count, setCount] = useState(0);
-  const burger = useSelector(store=>store.burgerConstructor.burger)
-  const dispatch = useDispatch()
+  const burger = useSelector(store=>store.burgerConstructor.burger);
 
   /** перетаскиваемый элемент - ингредиент в бургер */
   const [, dragRef] = useDrag({
-    type: card.type,
-    item: card
+    type: ingredient.type,
+    item: ingredient
   });
 
   /** счетчик выбранных ингридиентов */
-  const handleCountOrderIngredient = useMemo(()=>{
+  useMemo(()=>{
     const arrBurger  = burger.filling.concat(burger.bun, burger.bun);
     const arrId = arrBurger.map(a=>a._id);
-    setCount(arrId.filter(a=>a === card._id).length);
-  }, [burger]);
+    setCount(arrId.filter(a=>a === _id).length);
+  }, [burger, _id]);
 
   const countClass = count ? '': styles.counter_hidden;
 
-  /** открыть модальное окно - детали ингредиента */
-  const postDataCardOpenModal=(e)=>{
-    e.stopPropagation()
-    dispatch(addIngredient(card))
-  };
-
   return(
     <article
-      onClick={postDataCardOpenModal}
       className={styles.card}
       ref={dragRef}>
       <Counter
@@ -67,7 +59,7 @@ function Ingredient({ card }){
 };
 
 Ingredient.propTypes = {
-  card: ingredientsType.isRequired
+  ingredient: ingredientsType.isRequired
 };
 
 export default Ingredient;

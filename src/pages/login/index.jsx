@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { authenticationAction } from "../../services/actions/user";
-import styles from '../auth-page/auth-page.module.css';
+import styles from '../page-overlay/page-overlay.module.css';
 import {
   EmailInput,
   PasswordInput,
@@ -28,7 +28,8 @@ function LoginPage({textButton}){
   return (
     <form
       className={styles.container_form}
-      onSubmit={handleSubmint}>
+      onSubmit={handleSubmint}
+      >
       <fieldset className={styles.inputs}>
         <EmailInput
           onChange={onChangeEmail}

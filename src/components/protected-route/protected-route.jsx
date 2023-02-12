@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { PATH_LOGIN } from "../../utils/constants";
+import { pathConstants } from "../../utils/constants";
 
 function ProtectedRoute({ element }) {
-  const loggedIn = useSelector((store) => store.user.loggedIn);
+  const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
+  const {SIGN_IN} = pathConstants;
 
-  return loggedIn ? element : <Navigate to={PATH_LOGIN} replace />;
+  return isLoggedIn ? element : <Navigate to={SIGN_IN} replace />;
 }
 
 export default ProtectedRoute;

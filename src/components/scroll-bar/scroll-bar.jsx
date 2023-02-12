@@ -1,5 +1,5 @@
 import styles from './scroll-bar.module.css';
-import { SCROLL_BAR_TYPE_INGREDIENTS } from '../../utils/constants';
+import { scrollBarConstants } from '../../utils/constants';
 import {
   scrollBarType,
   childrenType
@@ -9,8 +9,8 @@ function ScrollBar({
   typeScroll,
   children
 }){
-
-  const classNameScrollBar = (typeScroll === SCROLL_BAR_TYPE_INGREDIENTS)
+  const {TYPE_INGREDIENTS} = scrollBarConstants;
+  const classNameScrollBar = (typeScroll === TYPE_INGREDIENTS)
   ? `${styles.scroll_bar} ${styles.scroll_bar_ingredients} custom-scroll`
   : `${styles.scroll_bar} ${styles.scroll_bar_details} custom-scroll` ;
 

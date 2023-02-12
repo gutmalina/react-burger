@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import { removeIngredient, closeOrder } from '../../services/actions/actions';
+import { closeOrder } from '../../services/actions/order';
+import { pathConstants } from '../../utils/constants';
 import {
-  boolType,
   textType,
   childrenType
 } from '../../types';
+
 
 function Modal({
   isOpenModal,
@@ -18,18 +20,24 @@ function Modal({
 }){
   const modalRoot = document.querySelector('#root-modal');
   const refOverlay = useRef();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const ingredient = useSelector(store=>store.ingredientDetailsModal.ingredient);
+  const order = useSelector(store=>store.order.order);
+  const { HOME } = pathConstants;
+
+  /** показать модальное окно */
   const classPopup = isOpenModal
   ? `${styles.popup} ${styles.popup_opened}`
   : `${styles.popup}`;
 
   /** закрыть модальное окно */
   const handleCloseModal = useCallback(() => {
-    Object.keys(ingredient).length
-    ? dispatch(removeIngredient())
-    : dispatch(closeOrder());
-  }, [dispatch, ingredient]);
+    if(!order){
+      navigate(HOME)
+    }else{
+      dispatch(closeOrder())
+    }
+  }, [dispatch, order, navigate, HOME]);
 
   /** закрыть модальное окно по ESC и overlay */
   useEffect(()=>{
@@ -70,7 +78,6 @@ function Modal({
 };
 
 createPortal.protoTypes = {
-  isOpenModal: boolType.isRequired,
   textTitle: textType.isRequired,
   children: childrenType.isRequired
 };

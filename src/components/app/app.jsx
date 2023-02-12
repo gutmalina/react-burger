@@ -1,167 +1,214 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes as Switch, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import ProtectedRoute from "../protected-route/protected-route";
 import AppHeader from "../app-header/app-header";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
-import { getIngredientsAction } from "../../services/actions/actions";
+import { getIngredientsAction } from "../../services/actions/burger-ingredients";
 import { getProfileAction } from "../../services/actions/user";
+import { getCookie } from "../../utils/cookie";
 import {
-  MODAL_TITLE,
-  PAGE_LOGIN,
-  PAGE_REGISTER,
-  PAGE_PASSWORD,
-  PAGE_NOT_FOUND,
-  GO_IN,
-  SIGN_UP,
-  RESTORE,
-  SAVE,
-  CANCEL,
-  BACK,
-  PATH_HOME,
-  PATH_LOGIN,
-  PATH_REGISTER,
-  PATH_FORGOT_PASSWORD,
-  PATH_RESET_PASSWORD,
-  PATH_PROFILE,
-  PATH_NOT_FOUND,
-  PATH_ORDER_HISTORY,
+  buttonConstants,
+  pathConstants,
+  textConstants,
+  tokenConstants,
+  linkConstants,
 } from "../../utils/constants";
 import {
   HomePage,
-  AuthPage,
+  PageOverlay,
   LoginPage,
   RegisterPage,
   ForgotPasswordPage,
   ResetPasswordPage,
   ProfilePage,
   NotFoundPage,
-  Orders,
+  OrderPage,
+  PageIngredient,
 } from "../../pages/index";
 
 function App() {
-  const { ingredient, order, loggedIn } = useSelector((store) => ({
-    ingredient: store.ingredientDetailsModal.ingredient,
-    order: store.order.order,
-    loggedIn: store.user.loggedIn,
-  }));
+  const { SAVE, GO_IN, REGISTER, RESTORE } = buttonConstants;
+  const {
+    HOME,
+    PROFILE,
+    SIGN_IN,
+    SIGN_UP,
+    FORGOT,
+    RESET,
+    ORDER_HISTORY,
+    INGREDIENTS_ID,
+    NOT_FOUND,
+  } = pathConstants;
+  const {
+    LOGIN,
+    REGISTRATION,
+    FORGOT_PASSWORD,
+    DETAILS_INGREDIENT,
+    NOT_FOUND_TEXT,
+  } = textConstants;
+  const { CANCEL, BACK } = linkConstants;
+  const { ACCESS_TOKEN } = tokenConstants;
 
+  const location = useLocation();
+  const background = location.state && location.state.background;
   const dispatch = useDispatch();
+  const { order, isLoggedIn, isForgot, isReset, isEditFailedToken } =
+    useSelector((store) => ({
+      order: store.order.order,
+      isLoggedIn: store.user.isLoggedIn,
+      isForgot: store.user.isForgot,
+      isReset: store.user.isReset,
+      isEditFailedToken: store.user.isEditFailedToken,
+    }));
+  const token = getCookie(ACCESS_TOKEN);
 
   /** получить массива ингридиентов */
   useEffect(() => {
     dispatch(getIngredientsAction());
   }, [dispatch]);
 
-  /** получить данные пользователя */
-  useEffect(() => {
-    if (loggedIn) {
-      dispatch(getProfileAction());
-    }
-  }, [dispatch, loggedIn]);
+  // /** получить данные пользователя*/
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     dispatch(getProfileAction());
+  //   }
+  // }, [dispatch, isLoggedIn]);
+
+  // /** получить пользователя при изменении токена */
+  // useEffect(() => {
+  //   if (token) {
+  //     dispatch(getProfileAction());
+  //   }
+  // }, [dispatch, token]);
 
   return (
     <>
       <AppHeader />
-      <Switch>
-        <Route path={PATH_HOME} exact={true} element={<HomePage />} />
+      <Routes location={location}>
+        <Route path={HOME} exact={true} element={<HomePage />} />
         <Route
-          path={PATH_PROFILE}
+          path={PROFILE}
           exact={true}
           element={
-            <ProtectedRoute
+            // <ProtectedRoute
+            //   element={
+                <PageOverlay>
+                  <ProfilePage buttonSave={SAVE} linkCancel={CANCEL} />
+                </PageOverlay>
+            //   }
+            // />
+          }
+        />
+        <Route
+          path={ORDER_HISTORY}
+          exact={true}
+          element={
+            // <ProtectedRoute
+            //   element={
+                <PageOverlay textTitle="">
+                  <OrderPage textButton={BACK} />
+                </PageOverlay>
+            //   }
+            // />
+          }
+        />
+        <Route
+          path={SIGN_IN}
+          exact={true}
+          element={
+            // isLoggedIn ? (
+            //   <Navigate to={HOME} replace />
+            // ) : (
+              <PageOverlay textTitle={LOGIN}>
+                <LoginPage textButton={GO_IN} />
+              </PageOverlay>
+            // )
+          }
+        />
+        <Route
+          path={SIGN_UP}
+          exact={true}
+          element={
+            // isLoggedIn ? (
+            //   <Navigate to={HOME} replace />
+            // ) : (
+              <PageOverlay textTitle={REGISTRATION}>
+                <RegisterPage textButton={REGISTER} />
+              </PageOverlay>
+            // )
+          }
+        />
+        <Route
+          path={FORGOT}
+          exact={true}
+          element={
+            // isLoggedIn ? (
+            //   <Navigate to={HOME} replace />
+            // ) : isForgot ? (
+            //   <Navigate to={RESET} replace />
+            // ) : (
+              <PageOverlay textTitle={FORGOT_PASSWORD}>
+                <ForgotPasswordPage textButton={RESTORE} />
+              </PageOverlay>
+            // )
+          }
+        />
+        <Route
+          path={RESET}
+          exact={true}
+          element={
+            // isLoggedIn ? (
+            //   <Navigate to={HOME} replace />
+            // ) : !isForgot ? (
+            //   <Navigate to={FORGOT} replace />
+            // ) : isReset ? (
+            //   <Navigate to={SIGN_IN} replace />
+            // ) : (
+              <PageOverlay textTitle={FORGOT_PASSWORD}>
+                <ResetPasswordPage textButton={SAVE} />
+              </PageOverlay>
+            // )
+          }
+        />
+        <Route
+          path={INGREDIENTS_ID}
+          exact={true}
+          element={
+            <PageIngredient textTitle={DETAILS_INGREDIENT}>
+              <IngredientDetails />
+            </PageIngredient>
+          }
+        />
+        <Route
+          path={NOT_FOUND}
+          exact={true}
+          element={
+            <PageOverlay textTitle={NOT_FOUND_TEXT}>
+              <NotFoundPage textButton={BACK} />
+            </PageOverlay>
+          }
+        />
+      </Routes>
+      {background && (
+        <>
+          <Routes>
+            <Route
+              path={INGREDIENTS_ID}
+              exact={true}
               element={
-                <AuthPage>
-                  <ProfilePage
-                    textButtonSave={SAVE}
-                    textButtonCancel={CANCEL}
-                  />
-                </AuthPage>
+                <Modal isOpenModal={background} textTitle={DETAILS_INGREDIENT}>
+                  <IngredientDetails />
+                </Modal>
               }
             />
-          }
-        />
-        <Route
-          path={PATH_LOGIN}
-          exact={true}
-          element={
-            loggedIn ? (
-              <Navigate to={PATH_HOME} replace/>
-            ) : (
-              <AuthPage textTitle={PAGE_LOGIN}>
-                <LoginPage textButton={GO_IN} />
-              </AuthPage>
-            )
-          }
-        />
-        <Route
-          path={PATH_REGISTER}
-          exact={true}
-          element={
-            loggedIn ? (
-              <Navigate to={PATH_HOME} replace/>
-            ) : (
-              <AuthPage textTitle={PAGE_REGISTER}>
-                <RegisterPage textButton={SIGN_UP} />
-              </AuthPage>
-            )
-          }
-        />
-        <Route
-          path={PATH_FORGOT_PASSWORD}
-          exact={true}
-          element={
-            loggedIn ? (
-              <HomePage />
-            ) : (
-              <AuthPage textTitle={PAGE_PASSWORD}>
-                <ForgotPasswordPage textButton={RESTORE} />
-              </AuthPage>
-            )
-          }
-        />
-        <Route
-          path={PATH_RESET_PASSWORD}
-          exact={true}
-          element={
-            loggedIn ? (
-              <HomePage />
-            ) : (
-              <AuthPage textTitle={PAGE_PASSWORD}>
-                <ResetPasswordPage textButton={SAVE} />
-              </AuthPage>
-            )
-          }
-        />
-        <Route
-          path={PATH_ORDER_HISTORY}
-          exact={true}
-          element={
-            <AuthPage textTitle="">
-              <Orders textButton={BACK} />
-            </AuthPage>
-          }
-        />
-        <Route
-          path={PATH_NOT_FOUND}
-          exact={true}
-          element={
-            <AuthPage textTitle={PAGE_NOT_FOUND}>
-              <NotFoundPage textButton={BACK} />
-            </AuthPage>
-          }
-        />
-      </Switch>
-      <Modal
-        isOpenModal={Object.keys(ingredient).length}
-        textTitle={MODAL_TITLE}
-      >
-        <IngredientDetails />
-      </Modal>
-      <Modal isOpenModal={order.success}>
-        <OrderDetails order={order} />
+          </Routes>
+        </>
+      )}
+      <Modal isOpenModal={order}>
+        <OrderDetails />
       </Modal>
     </>
   );

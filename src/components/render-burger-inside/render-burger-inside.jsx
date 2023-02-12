@@ -6,7 +6,7 @@ import {
   ConstructorElement,
   DragIcon
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { removeBurgerFilling } from '../../services/actions/actions';
+import { removeBurgerFilling } from '../../services/actions/burger-constructor';
 import {
   ingredientsType,
   numberType,
