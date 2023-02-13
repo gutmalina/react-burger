@@ -1,20 +1,21 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useInView } from 'react-intersection-observer';
-import RenderIngredient from '../render-ingredient/render-ingredient';
-import { activeTabBarAction } from '../../services/actions/burger-ingredients';
-import { ingredientConstants } from '../../utils/constants';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useInView } from "react-intersection-observer";
+import RenderIngredient from "../render-ingredient/render-ingredient";
+import { activeTabBarAction } from "../../services/actions/burger-ingredients";
+import { ingredientConstants } from "../../utils/constants";
 
-function ScrollBarIngredients(rootRef){
+function ScrollBarIngredients() {
   const dispatch = useDispatch();
-  const ingredientsAll = useSelector(store=>store.burgerIngredients.ingredients);
-  const {SAUCE_EN, MAIN_EN, BUN_EN, SAUCE_RU, MAIN_RU, BUN_RU} = ingredientConstants;
+  const ingredientsAll = useSelector(
+    (store) => store.burgerIngredients.ingredients
+  );
+  const { SAUCE_EN, MAIN_EN, BUN_EN, SAUCE_RU, MAIN_RU, BUN_RU } =
+    ingredientConstants;
 
   /** фильтр ингридиентво по типу */
   const getGroup = (array, type) => {
-    return array.filter((card) => (
-      card.type === type
-    ))
+    return array.filter((card) => card.type === type);
   };
 
   const [bunRef, inViewBun] = useInView();
@@ -22,17 +23,17 @@ function ScrollBarIngredients(rootRef){
   const [mainRef, inViewMain] = useInView();
 
   /** навигация по типу ингридиентов */
-  useEffect(()=>{
-    if(!inViewBun && inViewSauce){
-      dispatch(activeTabBarAction(SAUCE_EN))
-    }else if(inViewMain && !inViewSauce && !inViewBun){
-      dispatch(activeTabBarAction(MAIN_EN))
-    }else{
-      dispatch(activeTabBarAction(BUN_EN))
+  useEffect(() => {
+    if (!inViewBun && inViewSauce) {
+      dispatch(activeTabBarAction(SAUCE_EN));
+    } else if (inViewMain && !inViewSauce && !inViewBun) {
+      dispatch(activeTabBarAction(MAIN_EN));
+    } else {
+      dispatch(activeTabBarAction(BUN_EN));
     }
-  }, [dispatch, inViewBun, inViewSauce, inViewMain])
+  }, [dispatch, inViewBun, inViewSauce, inViewMain, SAUCE_EN, MAIN_EN, BUN_EN]);
 
-  return(
+  return (
     <>
       <RenderIngredient
         ref={bunRef}
@@ -51,6 +52,6 @@ function ScrollBarIngredients(rootRef){
       />
     </>
   );
-};
+}
 
 export default ScrollBarIngredients;

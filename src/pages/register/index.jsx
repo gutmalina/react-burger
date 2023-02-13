@@ -1,76 +1,91 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { registrationAction } from "../../services/actions/user";
-import styles from '../page-overlay/page-overlay.module.css';
+import styles from "../page-overlay/page-overlay.module.css";
 import {
   Input,
   EmailInput,
   PasswordInput,
-  Button
+  Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { inputConstants } from "../../utils/constants";
+import { inputConstants, pathConstants } from "../../utils/constants";
+import { textType } from "../../types";
 
-function RegisterPage({textButton}){
+function RegisterPage({ textButton }) {
   const { NAME } = inputConstants;
-  const [valueName, setValueName] = useState('');
-  const [valueEmail, setValueEmail] = useState('');
-  const [valuePassword, setValuePassword] = useState('');
+  const [valueName, setValueName] = useState("");
+  const [valueEmail, setValueEmail] = useState("");
+  const [valuePassword, setValuePassword] = useState("");
   const dispatch = useDispatch();
+  const { isLoggedIn, isGetSuccess } = useSelector((store) => ({
+    isLoggedIn: store.user.isLoggedIn,
+    isGetSuccess: store.user.isGetSuccess,
+  }));
 
-  const onChangeName = e => {
+  const onChangeName = (e) => {
     setValueName(e.target.value);
   };
-  const onChangeEmail = e => {
-    setValueEmail(e.target.value)
+  const onChangeEmail = (e) => {
+    setValueEmail(e.target.value);
   };
-  const onChangePassword = e => {
-    setValuePassword(e.target.value)
+  const onChangePassword = (e) => {
+    setValuePassword(e.target.value);
   };
 
   /** зарегистрировать пользователя */
   const handleSubmint = (e) => {
     e.preventDefault();
-    dispatch(registrationAction({name: valueName, email: valueEmail, password: valuePassword}));
+    dispatch(
+      registrationAction({
+        name: valueName,
+        email: valueEmail,
+        password: valuePassword,
+      })
+    );
   };
 
-  return(
-    <form
-      className={styles.container_form}
-      onSubmit={handleSubmint}>
+  /** переадресация на главную страницу после успешной регистрации */
+  if (isLoggedIn && isGetSuccess) {
+    return <Navigate to={pathConstants.HOME} />;
+  }
+
+  return (
+    <form className={styles.container_form} onSubmit={handleSubmint}>
       <fieldset className={styles.inputs}>
         <Input
-          type={'text'}
+          type={"text"}
           placeholder={NAME}
           onChange={onChangeName}
           icon={false}
           value={valueName}
-          name={'name'}
+          name={"name"}
           extraClass="mb-6"
         />
         <EmailInput
           onChange={onChangeEmail}
           value={valueEmail}
-          name={'email'}
+          name={"email"}
           isIcon={false}
           extraClass="mb-6"
         />
         <PasswordInput
           onChange={onChangePassword}
           value={valuePassword}
-          name={'password'}
+          name={"password"}
           extraClass="mb-4"
-          autoComplete='true'
+          autoComplete="true"
         />
       </fieldset>
-      <Button
-        htmlType="submit"
-        type="primary"
-        size="medium"
-        extraClass="mb-20">
+      <Button htmlType="submit" type="primary" size="medium" extraClass="mb-20">
         {textButton}
       </Button>
     </form>
   );
+}
+
+RegisterPage.protoTypes = {
+  textButton: textType.isRequired,
 };
 
 export { RegisterPage };

@@ -1,9 +1,9 @@
-import { useDispatch } from 'react-redux';
-import RenderBurgerInside from '../render-burger-inside/render-burger-inside';
-import { updateBurgerFilling } from '../../services/actions/burger-constructor';
-import { arrayIngredientsType } from '../../types/index';
+import { useDispatch } from "react-redux";
+import RenderBurgerInside from "../render-burger-inside/render-burger-inside";
+import { updateBurgerFilling } from "../../services/actions/burger-constructor";
+import { arrayIngredientsType } from "../../types/index";
 
-function ScrollBarConstructor({ingredientInside}){
+function ScrollBarConstructor({ ingredientInside }) {
   const dispatch = useDispatch();
 
   /** сортировка при перетаскивании начинки бургера */
@@ -17,22 +17,20 @@ function ScrollBarConstructor({ingredientInside}){
 
   return (
     <>
-      {
-        ingredientInside.map((card, index) => (
-          <RenderBurgerInside
-            card={card}
-            key={card.keyid}
-            index={index}
-            moveCard={moveCard}
-          />
-        ))
-      }
+      {ingredientInside.map((card, index) => (
+        <RenderBurgerInside
+          card={card}
+          key={card.keyid}
+          index={index}
+          moveCard={moveCard}
+        />
+      ))}
     </>
   );
-};
+}
 
 ScrollBarConstructor.protoTypes = {
-  ingredientInside: arrayIngredientsType.isRequired
+  ingredientInside: arrayIngredientsType.isRequired,
 };
 
 export default ScrollBarConstructor;

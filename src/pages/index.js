@@ -19,5 +19,5 @@ export {
   ProfilePage,
   NotFoundPage,
   OrderPage,
-  PageIngredient
+  PageIngredient,
 };

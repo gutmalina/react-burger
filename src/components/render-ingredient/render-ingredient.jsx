@@ -20,7 +20,7 @@ const RenderIngredient = forwardRef(({ groupIngredients, typeGroup }, ref) => {
             state={{ background: location }}
             className={styles.link}
           >
-            <Ingredient ingredient={ingredient}/>
+            <Ingredient ingredient={ingredient} />
           </Link>
         ))}
       </section>

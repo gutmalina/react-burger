@@ -13,6 +13,7 @@ import {
   textConstants,
   linkConstants,
 } from "../../utils/constants";
+import { textType, childrenType } from "../../types";
 
 function PageOverlay({ textTitle, children }) {
   const { ACCESS_TOKEN, REFRESH_TOKEN, PASSWORD } = tokenConstants;
@@ -88,5 +89,10 @@ function PageOverlay({ textTitle, children }) {
     </section>
   );
 }
+
+PageOverlay.protoTypes = {
+  textButton: textType.isRequired,
+  children: childrenType,
+};
 
 export { PageOverlay };

@@ -2,7 +2,7 @@ import { editToken } from "../../utils/auth";
 import { setCookie } from "../../utils/cookie";
 import { tokenConstants } from "../../utils/constants";
 
-const {ACCESS_TOKEN, REFRESH_TOKEN} = tokenConstants;
+const { ACCESS_TOKEN, REFRESH_TOKEN } = tokenConstants;
 
 export const TOKEN = "TOKEN";
 export const TOKEN_SUCCESS = "TOKEN_SUCCESS";

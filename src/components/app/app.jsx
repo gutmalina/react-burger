@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import ProtectedRoute from "../protected-route/protected-route";
 import AppHeader from "../app-header/app-header";
 import Modal from "../modal/modal";
@@ -55,14 +55,7 @@ function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
   const dispatch = useDispatch();
-  const { order, isLoggedIn, isForgot, isReset, isEditFailedToken } =
-    useSelector((store) => ({
-      order: store.order.order,
-      isLoggedIn: store.user.isLoggedIn,
-      isForgot: store.user.isForgot,
-      isReset: store.user.isReset,
-      isEditFailedToken: store.user.isEditFailedToken,
-    }));
+  const { order } = useSelector((store) => store.order.order);
   const token = getCookie(ACCESS_TOKEN);
 
   /** получить массива ингридиентов */
@@ -70,19 +63,12 @@ function App() {
     dispatch(getIngredientsAction());
   }, [dispatch]);
 
-  // /** получить данные пользователя*/
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     dispatch(getProfileAction());
-  //   }
-  // }, [dispatch, isLoggedIn]);
-
-  // /** получить пользователя при изменении токена */
-  // useEffect(() => {
-  //   if (token) {
-  //     dispatch(getProfileAction());
-  //   }
-  // }, [dispatch, token]);
+  /** получить данные пользователя*/
+  useEffect(() => {
+    if (token) {
+      dispatch(getProfileAction());
+    }
+  }, [dispatch, token]);
 
   return (
     <>
@@ -93,84 +79,64 @@ function App() {
           path={PROFILE}
           exact={true}
           element={
-            // <ProtectedRoute
-            //   element={
+            <ProtectedRoute
+              redirectTo={SIGN_IN}
+              element={
                 <PageOverlay>
                   <ProfilePage buttonSave={SAVE} linkCancel={CANCEL} />
                 </PageOverlay>
-            //   }
-            // />
+              }
+            />
           }
         />
         <Route
           path={ORDER_HISTORY}
           exact={true}
           element={
-            // <ProtectedRoute
-            //   element={
+            <ProtectedRoute
+              redirectTo={SIGN_IN}
+              element={
                 <PageOverlay textTitle="">
                   <OrderPage textButton={BACK} />
                 </PageOverlay>
-            //   }
-            // />
+              }
+            />
           }
         />
         <Route
           path={SIGN_IN}
           exact={true}
           element={
-            // isLoggedIn ? (
-            //   <Navigate to={HOME} replace />
-            // ) : (
-              <PageOverlay textTitle={LOGIN}>
-                <LoginPage textButton={GO_IN} />
-              </PageOverlay>
-            // )
+            <PageOverlay textTitle={LOGIN}>
+              <LoginPage textButton={GO_IN} />
+            </PageOverlay>
           }
         />
         <Route
           path={SIGN_UP}
           exact={true}
           element={
-            // isLoggedIn ? (
-            //   <Navigate to={HOME} replace />
-            // ) : (
-              <PageOverlay textTitle={REGISTRATION}>
-                <RegisterPage textButton={REGISTER} />
-              </PageOverlay>
-            // )
+            <PageOverlay textTitle={REGISTRATION}>
+              <RegisterPage textButton={REGISTER} />
+            </PageOverlay>
           }
         />
         <Route
           path={FORGOT}
           exact={true}
           element={
-            // isLoggedIn ? (
-            //   <Navigate to={HOME} replace />
-            // ) : isForgot ? (
-            //   <Navigate to={RESET} replace />
-            // ) : (
-              <PageOverlay textTitle={FORGOT_PASSWORD}>
-                <ForgotPasswordPage textButton={RESTORE} />
-              </PageOverlay>
-            // )
+            <PageOverlay textTitle={FORGOT_PASSWORD}>
+              <ForgotPasswordPage textButton={RESTORE} />
+            </PageOverlay>
           }
         />
         <Route
           path={RESET}
           exact={true}
           element={
-            // isLoggedIn ? (
-            //   <Navigate to={HOME} replace />
-            // ) : !isForgot ? (
-            //   <Navigate to={FORGOT} replace />
-            // ) : isReset ? (
-            //   <Navigate to={SIGN_IN} replace />
-            // ) : (
-              <PageOverlay textTitle={FORGOT_PASSWORD}>
-                <ResetPasswordPage textButton={SAVE} />
-              </PageOverlay>
-            // )
+            <PageOverlay textTitle={FORGOT_PASSWORD}>
+              <ResetPasswordPage textButton={SAVE} />
+            </PageOverlay>
           }
         />
         <Route

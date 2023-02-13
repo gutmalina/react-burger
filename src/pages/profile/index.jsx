@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editProfileAction } from "../../services/actions/user";
-import { getCookie } from "../../utils/cookie";
 import styles from "../page-overlay/page-overlay.module.css";
 import {
   Input,
@@ -10,29 +9,28 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { inputConstants, tokenConstants } from "../../utils/constants";
+import { textType } from "../../types";
 
 function ProfilePage({ buttonSave, linkCancel }) {
   const { NAME, LOGIN } = inputConstants;
-  const { PASSWORD, ACCESS_TOKEN } = tokenConstants;
+  const { PASSWORD } = tokenConstants;
   const dispatch = useDispatch();
-  const { name, email, isEditFailedToken } = useSelector((store) => ({
+  const { name, email } = useSelector((store) => ({
     name: store.user.name,
     email: store.user.email,
-    isEditFailedToken: store.user.isEditFailedToken
   }));
   const password = localStorage.getItem(PASSWORD);
-  const token = getCookie(ACCESS_TOKEN);
 
-  const [valueName, setValueName] = useState(name || '');
-  const [valueEmail, setValueEmail] = useState(email || '');
-  const [valuePassword, setValuePassword] = useState(password || '');
+  const [valueName, setValueName] = useState(name || "");
+  const [valueEmail, setValueEmail] = useState(email || "");
+  const [valuePassword, setValuePassword] = useState(password || "");
 
   const [isDisabledName, setIsDisabledName] = useState(true);
   const [isDisabledEmail, setIsDisabledEmail] = useState(true);
   const [isDisabledPassword, setIsDisabledPassword] = useState(true);
   const [isHiddenButtons, setIsHiddenButton] = useState(true);
 
-  const [iconPassword, setIconPassword] = useState('EditIcon');
+  const [iconPassword, setIconPassword] = useState("EditIcon");
   const buttonClassName = isHiddenButtons
     ? styles.buttons_hidden
     : styles.buttons;
@@ -62,13 +60,6 @@ function ProfilePage({ buttonSave, linkCancel }) {
     );
   };
 
-  /**повторить отправку данных при изменении токена */
-  useEffect(() => {
-    if(token && isEditFailedToken){
-        dispatch(editProfileAction())
-      }
-  }, [dispatch, token, isEditFailedToken]);
-
   /** скрыть кнопки, деактивировать поля ввода */
   const inactiveElement = () => {
     setIsDisabledName(true);
@@ -89,7 +80,6 @@ function ProfilePage({ buttonSave, linkCancel }) {
   useEffect(() => {
     inactiveElement();
   }, [name, email]);
-
 
   return (
     <form className={styles.container_form} onSubmit={handleSubmint}>
@@ -128,7 +118,7 @@ function ProfilePage({ buttonSave, linkCancel }) {
           autoComplete="true"
           onIconClick={() => {
             setIsDisabledPassword(false);
-            setIconPassword("ShowIcon")
+            setIconPassword("ShowIcon");
           }}
           disabled={isDisabledPassword}
         />
@@ -148,5 +138,10 @@ function ProfilePage({ buttonSave, linkCancel }) {
     </form>
   );
 }
+
+ProfilePage.protoTypes = {
+  buttonSave: textType.isRequired,
+  linkCancel: textType.isRequired,
+};
 
 export { ProfilePage };

@@ -1,12 +1,21 @@
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { pathConstants } from "../../utils/constants";
+import { Navigate, useLocation } from "react-router-dom";
+import { textType, childrenType } from "../../types";
 
-function ProtectedRoute({ element }) {
+function ProtectedRoute({ redirectTo, element }) {
   const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
-  const {SIGN_IN} = pathConstants;
+  const location = useLocation();
 
-  return isLoggedIn ? element : <Navigate to={SIGN_IN} replace />;
+  return isLoggedIn ? (
+    element
+  ) : (
+    <Navigate to={redirectTo} state={{ from: location }} />
+  );
 }
+
+ProtectedRoute.protoTypes = {
+  redirectTo: textType.isRequired,
+  element: childrenType.isRequired,
+};
 
 export default ProtectedRoute;

@@ -1,9 +1,17 @@
-import { registration, login, getUser, editUser, forgot, reset, logout } from "../actions/user";
+import {
+  registration,
+  login,
+  getUser,
+  editUser,
+  forgot,
+  reset,
+  logout,
+} from "../actions/user";
 
-const {REGISTER, REGISTER_SUCCESS, REGISTER_FAILED } = registration;
+const { REGISTER, REGISTER_SUCCESS, REGISTER_FAILED } = registration;
 const { LOGIN, LOGIN_SUCCESS, LOGIN_FAILED } = login;
 const { GET_USER, GET_USER_SUCCESS, GET_USER_FAILED } = getUser;
-const { EDIT, EDIT_SUCCESS, EDIT_FAILED, EDIT_FAILED_TOKEN } = editUser;
+const { EDIT, EDIT_SUCCESS, EDIT_FAILED } = editUser;
 const { FORGOT, FORGOT_SUCCESS, FORGOT_FAILED } = forgot;
 const { RESET, RESET_SUCCESS, RESET_FAILED } = reset;
 const { LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILED, USER_DELETE } = logout;
@@ -22,11 +30,11 @@ const initialStore = {
   isLoginFailed: false,
 
   isGetRequest: false,
+  isGetSuccess: false,
   isGetFailed: false,
 
   isEditRequest: false,
   isEditFailed: false,
-  isEditFailedToken: false,
 
   isForgotRequest: false,
   isForgotFailed: false,
@@ -51,6 +59,7 @@ export const userReducer = (state = initialStore, action) => {
         ...state,
         isRegisterRequest: false,
         isLoggedIn: true,
+        isGetSuccess: true,
       };
     case REGISTER_FAILED:
       return {
@@ -84,6 +93,7 @@ export const userReducer = (state = initialStore, action) => {
         ...state,
         isGetRequest: true,
         isGetFailed: false,
+        isGetSuccess: false,
       };
     case GET_USER_SUCCESS:
       return {
@@ -91,6 +101,7 @@ export const userReducer = (state = initialStore, action) => {
         name: action.user.name,
         email: action.user.email,
         isLoggedIn: true,
+        isGetSuccess: true,
         isGetRequest: false,
       };
     case GET_USER_FAILED:
@@ -111,18 +122,12 @@ export const userReducer = (state = initialStore, action) => {
         name: action.user.name,
         email: action.user.email,
         isEditRequest: false,
-        isEditFailedToken: false,
       };
     case EDIT_FAILED:
       return {
         ...state,
         isEditRequest: false,
         isEditFailed: true,
-      };
-    case EDIT_FAILED_TOKEN:
-      return {
-        ...state,
-        isEditFailedToken: true,
       };
     case FORGOT:
       return {

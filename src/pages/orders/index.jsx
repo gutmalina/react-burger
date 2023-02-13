@@ -1,7 +1,5 @@
-function OrderPage(){
-  return(
-    <></>
-  );
-};
+function OrderPage() {
+  return <></>;
+}
 
 export { OrderPage };

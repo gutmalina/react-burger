@@ -9,6 +9,7 @@ import {
 } from "../../utils/burger-api";
 import { tokenConstants } from "../../utils/constants";
 import { editTokenAction } from "./token";
+import { editToken } from "../../utils/auth";
 
 const { ACCESS_TOKEN, REFRESH_TOKEN, PASSWORD } = tokenConstants;
 
@@ -34,7 +35,6 @@ export const editUser = {
   EDIT: "EDIT",
   EDIT_SUCCESS: "EDIT_SUCCESS",
   EDIT_FAILED: "EDIT_FAILED",
-  EDIT_FAILED_TOKEN: "EDIT_FAILED_TOKEN"
 };
 
 export const forgot = {
@@ -83,7 +83,7 @@ export function registrationAction(user) {
         });
       });
   };
-};
+}
 
 /** аутентификация пользователя */
 export function authenticationAction(user) {
@@ -130,13 +130,16 @@ export function getProfileAction() {
             user: res.user,
           });
         } else {
-          if (res.message === 'jwt expired'){
-            dispatch(editTokenAction())
+          if (res.message === "jwt expired") {
+            dispatch(editTokenAction());
           } else {
             dispatch({
               type: getUser.GET_USER_FAILED,
             });
           }
+          dispatch({
+            type: getUser.GET_USER_FAILED,
+          });
         }
       })
       .catch((err) => {
@@ -161,16 +164,45 @@ export function editProfileAction(user) {
             user: res.user,
           });
         } else {
-          if (res.message === 'jwt expired'){
-            dispatch(editTokenAction());
-            dispatch({
-              type: editUser.EDIT_FAILED_TOKEN
-            });
+          if (res.message === "jwt expired") {
+            editToken()
+              .then((res) => {
+                setCookie(ACCESS_TOKEN, res.accessToken);
+                localStorage.setItem(REFRESH_TOKEN, res.refreshToken);
+                if (res && res.success) {
+                  editProfile(user)
+                    .then((res) => {
+                      if (res && res.success) {
+                        dispatch({
+                          type: editUser.EDIT_SUCCESS,
+                          user: res.user,
+                        });
+                      } else {
+                        dispatch({
+                          type: editUser.EDIT_FAILED,
+                        });
+                      }
+                    })
+                    .catch((err) => {
+                      dispatch({
+                        type: editUser.EDIT_FAILED,
+                      });
+                    });
+                }
+              })
+              .catch((err) => {
+                dispatch({
+                  type: editUser.EDIT_FAILED,
+                });
+              });
           } else {
             dispatch({
               type: editUser.EDIT_FAILED,
             });
           }
+          dispatch({
+            type: editUser.EDIT_FAILED,
+          });
         }
       })
       .catch((err) => {
@@ -244,7 +276,7 @@ export function logoutRequestAction() {
       .then((res) => {
         if (res && res.success) {
           dispatch({
-            type: logout.LOGOUT_SUCCESS
+            type: logout.LOGOUT_SUCCESS,
           });
         } else {
           dispatch({

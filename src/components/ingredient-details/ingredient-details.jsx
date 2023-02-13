@@ -4,12 +4,13 @@ import styles from "./ingredient-details.module.css";
 import { ingredientConstants } from "../../utils/constants";
 
 function IngredientDetails() {
-
   const { CALORIES, PROTEINS, FAT, CARBOHYDRATES } = ingredientConstants;
-  const ingredients = useSelector((store) =>store.burgerIngredients.ingredients);
+  const ingredients = useSelector(
+    (store) => store.burgerIngredients.ingredients
+  );
   const router = useParams();
   const id = router.id.slice(1);
-  const ingredient = ingredients.find(item=>item._id === id);
+  const ingredient = ingredients.find((item) => item._id === id);
 
   if (!ingredient) return <div>Обработка данных</div>;
 
@@ -17,11 +18,11 @@ function IngredientDetails() {
     <>
       <img
         className={`${styles.image} mt-2 mb-5`}
-        src={ingredient.image}
-        alt={ingredient.name}
+        src={ingredient.image || ""}
+        alt={ingredient.name || ""}
       />
       <p className={`${styles.subtitle} text text_type_main-medium mb-4`}>
-        {ingredient.name}
+        {ingredient.name || ""}
       </p>
       <ul className={styles.group}>
         <li className={styles.item}>
@@ -29,7 +30,7 @@ function IngredientDetails() {
             {CALORIES}
           </h4>
           <p className="text text_type_digits-default text_color_inactive">
-            {ingredient.calories}
+            {ingredient.calories || ""}
           </p>
         </li>
         <li className={styles.item}>
@@ -37,7 +38,7 @@ function IngredientDetails() {
             {PROTEINS}
           </h4>
           <p className="text text_type_digits-default text_color_inactive">
-            {ingredient.proteins}
+            {ingredient.proteins || ""}
           </p>
         </li>
         <li className={styles.item}>
@@ -45,7 +46,7 @@ function IngredientDetails() {
             {FAT}
           </h4>
           <p className="text text_type_digits-default text_color_inactive">
-            {ingredient.fat}
+            {ingredient.fat || ""}
           </p>
         </li>
         <li className={styles.item}>
@@ -53,7 +54,7 @@ function IngredientDetails() {
             {CARBOHYDRATES}
           </h4>
           <p className="text text_type_digits-default text_color_inactive">
-            {ingredient.carbohydrates}
+            {ingredient.carbohydrates || ""}
           </p>
         </li>
       </ul>

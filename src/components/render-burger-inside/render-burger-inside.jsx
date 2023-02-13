@@ -1,25 +1,21 @@
-import { useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { useDrag, useDrop } from 'react-dnd';
-import styles from '../render-burger-inside/render-burger-inside.module.css';
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { useDrag, useDrop } from "react-dnd";
+import styles from "../render-burger-inside/render-burger-inside.module.css";
 import {
   ConstructorElement,
-  DragIcon
+  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { removeBurgerFilling } from '../../services/actions/burger-constructor';
-import {
-  ingredientsType,
-  numberType,
-  functionType
-} from '../../types';
+import { removeBurgerFilling } from "../../services/actions/burger-constructor";
+import { ingredientsType, numberType, functionType } from "../../types";
 
-function RenderBurgerInside({ card, index, moveCard}){
-  const ref = useRef(null)
+function RenderBurgerInside({ card, index, moveCard }) {
+  const ref = useRef(null);
   const dispatch = useDispatch();
 
   /** перетаскиваемый элемент - начинка бургера */
   const [{ isDragging }, dragRef] = useDrag({
-    type: 'element',
+    type: "element",
     item: { index },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -28,7 +24,7 @@ function RenderBurgerInside({ card, index, moveCard}){
 
   /** целевой контейнер - начинка бургера */
   const [, dropTargetRef] = useDrop({
-    accept: 'element',
+    accept: "element",
     hover(item) {
       if (item.index === index) {
         return;
@@ -41,16 +37,13 @@ function RenderBurgerInside({ card, index, moveCard}){
     },
   });
 
-  const opacity = isDragging ? styles.opacity : '';
+  const opacity = isDragging ? styles.opacity : "";
 
   dragRef(dropTargetRef(ref));
 
   return (
     <>
-      <div
-        ref={ref}
-        className={`${styles.details_container} ${opacity}`}
-        >
+      <div ref={ref} className={`${styles.details_container} ${opacity}`}>
         <div className={styles.icon}>
           <DragIcon type="primary" />
         </div>
@@ -58,18 +51,20 @@ function RenderBurgerInside({ card, index, moveCard}){
           text={card.name}
           price={card.price}
           thumbnail={card.image}
-          extraClass='mb-4 ml-2'
-          handleClose={()=>{dispatch(removeBurgerFilling(card.keyid))}}
+          extraClass="mb-4 ml-2"
+          handleClose={() => {
+            dispatch(removeBurgerFilling(card.keyid));
+          }}
         />
       </div>
     </>
-  )
-};
+  );
+}
 
 RenderBurgerInside.protoTypes = {
   card: ingredientsType.isRequired,
   index: numberType.isRequired,
-  moveCard: functionType.isRequired
+  moveCard: functionType.isRequired,
 };
 
 export default RenderBurgerInside;

@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 export const textType = PropTypes.string;
 export const numberType = PropTypes.number;
 export const childrenType = PropTypes.element;
 export const boolType = PropTypes.bool;
 export const functionType = PropTypes.func;
-export const groupIngredientsType = PropTypes.oneOf(['bun', 'main', 'sauce']);
+export const groupIngredientsType = PropTypes.oneOf(["bun", "main", "sauce"]);
 export const ingredientsType = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
@@ -21,11 +21,4 @@ export const ingredientsType = PropTypes.shape({
   __v: PropTypes.number.isRequired,
 });
 export const arrayIngredientsType = PropTypes.arrayOf(ingredientsType);
-export const scrollBarType = PropTypes.oneOf(['ingredients', 'detailsOrder']);
-export const orderType = PropTypes.objectOf({
-  name: PropTypes.string.isRequired,
-  order: PropTypes.objectOf({
-    number: PropTypes.number.isRequired
-  }).isRequired,
-  success: PropTypes.bool.isRequired
-})
+export const scrollBarType = PropTypes.oneOf(["ingredients", "detailsOrder"]);

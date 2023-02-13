@@ -10,13 +10,20 @@ import {
 import styles from "./burger-constructor.module.css";
 import ScrollBar from "../scroll-bar/scroll-bar";
 import ScrollBarConstructor from "../scroll-bar-constructor/scroll-bar-constructor";
-import { addBurgerBun, addBurgerFilling } from "../../services/actions/burger-constructor";
+import {
+  addBurgerBun,
+  addBurgerFilling,
+} from "../../services/actions/burger-constructor";
 import { getOrderAction, sumOrder } from "../../services/actions/order";
 import { scrollBarConstants } from "../../utils/constants";
-import { buttonConstants, ingredientConstants, pathConstants,textConstants } from "../../utils/constants";
+import {
+  buttonConstants,
+  ingredientConstants,
+  pathConstants,
+  textConstants,
+} from "../../utils/constants";
 
 function BurgerConstructor() {
-
   const { TYPE_DETAILS_ORDER } = scrollBarConstants;
   const { SAUCE_EN, MAIN_EN, BUN_EN } = ingredientConstants;
   const { SIGN_IN } = pathConstants;
@@ -80,8 +87,8 @@ function BurgerConstructor() {
   const getNumberOrder = () => {
     if (isLoggedIn) {
       dispatch(getOrderAction(handleIdIngredient));
-    }else{
-      navigate(SIGN_IN, {replace: true})
+    } else {
+      navigate(SIGN_IN, { replace: true });
     }
   };
 
