@@ -5,7 +5,6 @@ import {
   editProfile,
   sendEmail,
   sendNewPassword,
-  logoutRequest,
 } from "../../utils/burger-api";
 import { tokenConstants } from "../../utils/constants";
 import { editTokenAction } from "./token";
@@ -47,13 +46,6 @@ export const reset = {
   RESET: "RESET",
   RESET_SUCCESS: "RESET_SUCCESS",
   RESET_FAILED: "RESET_FAILED",
-};
-
-export const logout = {
-  LOGOUT: "LOGOUT",
-  LOGOUT_SUCCESS: "LOGOUT_SUCCESS",
-  LOGOUT_FAILED: "LOGOUT_FAILED",
-  USER_DELETE: "USER_DELETE",
 };
 
 /** регистрация пользователя */
@@ -263,40 +255,5 @@ export function newPasswordAction(data) {
           type: reset.RESET_FAILED,
         });
       });
-  };
-}
-
-/** выход из системы */
-export function logoutRequestAction() {
-  return function (dispatch) {
-    dispatch({
-      type: logout.LOGOUT,
-    });
-    logoutRequest()
-      .then((res) => {
-        if (res && res.success) {
-          dispatch({
-            type: logout.LOGOUT_SUCCESS,
-          });
-        } else {
-          dispatch({
-            type: logout.LOGOUT_FAILED,
-          });
-        }
-      })
-      .catch((err) => {
-        dispatch({
-          type: logout.LOGOUT_FAILED,
-        });
-      });
-  };
-}
-
-/** удалить данные профиля из хранилища при выходе из системы */
-export function deleteUserAction() {
-  return function (dispatch) {
-    dispatch({
-      type: logout.USER_DELETE,
-    });
   };
 }

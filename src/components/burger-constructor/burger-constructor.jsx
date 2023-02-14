@@ -28,13 +28,9 @@ function BurgerConstructor() {
   const { SAUCE_EN, MAIN_EN, BUN_EN } = ingredientConstants;
   const { SIGN_IN } = pathConstants;
   const { SELECT_BUN, SELECT_FILLING } = textConstants;
-
-  const { summed, isLoggedIn, bun, filling } = useSelector((store) => ({
-    summed: store.order.sum,
-    isLoggedIn: store.user.isLoggedIn,
-    bun: store.burgerConstructor.burger.bun,
-    filling: store.burgerConstructor.burger.filling,
-  }));
+  const summed = useSelector(store=>store.order.sum);
+  const isLoggedIn = useSelector(store=>store.user.isLoggedIn);
+  const { bun, filling } = useSelector((store) =>store.burgerConstructor.burger);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

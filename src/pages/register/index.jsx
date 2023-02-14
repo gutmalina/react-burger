@@ -18,10 +18,7 @@ function RegisterPage({ textButton }) {
   const [valueEmail, setValueEmail] = useState("");
   const [valuePassword, setValuePassword] = useState("");
   const dispatch = useDispatch();
-  const { isLoggedIn, isGetSuccess } = useSelector((store) => ({
-    isLoggedIn: store.user.isLoggedIn,
-    isGetSuccess: store.user.isGetSuccess,
-  }));
+  const { isLoggedIn, isGetSuccess } = useSelector((store) =>store.user);
 
   const onChangeName = (e) => {
     setValueName(e.target.value);
@@ -45,10 +42,10 @@ function RegisterPage({ textButton }) {
     );
   };
 
-  /** переадресация на главную страницу после успешной регистрации */
-  if (isLoggedIn && isGetSuccess) {
-    return <Navigate to={pathConstants.HOME} />;
-  }
+  // /** переадресация на главную страницу после успешной регистрации */
+  // if (isLoggedIn && isGetSuccess) {
+  //   return <Navigate to={pathConstants.HOME} />;
+  // }
 
   return (
     <form className={styles.container_form} onSubmit={handleSubmint}>

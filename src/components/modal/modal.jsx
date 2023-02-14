@@ -21,7 +21,7 @@ function Modal({ isOpenModal, textTitle, children }) {
   const classPopup = isOpenModal
     ? `${styles.popup} ${styles.popup_opened}`
     : `${styles.popup}`;
-
+    
   /** закрыть модальное окно */
   const handleCloseModal = useCallback(() => {
     if (!order) {

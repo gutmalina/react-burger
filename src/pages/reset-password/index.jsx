@@ -16,13 +16,7 @@ function ResetPasswordPage({ textButton }) {
   const { HOME, FORGOT, SIGN_IN } = pathConstants;
   const dispatch = useDispatch();
   const { isLoggedIn, isGetSuccess, isForgot, isReset } = useSelector(
-    (store) => ({
-      isLoggedIn: store.user.isLoggedIn,
-      isGetSuccess: store.user.isGetSuccess,
-      isForgot: store.user.isForgot,
-      isReset: store.user.isReset,
-    })
-  );
+    (store) =>store.user);
   const [valuePassword, setValuePassword] = useState("");
   const [valueCode, setValueCode] = useState("");
 
@@ -39,14 +33,14 @@ function ResetPasswordPage({ textButton }) {
     dispatch(newPasswordAction({ password: valuePassword, code: valueCode }));
   };
 
-  /** переадресация */
-  if (isLoggedIn && isGetSuccess) {
-    return <Navigate to={HOME} />;
-  } else if (!isForgot) {
-    return <Navigate to={FORGOT} />;
-  } else if (isReset) {
-    return <Navigate to={SIGN_IN} />;
-  }
+  // /** переадресация */
+  // if (isLoggedIn && isGetSuccess) {
+  //   return <Navigate to={HOME} />;
+  // } else if (!isForgot) {
+  //   return <Navigate to={FORGOT} />;
+  // } else if (isReset) {
+  //   return <Navigate to={SIGN_IN} />;
+  // }
 
   return (
     <form className={styles.container_form} onSubmit={handleSubmint}>

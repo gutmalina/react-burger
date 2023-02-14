@@ -15,10 +15,7 @@ function LoginPage({ textButton }) {
   const dispatch = useDispatch();
   const [valueEmail, setValueEmail] = useState("");
   const [valuePassword, setValuePassword] = useState("");
-  const { isLoggedIn, isGetSuccess } = useSelector((store) => ({
-    isLoggedIn: store.user.isLoggedIn,
-    isGetSuccess: store.user.isGetSuccess,
-  }));
+  const { isLoggedIn, isGetSuccess } = useSelector((store) =>store.user);
   const location = useLocation();
 
   const onChangeEmail = (e) => {
@@ -35,10 +32,10 @@ function LoginPage({ textButton }) {
     );
   };
 
-  /** переадресация на ранее закрытый маршрут после успешной авторизации */
-  if (isLoggedIn && isGetSuccess) {
-    return <Navigate to={location.state?.from || pathConstants.HOME} />;
-  }
+  // /** переадресация на ранее закрытый маршрут после успешной авторизации */
+  // if (isLoggedIn && isGetSuccess) {
+  //   return <Navigate to={location.state?.from || pathConstants.HOME} />;
+  // }
 
   return (
     <form className={styles.container_form} onSubmit={handleSubmint}>

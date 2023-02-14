@@ -5,7 +5,6 @@ import {
   editUser,
   forgot,
   reset,
-  logout,
 } from "../actions/user";
 
 const { REGISTER, REGISTER_SUCCESS, REGISTER_FAILED } = registration;
@@ -14,7 +13,6 @@ const { GET_USER, GET_USER_SUCCESS, GET_USER_FAILED } = getUser;
 const { EDIT, EDIT_SUCCESS, EDIT_FAILED } = editUser;
 const { FORGOT, FORGOT_SUCCESS, FORGOT_FAILED } = forgot;
 const { RESET, RESET_SUCCESS, RESET_FAILED } = reset;
-const { LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILED, USER_DELETE } = logout;
 
 const initialStore = {
   name: "",
@@ -41,9 +39,6 @@ const initialStore = {
 
   isResetRequest: false,
   isResetFailed: false,
-
-  isLogoutRequest: false,
-  isLogoutFailed: false,
 };
 
 export const userReducer = (state = initialStore, action) => {
@@ -164,29 +159,6 @@ export const userReducer = (state = initialStore, action) => {
         ...state,
         isResetRequest: false,
         isResetFailed: true,
-      };
-    case LOGOUT:
-      return {
-        ...state,
-        isLogoutRequest: true,
-        isLogoutFailed: false,
-      };
-    case LOGOUT_SUCCESS:
-      return {
-        ...state,
-        isLogoutRequest: false,
-        isLoggedIn: false,
-      };
-    case LOGOUT_FAILED:
-      return {
-        ...state,
-        isLogoutFailed: true,
-      };
-    case USER_DELETE:
-      return {
-        ...state,
-        name: "",
-        email: "",
       };
     default:
       return state;

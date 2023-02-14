@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
 import ProtectedRoute from "../protected-route/protected-route";
+import OnlyUnAuthRoute from "../only-un-auth-route/only-un-auth-route";
 import AppHeader from "../app-header/app-header";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
@@ -55,7 +56,9 @@ function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
   const dispatch = useDispatch();
-  const { order } = useSelector((store) => store.order.order);
+  const order = useSelector((store) => store.order.order);
+  const { isLoggedIn, isGetSuccess } = useSelector((store) => store.user);
+  const [isOnlyUnAuth, setIsOnlyUnAuth] = useState(false);
   const token = getCookie(ACCESS_TOKEN);
 
   /** получить массива ингридиентов */
@@ -65,10 +68,14 @@ function App() {
 
   /** получить данные пользователя*/
   useEffect(() => {
-    if (token) {
+    if (isLoggedIn || token) {
       dispatch(getProfileAction());
     }
-  }, [dispatch, token]);
+  }, [dispatch, token, isLoggedIn]);
+
+  useEffect(() => {
+    isLoggedIn && isGetSuccess ? setIsOnlyUnAuth(true) : setIsOnlyUnAuth(false);
+  }, [isLoggedIn, isGetSuccess]);
 
   return (
     <>
@@ -107,36 +114,60 @@ function App() {
           path={SIGN_IN}
           exact={true}
           element={
-            <PageOverlay textTitle={LOGIN}>
-              <LoginPage textButton={GO_IN} />
-            </PageOverlay>
+            <OnlyUnAuthRoute
+              redirectTo={location.state?.from || HOME}
+              onlyUnAuth={isOnlyUnAuth}
+              element={
+                <PageOverlay textTitle={LOGIN}>
+                  <LoginPage textButton={GO_IN} />
+                </PageOverlay>
+              }
+            />
           }
         />
         <Route
           path={SIGN_UP}
           exact={true}
           element={
-            <PageOverlay textTitle={REGISTRATION}>
-              <RegisterPage textButton={REGISTER} />
-            </PageOverlay>
+            <OnlyUnAuthRoute
+              redirectTo={HOME}
+              onlyUnAuth={isOnlyUnAuth}
+              element={
+                <PageOverlay textTitle={REGISTRATION}>
+                  <RegisterPage textButton={REGISTER} />
+                </PageOverlay>
+              }
+            />
           }
         />
         <Route
           path={FORGOT}
           exact={true}
           element={
-            <PageOverlay textTitle={FORGOT_PASSWORD}>
-              <ForgotPasswordPage textButton={RESTORE} />
-            </PageOverlay>
+            <OnlyUnAuthRoute
+              redirectTo={HOME}
+              onlyUnAuth={isOnlyUnAuth}
+              element={
+                <PageOverlay textTitle={FORGOT_PASSWORD}>
+                  <ForgotPasswordPage textButton={RESTORE} />
+                </PageOverlay>
+              }
+            />
           }
         />
         <Route
           path={RESET}
           exact={true}
           element={
-            <PageOverlay textTitle={FORGOT_PASSWORD}>
-              <ResetPasswordPage textButton={SAVE} />
-            </PageOverlay>
+            <OnlyUnAuthRoute
+              redirectTo={HOME}
+              onlyUnAuth={isOnlyUnAuth}
+              element={
+                <PageOverlay textTitle={FORGOT_PASSWORD}>
+                  <ResetPasswordPage textButton={SAVE} />
+                </PageOverlay>
+              }
+            />
           }
         />
         <Route

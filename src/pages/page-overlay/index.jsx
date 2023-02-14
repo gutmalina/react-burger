@@ -1,9 +1,5 @@
 import { useLocation, NavLink } from "react-router-dom";
 import { NavForm } from "../nav-form";
-import {
-  logoutRequestAction,
-  deleteUserAction,
-} from "../../services/actions/user";
 import { deleteCookie } from "../../utils/cookie";
 import styles from "./page-overlay.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +10,7 @@ import {
   linkConstants,
 } from "../../utils/constants";
 import { textType, childrenType } from "../../types";
+import { logoutAction } from "../../services/actions/logout";
 
 function PageOverlay({ textTitle, children }) {
   const { ACCESS_TOKEN, REFRESH_TOKEN, PASSWORD } = tokenConstants;
@@ -36,12 +33,11 @@ function PageOverlay({ textTitle, children }) {
   /** выход из системы и удаление данных  */
   const handleLogout = (e) => {
     e.preventDefault();
-    dispath(logoutRequestAction());
+    dispath(logoutAction());
     if (isLoggedIn) {
       deleteCookie(ACCESS_TOKEN);
       localStorage.removeItem(REFRESH_TOKEN);
       localStorage.removeItem(PASSWORD);
-      dispath(deleteUserAction());
     }
   };
 

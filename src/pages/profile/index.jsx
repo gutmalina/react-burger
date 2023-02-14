@@ -15,10 +15,7 @@ function ProfilePage({ buttonSave, linkCancel }) {
   const { NAME, LOGIN } = inputConstants;
   const { PASSWORD } = tokenConstants;
   const dispatch = useDispatch();
-  const { name, email } = useSelector((store) => ({
-    name: store.user.name,
-    email: store.user.email,
-  }));
+  const { name, email } = useSelector((store) =>store.user);
   const password = localStorage.getItem(PASSWORD);
 
   const [valueName, setValueName] = useState(name || "");

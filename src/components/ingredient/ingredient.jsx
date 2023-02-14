@@ -20,7 +20,7 @@ function Ingredient({ ingredient }) {
   });
 
   /** счетчик выбранных ингридиентов */
-  useMemo(() => {
+  const handleCounerIngredient = useMemo(() => {
     const arrBurger = burger.filling.concat(burger.bun, burger.bun);
     const arrId = arrBurger.map((a) => a._id);
     setCount(arrId.filter((a) => a === _id).length);

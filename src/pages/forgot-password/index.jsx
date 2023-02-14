@@ -14,11 +14,7 @@ function ForgotPasswordPage({ textButton }) {
   const { EMAIL } = inputConstants;
   const { HOME, RESET } = pathConstants;
   const dispatch = useDispatch();
-  const { isLoggedIn, isGetSuccess, isForgot } = useSelector((store) => ({
-    isLoggedIn: store.user.isLoggedIn,
-    isGetSuccess: store.user.isGetSuccess,
-    isForgot: store.user.isForgot,
-  }));
+  const { isLoggedIn, isGetSuccess, isForgot } = useSelector((store) =>store.user);
   const [value, setValue] = useState("");
   const onChange = (e) => {
     setValue(e.target.value);
@@ -29,12 +25,12 @@ function ForgotPasswordPage({ textButton }) {
     dispatch(forgotPasswordAction(value));
   };
 
-  /** переадресация */
-  if (isLoggedIn && isGetSuccess) {
-    return <Navigate to={HOME} />;
-  } else if (isForgot) {
-    return <Navigate to={RESET} />;
-  }
+  // /** переадресация */
+  // if (isLoggedIn && isGetSuccess) {
+  //   return <Navigate to={HOME} />;
+  // } else if (isForgot) {
+  //   return <Navigate to={RESET} />;
+  // }
 
   return (
     <form className={styles.container_form} onSubmit={handleSubmint}>
