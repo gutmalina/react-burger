@@ -1,61 +1,60 @@
 import {
-  ADD_BURGER_BUN,
-  ADD_BURGER_FILLING,
-  UPDATE_BURGER_FILLING,
-  REMOVE_BURGER_FILLING
-} from "../actions/actions";
+  ADD_BUN,
+  ADD_FILLING,
+  UPDATE_FILLING,
+  REMOVE_FILLING,
+} from "../actions/burger-constructor";
 
 const initialStore = {
-  burger:
-    {
-      bun: {},
-      filling: []
-    }
+  burger: {
+    bun: [],
+    filling: [],
+  },
 };
 
-export const burgerConstructorReducer = (state= initialStore, action) => {
+export const burgerConstructorReducer = (state = initialStore, action) => {
   switch (action.type) {
-    case ADD_BURGER_BUN: {
+    case ADD_BUN: {
       return {
         ...state,
-        burger:
-          {
-            ...state.burger,
-            bun: action.bun
-          }
-      }
+        burger: {
+          ...state.burger,
+          bun: [action.bun],
+        },
+      };
     }
-    case ADD_BURGER_FILLING: {
+    case ADD_FILLING: {
       return {
         ...state,
-        burger:
-          {
-            ...state.burger,
-            filling: [...state.burger.filling, action.filling]
-          }
-      }
+        burger: {
+          ...state.burger,
+          filling: [...state.burger.filling, action.filling],
+        },
+      };
     }
-    case REMOVE_BURGER_FILLING: {
+    case REMOVE_FILLING: {
       return {
         ...state,
-        burger:
-          {
-            ...state.burger,
-            filling: [...state.burger.filling.filter(item=> item.keyid !== action.keyid)]
-          }
-      }
+        burger: {
+          ...state.burger,
+          filling: [
+            ...state.burger.filling.filter(
+              (item) => item.keyid !== action.keyid
+            ),
+          ],
+        },
+      };
     }
-    case UPDATE_BURGER_FILLING: {
+    case UPDATE_FILLING: {
       return {
         ...state,
-        burger:
-          {
-            ...state.burger,
-            filling: action.filling
-          }
-      }
+        burger: {
+          ...state.burger,
+          filling: action.filling,
+        },
+      };
     }
     default:
-      return state
+      return state;
   }
 };

@@ -4,12 +4,12 @@ import {
   MAKE_ORDER_SUCCESS,
   CLOSE_ORDER,
   SUM_ORDER,
-} from '../actions/actions';
+} from '../actions/order';
 
 const initialStore = {
-  order: {},
-  orderFailed: false,
-  orderRequest: false,
+  order: "",
+  isOrderRequest: false,
+  isOrderFailed: false,
   sum: 0
 };
 
@@ -18,30 +18,30 @@ export const orderReducer = (state= initialStore, action) => {
     case MAKE_ORDER: {
       return {
         ...state,
-        orderRequest: true,
-        orderFailed: false
+        isOrderRequest: true,
+        isOrderFailed: false
       }
     }
     case MAKE_ORDER_SUCCESS: {
       return {
         ...state,
-        order: action.order,
-        orderRequest: false
+        order: action.order.order.number,
+        isOrderRequest: false
       }
     }
     case MAKE_ORDER_FAILED: {
       return {
         ...state,
-        orderRequest: false,
-        orderFailed: true
+        isOrderRequest: false,
+        isOrderFailed: true
       }
     }
     case CLOSE_ORDER: {
       return {
         ...state,
-        order: {},
-        orderFailed: false,
-        orderRequest: false
+        order: "",
+        isOrderFailed: false,
+        isOrderRequest: false
       }
     }
     case SUM_ORDER: {

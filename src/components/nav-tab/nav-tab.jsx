@@ -1,41 +1,30 @@
-import styles from './nav-tab.module.css';
-import { BUTTON_ICON_BURGER } from '../../utils/constants';
-import {
-  textType,
-  childrenType
-} from '../../types/index';
+import { NavLink } from "react-router-dom";
+import styles from "./nav-tab.module.css";
+import { textType, childrenType } from "../../types/index";
 
-function NavTab({
-  type,
-  textSpan,
-  children}){
+function NavTab({ onTo, textSpan, children }) {
+  const activeClassLink = `${styles.link} text text_type_main-default`;
+  const inActiveClassLink = `${styles.link} ${styles.link_inactive} text text_type_main-default text_color_inactive`;
 
-  const classNameItem = (type)
-  ? styles.nav_logo
-  : styles.nav_item ;
-  const classNameSpan = (textSpan === BUTTON_ICON_BURGER)
-  ? `${styles.nav_span} text text_type_main-default`
-  : `${styles.nav_span} text text_type_main-default text_color_inactive`;
-
-  return(
-    // eslint-disable-next-line jsx-a11y/anchor-is-valid
-    <a
-      className={styles.nav_link}
-      href='#'>
-      <li className={classNameItem}>
+  return (
+    <NavLink
+      to={onTo}
+      className={({ isActive }) =>
+        isActive ? activeClassLink : inActiveClassLink
+      }
+    >
+      <li className={styles.nav_item}>
         {children}
-        <span className={classNameSpan}>
-          {textSpan}
-        </span>
+        <span>{textSpan}</span>
       </li>
-    </a>
+    </NavLink>
   );
-};
+}
 
 NavTab.propTypes = {
-  type: textType,
+  onTo: textType,
   textSpan: textType,
-  children: childrenType.isRequired
+  children: childrenType.isRequired,
 };
 
 export default NavTab;
