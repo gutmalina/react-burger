@@ -1,5 +1,5 @@
 import { BASE_URL } from "./config";
-import { getCookie } from "./cookie.ts";
+import { getCookie } from "./cookie";
 import { tokenConstants } from "./constants";
 import { fetchWithToken } from "./auth";
 import { TUser, TEmailUser, TNewPassword } from "./types";

@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, SyntheticEvent } from "react";
 import { useLocation, NavLink } from "react-router-dom";
 import NavForm from "../nav-form";
 import { deleteCookie } from "../../utils/cookie";
@@ -32,7 +32,7 @@ const PageOverlay: FC<PropsWithChildren<TPage>> = ({ textTitle, children }) => {
   const inActiveClassLink = `${styles.link} ${styles.link_inactive} text text_type_main-medium`;
 
   /** выход из системы и удаление данных  */
-  const handleLogout = (e) => {
+  const handleLogout = (e: SyntheticEvent<HTMLElement>) => {
     e.preventDefault();
     dispath(logoutAction());
     if (isLoggedIn) {
