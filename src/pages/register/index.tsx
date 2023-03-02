@@ -46,7 +46,6 @@ const RegisterPage: FC<TPage> = ({ textButton }) => {
           type={"text"}
           placeholder={NAME}
           onChange={onChangeName}
-          icon={false}
           value={valueName}
           name={"name"}
           extraClass="mb-6"
@@ -55,7 +54,6 @@ const RegisterPage: FC<TPage> = ({ textButton }) => {
           onChange={onChangeEmail}
           value={valueEmail}
           name={"email"}
-          isIcon={false}
           extraClass="mb-6"
         />
         <PasswordInput

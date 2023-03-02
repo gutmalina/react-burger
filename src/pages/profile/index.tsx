@@ -7,6 +7,8 @@ import {
   EmailInput,
   PasswordInput,
   Button,
+  EditIcon,
+  CloseIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { inputConstants, tokenConstants } from "../../utils/constants";
 import { TPage } from "../../utils/types";
@@ -15,7 +17,7 @@ const ProfilePage: FC<TPage> = ({ textButton, linkCancel }) => {
   const { NAME, LOGIN_NANE } = inputConstants;
   const { PASSWORD } = tokenConstants;
   const dispatch = useDispatch<any>();
-  const { name, email } = useSelector((store: any) =>store.user);
+  const { name, email } = useSelector((store: any) => store.user);
   const password = localStorage.getItem(PASSWORD);
 
   const [valueName, setValueName] = useState(name || "");
@@ -77,46 +79,86 @@ const ProfilePage: FC<TPage> = ({ textButton, linkCancel }) => {
     inactiveElement();
   }, [name, email]);
 
+  /** изменение иконок инпутов */
+  const clickNameInput = () => {
+    setIsDisabledName(false);
+    if (!isDisabledName) {
+      setValueName("");
+      setIsHiddenButton(false);
+    }
+  };
+
+  const clickEmailInput = () => {
+    setIsDisabledEmail(false);
+    if (!isDisabledEmail) {
+      setValueEmail("");
+      setIsHiddenButton(false);
+    }
+  };
+
+  const clickPasswordInput = () => {
+    setIsDisabledPassword(false);
+    if (!isDisabledPassword) {
+      setValuePassword("");
+      setIsHiddenButton(false);
+    }
+  };
+
   return (
     <form className={styles.container_form} onSubmit={handleSubmint}>
       <fieldset className={styles.inputs}>
-        <Input
-          type={"text"}
-          placeholder={NAME}
-          onChange={onChangeName}
-          icon={isDisabledName ? "EditIcon" : "CloseIcon"}
-          value={valueName}
-          name={"name"}
-          extraClass="mb-6"
-          onIconClick={() => {
-            setIsDisabledName(false);
-          }}
-          disabled={isDisabledName}
-        />
-        <EmailInput
-          placeholder={LOGIN_NANE}
-          onChange={onChangeEmail}
-          value={valueEmail}
-          name={"email"}
-          icon={isDisabledEmail ? "EditIcon" : "CloseIcon"}
-          extraClass="mb-6"
-          onIconClick={() => {
-            setIsDisabledEmail(false);
-          }}
-          disabled={isDisabledEmail}
-        />
-        <PasswordInput
-          onChange={onChangePassword}
-          value={valuePassword || ''}
-          name={"password"}
-          icon={isDisabledEmail ? "EditIcon" : "CloseIcon"}
-          extraClass={`${styles.icon} "mb-4"`}
-          autoComplete="true"
-          onIconClick={() => {
-            setIsDisabledPassword(false);
-          }}
-          disabled={isDisabledPassword}
-        />
+        <div className={styles.input}>
+          <Input
+            type={"text"}
+            placeholder={NAME}
+            onChange={onChangeName}
+            value={valueName}
+            name={"name"}
+            extraClass="mb-6"
+            disabled={isDisabledName}
+          />
+          <div className={styles.icon} onClick={clickNameInput}>
+            {isDisabledName ? (
+              <EditIcon type="primary" />
+            ) : (
+              <CloseIcon type="primary" />
+            )}
+          </div>
+        </div>
+        <div className={styles.input}>
+          <EmailInput
+            placeholder={LOGIN_NANE}
+            onChange={onChangeEmail}
+            value={valueEmail}
+            name={"email"}
+            extraClass="mb-6"
+            disabled={isDisabledEmail}
+          />
+          <div className={styles.icon} onClick={clickEmailInput}>
+            {isDisabledEmail ? (
+              <EditIcon type="primary" />
+            ) : (
+              <CloseIcon type="primary" />
+            )}
+          </div>
+        </div>
+        <div className={styles.input}>
+          <PasswordInput
+            onChange={onChangePassword}
+            value={valuePassword || ""}
+            name={"password"}
+            extraClass={`${styles.icon_password} "mb-4"`}
+            autoComplete="true"
+            disabled={isDisabledPassword}
+          />
+          <div className={styles.icon} onClick={clickPasswordInput}>
+            {isDisabledPassword ? (
+              <EditIcon type="primary" />
+            ) : (
+              <CloseIcon type="primary" />
+            )}
+          </div>
+        </div>
       </fieldset>
       <div className={buttonClassName}>
         <button

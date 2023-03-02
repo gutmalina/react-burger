@@ -31,7 +31,6 @@ const ForgotPasswordPage: FC<TPage> = ({ textButton }) => {
           onChange={onChange}
           value={value}
           name={"email"}
-          isIcon={false}
           extraClass="mb-4"
         />
       </fieldset>

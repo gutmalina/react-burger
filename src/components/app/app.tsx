@@ -81,10 +81,9 @@ const App: FC = () => {
     <>
       <AppHeader />
       <Routes location={location}>
-        <Route path={HOME} exact={true} element={<HomePage />} />
+        <Route path={HOME} element={<HomePage />} />
         <Route
           path={PROFILE}
-          exact={true}
           element={
             <ProtectedRoute
               redirectTo={SIGN_IN}
@@ -98,7 +97,6 @@ const App: FC = () => {
         />
         <Route
           path={ORDER_HISTORY}
-          exact={true}
           element={
             <ProtectedRoute
               redirectTo={SIGN_IN}
@@ -112,7 +110,6 @@ const App: FC = () => {
         />
         <Route
           path={SIGN_IN}
-          exact={true}
           element={
             <OnlyUnAuthRoute
               redirectTo={location.state?.from || HOME}
@@ -127,7 +124,6 @@ const App: FC = () => {
         />
         <Route
           path={SIGN_UP}
-          exact={true}
           element={
             <OnlyUnAuthRoute
               redirectTo={HOME}
@@ -142,7 +138,6 @@ const App: FC = () => {
         />
         <Route
           path={FORGOT}
-          exact={true}
           element={
             <OnlyUnAuthRoute
               redirectTo={HOME}
@@ -157,7 +152,6 @@ const App: FC = () => {
         />
         <Route
           path={RESET}
-          exact={true}
           element={
             <OnlyUnAuthRoute
               redirectTo={HOME}
@@ -172,7 +166,6 @@ const App: FC = () => {
         />
         <Route
           path={INGREDIENTS_ID}
-          exact={true}
           element={
             <PageIngredient textTitle={DETAILS_INGREDIENT}>
               <IngredientDetails />
@@ -181,7 +174,6 @@ const App: FC = () => {
         />
         <Route
           path={NOT_FOUND}
-          exact={true}
           element={
             <PageOverlay textTitle={NOT_FOUND_TEXT}>
               <NotFoundPage textButton={BACK} />
@@ -194,7 +186,6 @@ const App: FC = () => {
           <Routes>
             <Route
               path={INGREDIENTS_ID}
-              exact={true}
               element={
                 <Modal isOpenModal={background} textTitle={DETAILS_INGREDIENT}>
                   <IngredientDetails />

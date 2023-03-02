@@ -44,7 +44,6 @@ const ResetPasswordPage: FC<TPage> = ({ textButton }) => {
           type={"text"}
           placeholder={WRITE_CODE}
           onChange={onChangeCode}
-          icon={false}
           value={valueCode}
           name={"name"}
           extraClass="mb-4"
