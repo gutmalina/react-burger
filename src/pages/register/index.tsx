@@ -1,4 +1,4 @@
-import { useState, FC, ChangeEvent, FormEvent } from "react";
+import { FC, FormEvent } from "react";
 import { useDispatch } from "react-redux";
 import { registrationAction } from "../../services/actions/user";
 import styles from "../page-overlay/page-overlay.module.css";
@@ -10,31 +10,24 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { inputConstants } from "../../utils/constants";
 import { TPage } from "../../utils/types";
+import { useForm } from "../../hooks/useForm";
 
 const RegisterPage: FC<TPage> = ({ textButton }) => {
   const { NAME } = inputConstants;
-  const [valueName, setValueName] = useState("");
-  const [valueEmail, setValueEmail] = useState("");
-  const [valuePassword, setValuePassword] = useState("");
   const dispatch = useDispatch<any>();
 
-  const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
-    setValueName(e.target.value);
-  };
-  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setValueEmail(e.target.value);
-  };
-  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setValuePassword(e.target.value);
-  };
+  const { values, handleChange } = useForm(
+    { name: "", email: "", password: "" },
+    { nameDisabled: true, emailDisabled: true, passwordDisabled: true }
+  );
 
   /** зарегистрировать пользователя */
   const handleSubmint = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(registrationAction({
-        name: valueName,
-        email: valueEmail,
-        password: valuePassword,
+        name: values.name,
+        email: values.email,
+        password: values.password,
       })
     );
   };
@@ -45,20 +38,20 @@ const RegisterPage: FC<TPage> = ({ textButton }) => {
         <Input
           type={"text"}
           placeholder={NAME}
-          onChange={onChangeName}
-          value={valueName}
+          onChange={handleChange}
+          value={values.name}
           name={"name"}
           extraClass="mb-6"
         />
         <EmailInput
-          onChange={onChangeEmail}
-          value={valueEmail}
+          onChange={handleChange}
+          value={values.email}
           name={"email"}
           extraClass="mb-6"
         />
         <PasswordInput
-          onChange={onChangePassword}
-          value={valuePassword}
+          onChange={handleChange}
+          value={values.password}
           name={"password"}
           extraClass="mb-4"
           autoComplete="true"

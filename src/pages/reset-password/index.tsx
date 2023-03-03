@@ -1,4 +1,4 @@
-import { useState, FC, ChangeEvent, FormEvent } from "react";
+import { FC, FormEvent } from "react";
 import { useDispatch } from "react-redux";
 import { newPasswordAction } from "../../services/actions/user";
 import styles from "../page-overlay/page-overlay.module.css";
@@ -9,24 +9,20 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { inputConstants } from "../../utils/constants";
 import { TPage } from "../../utils/types";
+import { useForm } from "../../hooks/useForm";
 
 const ResetPasswordPage: FC<TPage> = ({ textButton }) => {
   const { WRITE_CODE, WRITE_NEW_PASSWORD } = inputConstants;
   const dispatch = useDispatch<any>();
-  const [valuePassword, setValuePassword] = useState("");
-  const [valueCode, setValueCode] = useState("");
-
-  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setValuePassword(e.target.value);
-  };
-  const onChangeCode = (e: ChangeEvent<HTMLInputElement>) => {
-    setValueCode(e.target.value);
-  };
+  const { values, handleChange } = useForm(
+    { password: "", code: "" },
+    { passwordDisabled: true, codeDisabled: true }
+  );
 
   /** зарегистрировать пользователя */
   const handleSubmint = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(newPasswordAction({ password: valuePassword, code: valueCode }));
+    dispatch(newPasswordAction({ password: values.password, code: values.code }));
   };
 
   return (
@@ -34,8 +30,8 @@ const ResetPasswordPage: FC<TPage> = ({ textButton }) => {
       <fieldset className={styles.inputs}>
         <PasswordInput
           placeholder={WRITE_NEW_PASSWORD}
-          onChange={onChangePassword}
-          value={valuePassword}
+          onChange={handleChange}
+          value={values.password}
           name={"password"}
           extraClass="mb-6"
           autoComplete="true"
@@ -43,9 +39,9 @@ const ResetPasswordPage: FC<TPage> = ({ textButton }) => {
         <Input
           type={"text"}
           placeholder={WRITE_CODE}
-          onChange={onChangeCode}
-          value={valueCode}
-          name={"name"}
+          onChange={handleChange}
+          value={values.code}
+          name={"code"}
           extraClass="mb-4"
         />
       </fieldset>

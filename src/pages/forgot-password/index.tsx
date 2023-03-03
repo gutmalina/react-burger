@@ -1,4 +1,4 @@
-import { useState, FC, ChangeEvent, FormEvent } from "react";
+import { FC, FormEvent } from "react";
 import { useDispatch } from "react-redux";
 import { forgotPasswordAction } from "../../services/actions/user";
 import styles from "../page-overlay/page-overlay.module.css";
@@ -8,19 +8,19 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { inputConstants } from "../../utils/constants";
 import { TPage } from "../../utils/types";
+import { useForm } from "../../hooks/useForm";
 
 const ForgotPasswordPage: FC<TPage> = ({ textButton }) => {
   const { EMAIL } = inputConstants;
   const dispatch = useDispatch<any>();
-  const [value, setValue] = useState<string>("");
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
+  const { values, handleChange } = useForm(
+    { email: "" },
+    { emailDisabled: true }
+  );
 
   const handleSubmint = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(forgotPasswordAction(value));
+    dispatch(forgotPasswordAction(values.email));
   };
 
   return (
@@ -28,8 +28,8 @@ const ForgotPasswordPage: FC<TPage> = ({ textButton }) => {
       <fieldset className={styles.inputs}>
         <EmailInput
           placeholder={EMAIL}
-          onChange={onChange}
-          value={value}
+          onChange={handleChange}
+          value={values.email}
           name={"email"}
           extraClass="mb-4"
         />

@@ -198,7 +198,6 @@ export function newPasswordAction(data) {
           dispatch({
             type: reset.RESET_SUCCESS,
           });
-          localStorage.setItem(PASSWORD, data.password);
         } else {
           dispatch({
             type: reset.RESET_FAILED,

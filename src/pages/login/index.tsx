@@ -1,4 +1,4 @@
-import { useState, FC, ChangeEvent, FormEvent } from "react";
+import { FC, FormEvent } from "react";
 import { useDispatch } from "react-redux";
 import { authenticationAction } from "../../services/actions/user";
 import styles from "../page-overlay/page-overlay.module.css";
@@ -8,23 +8,19 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TPage } from "../../utils/types";
+import { useForm } from "../../hooks/useForm";
 
 const LoginPage: FC<TPage> = ({ textButton }) => {
   const dispatch = useDispatch<any>();
-  const [valueEmail, setValueEmail] = useState<string>("");
-  const [valuePassword, setValuePassword] = useState<string>("");
-
-  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setValueEmail(e.target.value);
-  };
-  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setValuePassword(e.target.value);
-  };
+  const { values, handleChange } = useForm(
+    { email: "", password: "" },
+    { emailDisabled: true, passwordDisabled: true }
+  );
 
   const handleSubmint = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
-      authenticationAction({ email: valueEmail, password: valuePassword })
+      authenticationAction({ email: values.email, password: values.password })
     );
   };
 
@@ -32,15 +28,15 @@ const LoginPage: FC<TPage> = ({ textButton }) => {
     <form className={styles.container_form} onSubmit={handleSubmint}>
       <fieldset className={styles.inputs}>
         <EmailInput
-          onChange={onChangeEmail}
-          value={valueEmail}
+          onChange={handleChange}
+          value={values.email}
           name={"email"}
           isIcon={false}
           extraClass="mb-6"
         />
         <PasswordInput
-          onChange={onChangePassword}
-          value={valuePassword}
+          onChange={handleChange}
+          value={values.password}
           name={"password"}
           extraClass="mb-4"
           autoComplete="true"
