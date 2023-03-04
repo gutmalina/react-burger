@@ -26,7 +26,7 @@ import { TIngredient } from "../../utils/types";
 
 const BurgerConstructor: FC = () => {
   const { TYPE_DETAILS_ORDER } = scrollBarConstants;
-  const { SAUCE_EN, MAIN_EN, BUN_EN } = ingredientConstants;
+  const { SAUCE_EN, MAIN_EN, BUN_EN, BUN_TOP, BUN_BOTTOM } = ingredientConstants;
   const { SIGN_IN } = pathConstants;
   const { SELECT_BUN, SELECT_FILLING } = textConstants;
   const summed = useSelector((store: any) => store.order.sum);
@@ -97,7 +97,7 @@ const BurgerConstructor: FC = () => {
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={bun[0].name}
+          text={`${bun[0].name} ${BUN_TOP}`}
           price={bun[0].price}
           thumbnail={bun[0].image}
           extraClass={`${styles.element} mb-4`}
@@ -127,7 +127,7 @@ const BurgerConstructor: FC = () => {
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={bun[0].name}
+          text={`${bun[0].name} ${BUN_BOTTOM}`}
           price={bun[0].price}
           thumbnail={bun[0].image}
           extraClass={`${styles.element} mt-1 mb-10`}

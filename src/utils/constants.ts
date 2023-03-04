@@ -55,6 +55,8 @@ export const textConstants = {
 };
 
 export const ingredientConstants = {
+  BUN_TOP: "(верх)",
+  BUN_BOTTOM: "(низ)",
   BUN_EN: "bun",
   MAIN_EN: "main",
   SAUCE_EN: "sauce",

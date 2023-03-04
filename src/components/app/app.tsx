@@ -9,6 +9,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
 import { getIngredientsAction } from "../../services/actions/burger-ingredients";
 import { getProfileAction } from "../../services/actions/user";
+import { closeOrder } from "../../services/actions/order";
 import { getCookie } from "../../utils/cookie";
 import {
   buttonConstants,
@@ -77,10 +78,15 @@ const App: FC = () => {
     isLoggedIn && isGetSuccess ? setIsOnlyUnAuth(true) : setIsOnlyUnAuth(false);
   }, [isLoggedIn, isGetSuccess]);
 
+  /** закрыть модальное окно Ордер */
+  const onCloseOrder = () => {
+    dispatch(closeOrder());
+  };
+
   return (
     <>
       <AppHeader />
-      <Routes location={location}>
+      <Routes location={background || location}>
         <Route path={HOME} element={<HomePage />} />
         <Route
           path={PROFILE}
@@ -187,7 +193,7 @@ const App: FC = () => {
             <Route
               path={INGREDIENTS_ID}
               element={
-                <Modal isOpenModal={background} textTitle={DETAILS_INGREDIENT}>
+                <Modal textTitle={DETAILS_INGREDIENT}>
                   <IngredientDetails />
                 </Modal>
               }
@@ -195,9 +201,11 @@ const App: FC = () => {
           </Routes>
         </>
       )}
-      <Modal isOpenModal={order}>
-        <OrderDetails />
-      </Modal>
+      {order && (
+        <Modal onClose={onCloseOrder}>
+          <OrderDetails />
+        </Modal>
+      )}
     </>
   );
 };

@@ -38,13 +38,11 @@ export type TTypeScroll = {
 }
 
 export type TModal = {
-  isOpenModal: boolean;
+  onClose?: ()=>void,
   textTitle?: string
 }
 
-export type TCloseModal = {
-  onClose: ()=>void
-}
+export type TCloseModal = Omit<TModal, 'textTitle'>
 
 export type TLink = {
   onTo: string,
