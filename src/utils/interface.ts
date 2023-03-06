@@ -1,10 +1,4 @@
 export interface IRouter {
-  redirectTo: string,
-  element: JSX.Element
+  element: JSX.Element,
+  onlyUnAuth?: boolean
 }
-
-export interface IRouterOnlyunAuth extends IRouter {
-  onlyUnAuth: boolean
-}
-
-

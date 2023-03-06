@@ -1,22 +1,21 @@
-import { useEffect, useState, FC } from "react";
+import { useEffect, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
 import ProtectedRoute from "../protected-route/protected-route";
-import OnlyUnAuthRoute from "../only-un-auth-route/only-un-auth-route";
 import AppHeader from "../app-header/app-header";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
 import { getIngredientsAction } from "../../services/actions/burger-ingredients";
 import { getProfileAction } from "../../services/actions/user";
-import { closeOrder } from "../../services/actions/order";
 import { getCookie } from "../../utils/cookie";
+import { closeOrder } from "../../services/actions/order";
 import {
   buttonConstants,
   pathConstants,
   textConstants,
-  tokenConstants,
   linkConstants,
+  tokenConstants
 } from "../../utils/constants";
 import {
   HomePage,
@@ -52,14 +51,13 @@ const App: FC = () => {
     NOT_FOUND_TEXT,
   } = textConstants;
   const { CANCEL, BACK } = linkConstants;
-  const { ACCESS_TOKEN } = tokenConstants;
+  const {ACCESS_TOKEN} = tokenConstants
 
   const location = useLocation();
   const background = location.state && location.state.background;
   const dispatch = useDispatch<any>();
   const order = useSelector((store: any) => store.order.order);
-  const { isLoggedIn, isGetSuccess } = useSelector((store: any) => store.user);
-  const [isOnlyUnAuth, setIsOnlyUnAuth] = useState(false);
+  const isLoggedIn = useSelector((store: any)=> store.user.isLoggedIn)
   const token = getCookie(ACCESS_TOKEN);
 
   /** получить массива ингридиентов */
@@ -73,10 +71,6 @@ const App: FC = () => {
       dispatch(getProfileAction());
     }
   }, [dispatch, token, isLoggedIn]);
-
-  useEffect(() => {
-    isLoggedIn && isGetSuccess ? setIsOnlyUnAuth(true) : setIsOnlyUnAuth(false);
-  }, [isLoggedIn, isGetSuccess]);
 
   /** закрыть модальное окно Ордер */
   const onCloseOrder = () => {
@@ -92,7 +86,6 @@ const App: FC = () => {
           path={PROFILE}
           element={
             <ProtectedRoute
-              redirectTo={SIGN_IN}
               element={
                 <PageOverlay>
                   <ProfilePage textButton={SAVE} linkCancel={CANCEL} />
@@ -105,7 +98,6 @@ const App: FC = () => {
           path={ORDER_HISTORY}
           element={
             <ProtectedRoute
-              redirectTo={SIGN_IN}
               element={
                 <PageOverlay>
                   <OrderPage textButton={BACK} />
@@ -117,9 +109,8 @@ const App: FC = () => {
         <Route
           path={SIGN_IN}
           element={
-            <OnlyUnAuthRoute
-              redirectTo={location.state?.from || HOME}
-              onlyUnAuth={isOnlyUnAuth}
+            <ProtectedRoute
+              onlyUnAuth={true}
               element={
                 <PageOverlay textTitle={LOGIN}>
                   <LoginPage textButton={GO_IN} />
@@ -131,9 +122,8 @@ const App: FC = () => {
         <Route
           path={SIGN_UP}
           element={
-            <OnlyUnAuthRoute
-              redirectTo={HOME}
-              onlyUnAuth={isOnlyUnAuth}
+            <ProtectedRoute
+              onlyUnAuth={true}
               element={
                 <PageOverlay textTitle={REGISTRATION}>
                   <RegisterPage textButton={REGISTER} />
@@ -145,9 +135,8 @@ const App: FC = () => {
         <Route
           path={FORGOT}
           element={
-            <OnlyUnAuthRoute
-              redirectTo={HOME}
-              onlyUnAuth={isOnlyUnAuth}
+            <ProtectedRoute
+              onlyUnAuth={true}
               element={
                 <PageOverlay textTitle={FORGOT_PASSWORD}>
                   <ForgotPasswordPage textButton={RESTORE} />
@@ -159,9 +148,8 @@ const App: FC = () => {
         <Route
           path={RESET}
           element={
-            <OnlyUnAuthRoute
-              redirectTo={HOME}
-              onlyUnAuth={isOnlyUnAuth}
+            <ProtectedRoute
+              onlyUnAuth={true}
               element={
                 <PageOverlay textTitle={FORGOT_PASSWORD}>
                   <ResetPasswordPage textButton={SAVE} />

@@ -19,12 +19,12 @@ const handleOptions = (method: string) => {
 };
 
 /** проверить ответ*/
-const checkResponse = (res: Response) => {
+const checkResponse = (res: any) => {
   return res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`);
 };
 
 const checkSuccess = (res: any) => {
-  return res && res.success ? res : Promise.reject(`Ответ не success: ${res}`);
+  return res.success ? res : Promise.reject(`Ответ не success: ${res}`);
 };
 
 /** универсальная функция запроса с проверкой ответа */
@@ -49,7 +49,7 @@ const fetchWithToken = async (
     const res = await request(url, method, data);
     return await checkSuccess(res);
   } catch (err: any) {
-    if (err.message === "jwt expired" || err.status === 403) {
+    if (err.message === "jwt expired" || err.status === 403 || err === "Ошибка 403") {
       const refreshData = await editToken(); //обновляем токен
       if (!refreshData.success) {
         return Promise.reject(refreshData);
@@ -64,4 +64,4 @@ const fetchWithToken = async (
   }
 };
 
-export { handleOptions, checkResponse, checkSuccess, request, fetchWithToken };
+export { request, fetchWithToken };

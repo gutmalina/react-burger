@@ -20,6 +20,7 @@ const initialStore = {
   isLoggedIn: false,
   isForgot: false,
   isReset: false,
+  isGetUser: false,
 
   isRegisterRequest: false,
   isRegisterFailed: false,
@@ -95,6 +96,7 @@ export const userReducer = (state = initialStore, action) => {
         ...state,
         name: action.user.name,
         email: action.user.email,
+        isGetUser: true,
         isLoggedIn: true,
         isGetSuccess: true,
         isGetRequest: false,
@@ -102,6 +104,7 @@ export const userReducer = (state = initialStore, action) => {
     case GET_USER_FAILED:
       return {
         ...state,
+        isGetUser: false,
         isGetRequest: false,
         isGetFailed: true,
       };

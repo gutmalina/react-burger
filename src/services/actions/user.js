@@ -131,7 +131,7 @@ export function getProfileAction() {
         });
       });
   };
-}
+};
 
 /** обновить данные профиля */
 export function editProfileAction(user) {

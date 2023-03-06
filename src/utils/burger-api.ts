@@ -1,7 +1,6 @@
 import { tokenConstants } from "./constants";
-import { fetchWithToken } from "./api";
+import { request, fetchWithToken } from "./api";
 import { TUser, TEmailUser, TNewPassword } from "./types";
-import { request } from "./api";
 
 const { REFRESH_TOKEN } = tokenConstants;
 
