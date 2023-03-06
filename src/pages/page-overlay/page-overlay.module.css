@@ -49,6 +49,19 @@
   padding: 0;
   margin: 0;
 }
+.input {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  top: 21px;
+  right: 26px;
+}
+
+.icon_password svg {
+  display: none;
+}
 
 .buttons {
   width: 100%;

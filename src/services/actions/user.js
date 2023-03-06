@@ -1,4 +1,4 @@
-import { setCookie } from "../../utils/cookie";
+import { setCookie } from "../../utils/cookie.ts";
 import { registerRequest, loginRequest } from "../../utils/auth";
 import {
   getProfile,
@@ -7,8 +7,6 @@ import {
   sendNewPassword,
 } from "../../utils/burger-api";
 import { tokenConstants } from "../../utils/constants";
-import { editTokenAction } from "./token";
-import { editToken } from "../../utils/auth";
 
 const { ACCESS_TOKEN, REFRESH_TOKEN, PASSWORD } = tokenConstants;
 
@@ -122,13 +120,6 @@ export function getProfileAction() {
             user: res.user,
           });
         } else {
-          if (res.message === "jwt expired") {
-            dispatch(editTokenAction());
-          } else {
-            dispatch({
-              type: getUser.GET_USER_FAILED,
-            });
-          }
           dispatch({
             type: getUser.GET_USER_FAILED,
           });
@@ -156,42 +147,6 @@ export function editProfileAction(user) {
             user: res.user,
           });
         } else {
-          if (res.message === "jwt expired") {
-            editToken()
-              .then((res) => {
-                setCookie(ACCESS_TOKEN, res.accessToken);
-                localStorage.setItem(REFRESH_TOKEN, res.refreshToken);
-                if (res && res.success) {
-                  editProfile(user)
-                    .then((res) => {
-                      if (res && res.success) {
-                        dispatch({
-                          type: editUser.EDIT_SUCCESS,
-                          user: res.user,
-                        });
-                      } else {
-                        dispatch({
-                          type: editUser.EDIT_FAILED,
-                        });
-                      }
-                    })
-                    .catch((err) => {
-                      dispatch({
-                        type: editUser.EDIT_FAILED,
-                      });
-                    });
-                }
-              })
-              .catch((err) => {
-                dispatch({
-                  type: editUser.EDIT_FAILED,
-                });
-              });
-          } else {
-            dispatch({
-              type: editUser.EDIT_FAILED,
-            });
-          }
           dispatch({
             type: editUser.EDIT_FAILED,
           });
@@ -243,7 +198,6 @@ export function newPasswordAction(data) {
           dispatch({
             type: reset.RESET_SUCCESS,
           });
-          localStorage.setItem(PASSWORD, data.password);
         } else {
           dispatch({
             type: reset.RESET_FAILED,
