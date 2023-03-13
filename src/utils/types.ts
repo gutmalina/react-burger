@@ -11,12 +11,13 @@ export type TIngredient = {
   image_mobile: string;
   image_large: string;
   __v: number;
-  keyid?: number;
+  keyid?: string;
 };
 
 export type TArrayIngredients = {
   arrayIngredients: TIngredient[]
 };
+
 export type TPropsIngredient = {
   ingredient: TIngredient
 };
@@ -68,4 +69,3 @@ export type TNewPassword = {
   password: string,
   code: string
 }
-

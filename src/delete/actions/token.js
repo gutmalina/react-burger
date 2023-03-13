@@ -1,5 +1,5 @@
 import { editToken } from "../../utils/auth";
-import { setCookie } from "../../utils/cookie.ts";
+import { setCookie } from "../../utils/cookie";
 import { tokenConstants } from "../../utils/constants";
 
 const { ACCESS_TOKEN, REFRESH_TOKEN } = tokenConstants;

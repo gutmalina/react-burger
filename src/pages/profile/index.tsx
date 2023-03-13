@@ -1,7 +1,7 @@
 import { useEffect, FC, FormEvent, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks/useForm";
-import { editProfileAction } from "../../services/actions/user";
+import { editProfileAction } from "../../services/actions/user/user";
 import styles from "../page-overlay/page-overlay.module.css";
 import {
   Input,

@@ -2,7 +2,7 @@ import { useEffect, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import RenderIngredient from "../render-ingredient/render-ingredient";
-import { activeTabBarAction } from "../../services/actions/burger-ingredients";
+import { activeTabBarAction } from "../../services/actions/burger-ingredients/burger-ingredients";
 import { ingredientConstants } from "../../utils/constants";
 import { TIngredient } from "../../utils/types";
 

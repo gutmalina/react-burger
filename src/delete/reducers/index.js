@@ -1,4 +1,4 @@
-import { appReducer } from "./app";
+import { appReducer } from "../../services/reducers/app";
 import { LOGOUT } from "../actions/logout";
 
 export const rootReducer = (state, action) => {

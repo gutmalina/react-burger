@@ -1,12 +1,12 @@
-import { setCookie } from "../../utils/cookie.ts";
-import { registerRequest, loginRequest } from "../../utils/auth";
+import { setCookie } from "../../utils/cookie.js";
+import { registerRequest, loginRequest } from "../../utils/auth.js";
 import {
   getProfile,
   editProfile,
   sendEmail,
   sendNewPassword,
-} from "../../utils/burger-api";
-import { tokenConstants } from "../../utils/constants";
+} from "../../utils/burger-api.js";
+import { tokenConstants } from "../../utils/constants.js";
 
 const { ACCESS_TOKEN, REFRESH_TOKEN, PASSWORD } = tokenConstants;
 

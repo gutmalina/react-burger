@@ -3,16 +3,25 @@ import {
   ADD_FILLING,
   UPDATE_FILLING,
   REMOVE_FILLING,
-} from "../actions/burger-constructor";
+} from "../constants/index";
+import { TIngredient } from "../../utils/types";
+import { TBurgerConstructorActions } from "../actions/burger-constructor/types";
 
-const initialStore = {
+type TBurgerConstructorStore = {
+  burger: {
+    bun: TIngredient[][],
+    filling: TIngredient[][],
+  },
+};
+
+const initialStore: TBurgerConstructorStore = {
   burger: {
     bun: [],
     filling: [],
   },
 };
 
-export const burgerConstructorReducer = (state = initialStore, action) => {
+export const burgerConstructorReducer = (state = initialStore, action: TBurgerConstructorActions): TBurgerConstructorStore => {
   switch (action.type) {
     case ADD_BUN: {
       return {
@@ -39,7 +48,7 @@ export const burgerConstructorReducer = (state = initialStore, action) => {
           ...state.burger,
           filling: [
             ...state.burger.filling.filter(
-              (item) => item.keyid !== action.keyid
+              (item: any) => item.keyid !== action.keyid
             ),
           ],
         },
@@ -50,7 +59,7 @@ export const burgerConstructorReducer = (state = initialStore, action) => {
         ...state,
         burger: {
           ...state.burger,
-          filling: action.filling,
+          filling: [action.filling],
         },
       };
     }

@@ -1,6 +1,6 @@
 import { FC, FormEvent } from "react";
 import { useDispatch } from "react-redux";
-import { forgotPasswordAction } from "../../services/actions/user";
+import { forgotPasswordAction } from "../../services/actions/user/user";
 import styles from "../page-overlay/page-overlay.module.css";
 import {
   EmailInput,

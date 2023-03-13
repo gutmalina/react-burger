@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 import RenderBurgerInside from "../render-burger-inside/render-burger-inside";
-import { updateBurgerFilling } from "../../services/actions/burger-constructor";
+import { updateBurgerFilling } from "../../services/actions/burger-constructor/burger-constructor";
 import { TIngredient, TArrayIngredients } from "../../utils/types";
 
 const ScrollBarConstructor: FC<TArrayIngredients> = ({ arrayIngredients }) => {

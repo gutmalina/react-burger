@@ -10,7 +10,7 @@ import {
   textConstants,
   linkConstants,
 } from "../../utils/constants";
-import { logoutAction } from "../../services/actions/logout";
+import { logoutAction } from "../../services/actions/logout/logout";
 import { TPage } from "../../utils/types";
 
 const PageOverlay: FC<PropsWithChildren<TPage>> = ({ textTitle, children }) => {

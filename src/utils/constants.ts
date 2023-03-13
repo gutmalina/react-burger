@@ -5,8 +5,9 @@ export const headerConstants = {
 };
 
 export const scrollBarConstants = {
-  TYPE_INGREDIENTS: "ingredients",
-  TYPE_DETAILS_ORDER: "detailsOrder",
+  TYPE_INGREDIENTS: "bar_ingredients",
+  TYPE_DETAILS_ORDER: "bar_details",
+  TYPE_ORDERS: "bar_orders",
 };
 
 export const buttonConstants = {
@@ -87,3 +88,9 @@ export const tokenConstants = {
   REFRESH_TOKEN: "refreshToken",
   PASSWORD: "password",
 };
+
+export const orderConstants = {
+  STATUS_CREATED: "Создан",
+  STATUS_COOK: "Готовиться",
+  STATUS_DONE: "Выполнен",
+}

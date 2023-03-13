@@ -1,6 +1,6 @@
 import { FC, FormEvent } from "react";
 import { useDispatch } from "react-redux";
-import { registrationAction } from "../../services/actions/user";
+import { registrationAction } from "../../services/actions/user/user";
 import styles from "../page-overlay/page-overlay.module.css";
 import {
   Input,

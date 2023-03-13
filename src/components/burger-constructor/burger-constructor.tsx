@@ -13,8 +13,8 @@ import ScrollBarConstructor from "../scroll-bar-constructor/scroll-bar-construct
 import {
   addBurgerBun,
   addBurgerFilling,
-} from "../../services/actions/burger-constructor";
-import { getOrderAction, sumOrder } from "../../services/actions/order";
+} from "../../services/actions/burger-constructor/burger-constructor";
+import { getOrderAction, sumOrder } from "../../services/actions/order/order";
 import { scrollBarConstants } from "../../utils/constants";
 import {
   buttonConstants,
@@ -39,7 +39,7 @@ const BurgerConstructor: FC = () => {
   /** целевой контейнер для создания бургера */
   const [, dropTargetRef] = useDrop({
     accept: [BUN_EN, MAIN_EN, SAUCE_EN],
-    drop(card: TIngredient) {
+    drop(card: any) {
       card.type === BUN_EN
         ? dispatch(addBurgerBun(card))
         : dispatch(addBurgerFilling(card));

@@ -8,6 +8,7 @@
 .main_profile {
   display: flex;
   padding-top: 121px;
+  position: relative;
 }
 
 .main_ingredient_details {

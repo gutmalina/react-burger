@@ -6,10 +6,10 @@ import AppHeader from "../app-header/app-header";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
-import { getIngredientsAction } from "../../services/actions/burger-ingredients";
-import { getProfileAction } from "../../services/actions/user";
+import { getIngredientsAction } from "../../services/actions/burger-ingredients/burger-ingredients";
+import { getProfileAction } from "../../services/actions/user/user";
 import { getCookie } from "../../utils/cookie";
-import { closeOrder } from "../../services/actions/order";
+import { closeOrder } from "../../services/actions/order/order";
 import {
   buttonConstants,
   pathConstants,

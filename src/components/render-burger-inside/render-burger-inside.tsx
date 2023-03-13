@@ -6,7 +6,7 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { removeBurgerFilling } from "../../services/actions/burger-constructor";
+import { removeBurgerFilling } from "../../services/actions/burger-constructor/burger-constructor";
 import { TRenderBurgerInside } from "../../utils/types";
 
 const RenderBurgerInside: FC<TRenderBurgerInside> = ({ card, index, moveCard }) => {
