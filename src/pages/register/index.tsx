@@ -1,5 +1,5 @@
 import { FC, FormEvent } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/hooks";
 import { registrationAction } from "../../services/actions/user/user";
 import styles from "../page-overlay/page-overlay.module.css";
 import {
@@ -14,7 +14,7 @@ import { useForm } from "../../hooks/useForm";
 
 const RegisterPage: FC<TPage> = ({ textButton }) => {
   const { NAME } = inputConstants;
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
 
   const { values, handleChange } = useForm(
     { name: "", email: "", password: "" },

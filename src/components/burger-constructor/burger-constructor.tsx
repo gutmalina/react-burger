@@ -1,5 +1,5 @@
 import { useEffect, useMemo, FC } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { useNavigate } from "react-router-dom";
 import { useDrop } from "react-dnd/dist/hooks/useDrop";
 import {
@@ -21,25 +21,32 @@ import {
   ingredientConstants,
   pathConstants,
   textConstants,
+  elementConstants,
 } from "../../utils/constants";
 import { TIngredient } from "../../utils/types";
+import Element from "../element/element";
 
 const BurgerConstructor: FC = () => {
   const { TYPE_DETAILS_ORDER } = scrollBarConstants;
-  const { SAUCE_EN, MAIN_EN, BUN_EN, BUN_TOP, BUN_BOTTOM } = ingredientConstants;
+  const { SAUCE_EN, MAIN_EN, BUN_EN, BUN_TOP, BUN_BOTTOM } =
+    ingredientConstants;
   const { SIGN_IN } = pathConstants;
   const { SELECT_BUN, SELECT_FILLING } = textConstants;
-  const summed = useSelector((store: any) => store.order.sum);
-  const isLoggedIn = useSelector((store: any) => store.user.isLoggedIn);
-  const { bun, filling } = useSelector((store: any) => store.burgerConstructor.burger);
+  const { TYPE_ELEMENT_TOP, TYPE_ELEMENT_CENTER, TYPE_ELEMENT_BOTTOM } =
+    elementConstants;
+  const summed = useSelector((store) => store.order.sum);
+  const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
+  const { bun, filling } = useSelector(
+    (store) => store.burgerConstructor.burger
+  );
 
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   /** целевой контейнер для создания бургера */
   const [, dropTargetRef] = useDrop({
     accept: [BUN_EN, MAIN_EN, SAUCE_EN],
-    drop(card: any) {
+    drop(card: TIngredient) {
       card.type === BUN_EN
         ? dispatch(addBurgerBun(card))
         : dispatch(addBurgerFilling(card));
@@ -53,7 +60,7 @@ const BurgerConstructor: FC = () => {
     return result;
   }, [bun, filling]);
 
-  const resultArr = (arr: []) => {
+  const resultArr = (arr: TIngredient[]) => {
     return arr
       .map((a: any) => a.price)
       .reduce((acc, sum) => {
@@ -62,19 +69,16 @@ const BurgerConstructor: FC = () => {
   };
 
   /** получить сумму заказа */
-  const handleResult = useMemo(
-    () => {
-      let result;
-      if (!bun.length) {
-        result = resultArr(filling);
-      } else {
-        const arrBurger = filling.concat(bun, bun);
-        result = resultArr(arrBurger);
-      }
-      return result;
-    },
-    [bun, filling]
-  );
+  const handleResult = useMemo(() => {
+    let result;
+    if (!bun.length) {
+      result = resultArr(filling);
+    } else {
+      const arrBurger = filling.concat(bun, bun);
+      result = resultArr(arrBurger);
+    }
+    return result;
+  }, [bun, filling]);
 
   useEffect(() => {
     dispatch(sumOrder(handleResult));
@@ -82,7 +86,7 @@ const BurgerConstructor: FC = () => {
 
   /** передать заказ и получить номер заказа */
   const getNumberOrder = () => {
-    if(handleIdIngredient.length){
+    if (handleIdIngredient.length) {
       if (isLoggedIn) {
         dispatch(getOrderAction(handleIdIngredient));
       } else {
@@ -103,23 +107,15 @@ const BurgerConstructor: FC = () => {
           extraClass={`${styles.element} mb-4`}
         />
       ) : (
-        <ConstructorElement
-          type="top"
-          text={SELECT_BUN}
-          price={bun}
-          thumbnail=''
-          extraClass={`${styles.element_default} mb-4`}
-        />
+        <Element typeElement={TYPE_ELEMENT_TOP} typeSelect={SELECT_BUN} />
       )}
       <ScrollBar typeScroll={TYPE_DETAILS_ORDER}>
         {filling.length ? (
           <ScrollBarConstructor arrayIngredients={filling || []} />
         ) : (
-          <ConstructorElement
-            price={filling}
-            thumbnail=''
-            text={SELECT_FILLING}
-            extraClass={`${styles.element_default} mb-4`}
+          <Element
+            typeElement={TYPE_ELEMENT_CENTER}
+            typeSelect={SELECT_FILLING}
           />
         )}
       </ScrollBar>
@@ -133,13 +129,7 @@ const BurgerConstructor: FC = () => {
           extraClass={`${styles.element} mt-1 mb-10`}
         />
       ) : (
-        <ConstructorElement
-          type="bottom"
-          text={SELECT_BUN}
-          price={bun}
-          thumbnail=''
-          extraClass={`${styles.element_default} mt-1 mb-10`}
-        />
+        <Element typeElement={TYPE_ELEMENT_BOTTOM} typeSelect={SELECT_BUN} />
       )}
 
       <article className={`${styles.order} mr-4`}>

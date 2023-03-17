@@ -9,13 +9,14 @@ import {
 import { ICloseOrderAction, ISumOrderAction } from "./types";
 
 /** отправить заказ и получить номер */
-export const getOrderAction = (idIngredients: string) => {
+export const getOrderAction = (idIngredients: string[]) => {
   return function (dispatch: any) {
     dispatch({
       type: MAKE_ORDER,
     });
     getOrder(idIngredients)
       .then((res: any) => {
+        console.log(res)
         if (res && res.success) {
           dispatch({
             type: MAKE_ORDER_SUCCESS,

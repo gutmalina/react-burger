@@ -69,3 +69,34 @@ export type TNewPassword = {
   password: string,
   code: string
 }
+
+export type TOrdersPage = {
+  typeOrder: string
+  onOrder: TWsOrders
+}
+
+export type TElement = {
+  typeElement: string
+  typeSelect: string
+}
+
+export type TWsOrders = {
+  createdAt: string,
+  ingredients: string[],
+  name: string,
+  number: string,
+  status: string,
+  updatedAt: string,
+  _id: string,
+}
+
+export type TWsMessage = {
+  success: boolean;
+  total: number;
+  totalToday: number;
+  orders: TWsOrders[];
+};
+
+export type TNumberOrder = {
+  groupOrders?: TWsOrders[]
+}

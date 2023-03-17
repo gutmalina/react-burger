@@ -8,18 +8,18 @@ import { TIngredient } from "../../../utils/types";
 
 export interface IAddBunAction {
   readonly type: typeof ADD_BUN;
-  readonly bun: TIngredient[];
+  readonly bun: TIngredient;
 };
 
 export interface IAddFillingAction {
   readonly type: typeof ADD_FILLING;
-  readonly filling: TIngredient[];
+  readonly filling: TIngredient;
   readonly keyid?: string;
 };
 
 export interface IRemoveFillingAction {
   readonly type: typeof REMOVE_FILLING;
-  readonly keyid: string;
+  readonly keyid: any;
 };
 
 export interface IUpDateFillingAction {

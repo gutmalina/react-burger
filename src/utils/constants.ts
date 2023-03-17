@@ -8,6 +8,8 @@ export const scrollBarConstants = {
   TYPE_INGREDIENTS: "bar_ingredients",
   TYPE_DETAILS_ORDER: "bar_details",
   TYPE_ORDERS: "bar_orders",
+  TYPE_FEED: "bar_feed",
+  TYPE_ORDER: "bar_order",
 };
 
 export const buttonConstants = {
@@ -53,6 +55,11 @@ export const textConstants = {
     "В этом разделе вы можете изменить свои персональные данные",
   SELECT_BUN: "Выберите булку",
   SELECT_FILLING: "Выберите начинку",
+  FEED_TITLE: "Лента заказов",
+  FEED_STATUS_DONE: "Готовы:",
+  FEED_STATUS_PENDING: "В работе:",
+  FEED_TOTAL: "Выполнено за все время:",
+  FEED_TOTAL_TODAY: "Выполнено за сегодня:",
 };
 
 export const ingredientConstants = {
@@ -80,6 +87,7 @@ export const pathConstants = {
   ORDER_HISTORY: "/profile/orders",
   INGREDIENTS: "/ingredients/:",
   INGREDIENTS_ID: "/ingredients/:id",
+  FEED: "/feed",
   NOT_FOUND: "*",
 };
 
@@ -93,4 +101,16 @@ export const orderConstants = {
   STATUS_CREATED: "Создан",
   STATUS_COOK: "Готовиться",
   STATUS_DONE: "Выполнен",
+  STATUS_COOK_ENG: "pending",
+  STATUS_DONE_ENG: "done",
+  STATUS_CREATED_ENG: 'created',
+  TYPE_ORDER: "card_type_order",
+  TYPE_ORDER_FEED: "card_type_order_feed",
+  TYPE_ORDER_HISTORY: "card_type_order_history",
+}
+
+export const elementConstants = {
+  TYPE_ELEMENT_CENTER: "center",
+  TYPE_ELEMENT_TOP: "top",
+  TYPE_ELEMENT_BOTTOM: "bottom"
 }

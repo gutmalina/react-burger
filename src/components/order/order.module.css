@@ -2,10 +2,31 @@
   background: #1C1C21;
   border-radius: 40px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 0px 1px rgba(0, 0, 0, 0.04);
-  width: 796px;
-  max-height: 198px;
   display: grid;
   gap: 24px;
+}
+
+.card_type_order_feed {
+  width: 536px;
+  min-height: 165px;
+  max-height: 210px;
+}
+
+.card_type_order_history {
+  width: 796px;
+  min-height: 198px;
+  max-height: 240px;
+}
+
+.card_list_ingredients {
+  max-height: 62px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: initial;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .card_data {
@@ -22,6 +43,9 @@
   color: #00CCCC;
 }
 
+.card_status_hidden {
+  display: none;
+}
 .card_components_price {
   display: flex;
   justify-content: space-between;
@@ -30,7 +54,7 @@
 
 .card_container_img {
   position: relative;
-  height: 70px;
+  height: 60px;
 }
 
 .card_wrap {
@@ -44,6 +68,11 @@
   list-style: none;
 }
 
+.card_img {
+  width: 60px;
+  height: 60px;
+}
+
 .card_span {
   position: absolute;
   top: 50%;
@@ -54,3 +83,6 @@
 .card_price {
   display: flex;
 }
+
+
+

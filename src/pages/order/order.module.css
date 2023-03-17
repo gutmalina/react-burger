@@ -1,0 +1,28 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  padding: 122px 680px 0;
+}
+
+.title {
+  align-self: center;
+  margin-bottom: 42px;
+}
+
+.card_ingredient {
+  display: grid;
+  grid-template-columns: 60px auto max-content;
+  grid-template-rows: minmax(64px , 1fr);
+  gap: 24px;
+  align-items: center;
+}
+
+.count {
+  display: flex;
+  align-items: center;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+}

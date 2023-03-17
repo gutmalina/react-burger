@@ -1,5 +1,5 @@
 import { useEffect, FC } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { useInView } from "react-intersection-observer";
 import RenderIngredient from "../render-ingredient/render-ingredient";
 import { activeTabBarAction } from "../../services/actions/burger-ingredients/burger-ingredients";
@@ -9,13 +9,13 @@ import { TIngredient } from "../../utils/types";
 const ScrollBarIngredients: FC = () => {
   const dispatch = useDispatch();
   const ingredientsAll = useSelector(
-    (store: any) => store.burgerIngredients.ingredients
+    (store) => store.burgerIngredients.ingredients
   );
   const { SAUCE_EN, MAIN_EN, BUN_EN, SAUCE_RU, MAIN_RU, BUN_RU } =
     ingredientConstants;
 
   /** фильтр ингридиентво по типу */
-  const getGroup = (array: [], type: string) => {
+  const getGroup = (array: TIngredient[], type: string) => {
     return array.filter((card: TIngredient) => card.type === type);
   };
 

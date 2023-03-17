@@ -1,5 +1,5 @@
 import { FC, FormEvent } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/hooks";
 import { forgotPasswordAction } from "../../services/actions/user/user";
 import styles from "../page-overlay/page-overlay.module.css";
 import {
@@ -12,7 +12,7 @@ import { useForm } from "../../hooks/useForm";
 
 const ForgotPasswordPage: FC<TPage> = ({ textButton }) => {
   const { EMAIL } = inputConstants;
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const { values, handleChange } = useForm(
     { email: "" },
     { emailDisabled: true }

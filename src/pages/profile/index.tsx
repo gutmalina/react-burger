@@ -1,5 +1,5 @@
 import { useEffect, FC, FormEvent, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { useForm } from "../../hooks/useForm";
 import { editProfileAction } from "../../services/actions/user/user";
 import styles from "../page-overlay/page-overlay.module.css";
@@ -17,8 +17,8 @@ import { TPage } from "../../utils/types";
 const ProfilePage: FC<TPage> = ({ textButton, linkCancel }) => {
   const { NAME, LOGIN_NANE } = inputConstants;
   const { PASSWORD } = tokenConstants;
-  const dispatch = useDispatch<any>();
-  const { name, email } = useSelector((store: any) => store.user);
+  const dispatch = useDispatch();
+  const { name, email } = useSelector((store) => store.user);
   const password = localStorage.getItem(PASSWORD);
 
   const {

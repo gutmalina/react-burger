@@ -9,8 +9,8 @@ import { TBurgerConstructorActions } from "../actions/burger-constructor/types";
 
 type TBurgerConstructorStore = {
   burger: {
-    bun: TIngredient[][],
-    filling: TIngredient[][],
+    bun: TIngredient[],
+    filling: TIngredient[],
   },
 };
 
@@ -59,7 +59,7 @@ export const burgerConstructorReducer = (state = initialStore, action: TBurgerCo
         ...state,
         burger: {
           ...state.burger,
-          filling: [action.filling],
+          filling: action.filling,
         },
       };
     }

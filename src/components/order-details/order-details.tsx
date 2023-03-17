@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import styles from "./order-details.module.css";
 
 const OrderDetails: FC = () => {
-  const order = useSelector((store: any) => store.order.order);
+  const order = useSelector((store) => store.order.order);
 
   return (
     <>

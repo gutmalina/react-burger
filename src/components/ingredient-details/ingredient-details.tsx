@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { useParams } from "react-router-dom";
 import styles from "./ingredient-details.module.css";
 import { ingredientConstants } from "../../utils/constants";
@@ -8,7 +8,7 @@ import { TIngredient } from "../../utils/types";
 const IngredientDetails: FC = () => {
   const { CALORIES, PROTEINS, FAT, CARBOHYDRATES } = ingredientConstants;
   const ingredients = useSelector(
-    (store: any) => store.burgerIngredients.ingredients
+    (store) => store.burgerIngredients.ingredients
   );
   const { id } = useParams();
   const ingredient = ingredients.find((item: TIngredient) => item._id === id?.slice(1));

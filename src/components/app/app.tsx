@@ -1,5 +1,5 @@
 import { useEffect, FC } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { Routes, Route, useLocation } from "react-router-dom";
 import ProtectedRoute from "../protected-route/protected-route";
 import AppHeader from "../app-header/app-header";
@@ -15,7 +15,7 @@ import {
   pathConstants,
   textConstants,
   linkConstants,
-  tokenConstants
+  tokenConstants,
 } from "../../utils/constants";
 import {
   HomePage,
@@ -26,8 +26,10 @@ import {
   ResetPasswordPage,
   ProfilePage,
   NotFoundPage,
+  OrdersPage,
   OrderPage,
   PageIngredient,
+  FeedPage,
 } from "../../pages/index";
 
 const App: FC = () => {
@@ -41,6 +43,7 @@ const App: FC = () => {
     RESET,
     ORDER_HISTORY,
     INGREDIENTS_ID,
+    FEED,
     NOT_FOUND,
   } = pathConstants;
   const {
@@ -49,15 +52,16 @@ const App: FC = () => {
     FORGOT_PASSWORD,
     DETAILS_INGREDIENT,
     NOT_FOUND_TEXT,
+    FEED_TITLE,
   } = textConstants;
   const { CANCEL, BACK } = linkConstants;
-  const {ACCESS_TOKEN} = tokenConstants
+  const { ACCESS_TOKEN } = tokenConstants;
 
   const location = useLocation();
   const background = location.state && location.state.background;
-  const dispatch = useDispatch<any>();
-  const order = useSelector((store: any) => store.order.order);
-  const isLoggedIn = useSelector((store: any)=> store.user.isLoggedIn)
+  const dispatch = useDispatch();
+  const order = useSelector((store) => store.order.order);
+  const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
   const token = getCookie(ACCESS_TOKEN);
 
   /** получить массива ингридиентов */
@@ -82,6 +86,7 @@ const App: FC = () => {
       <AppHeader />
       <Routes location={background || location}>
         <Route path={HOME} element={<HomePage />} />
+        <Route path={FEED} element={<FeedPage textTitle={FEED_TITLE} />} />
         <Route
           path={PROFILE}
           element={
@@ -100,7 +105,7 @@ const App: FC = () => {
             <ProtectedRoute
               element={
                 <PageOverlay>
-                  <OrderPage textButton={BACK} />
+                  <OrdersPage textButton={BACK} />
                 </PageOverlay>
               }
             />

@@ -3,7 +3,7 @@ import { useLocation, NavLink } from "react-router-dom";
 import NavForm from "../nav-form";
 import { deleteCookie } from "../../utils/cookie";
 import styles from "./page-overlay.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import {
   pathConstants,
   tokenConstants,
@@ -19,8 +19,8 @@ const PageOverlay: FC<PropsWithChildren<TPage>> = ({ textTitle, children }) => {
   const { PROFILE_LINK, ORDER_HISTORY_LINK, EXIT } = linkConstants;
   const { PROFILE, ORDER_HISTORY, SIGN_IN } = pathConstants;
 
-  const isLoggedIn = useSelector((store: any) => store.user.isLoggedIn);
-  const dispath = useDispatch<any>();
+  const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
+  const dispath = useDispatch();
   const { pathname } = useLocation();
 
   const mainClassName =

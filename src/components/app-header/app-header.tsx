@@ -10,7 +10,7 @@ import NavTab from "../nav-tab/nav-tab";
 import { headerConstants, pathConstants } from "../../utils/constants";
 
 const AppHeader: FC = () => {
-  const { HOME, NOT_FOUND, PROFILE, SIGN_IN } = pathConstants;
+  const { HOME, FEED, PROFILE, SIGN_IN } = pathConstants;
   const { CONSTRUCTOR, LIST_ORDER, PERSONAL_ACCOUNT } = headerConstants;
 
   return (
@@ -19,7 +19,7 @@ const AppHeader: FC = () => {
         <NavTab onTo={HOME} textSpan={CONSTRUCTOR}>
           <BurgerIcon type="primary" />
         </NavTab>
-        <NavTab onTo={NOT_FOUND} textSpan={LIST_ORDER}>
+        <NavTab onTo={FEED} textSpan={LIST_ORDER}>
           <ListIcon type="secondary" />
         </NavTab>
         <div className={styles.logo}>
