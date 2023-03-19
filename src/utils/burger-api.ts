@@ -12,6 +12,11 @@ export const getOrder = (isIdIngredients: string[]) => {
   return fetchWithToken("/orders", "POST", { ingredients: isIdIngredients });
 }
 
+/** получить данные выбранного заказа */
+export const getOrderFeed = (number: string) => {
+  return fetchWithToken(`/orders/${number}`, "GET");
+}
+
 /** выход из системы */
 export const logoutRequest = () =>
   request("/auth/logout", "POST", {

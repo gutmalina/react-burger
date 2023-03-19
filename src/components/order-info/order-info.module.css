@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.container_modal {
+  position: relative;
+}
+
+.container_page {
+  width: 640px;
+  margin: 0 auto;
+}
+
+.title {
+  align-self: center;
+  margin-bottom: 42px;
+}
+
+.title_modal {
+  position: absolute;
+  top: -28px;
+  left: 2px;
+}
+
+.subtitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subtitle_modal {
+  margin-top: 39px;
+  width: 640px;
+}
+
+.subtitle_page {
+  width: 640px;
+}
+
+.status {
+  color: #00CCCC;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+}
+
+.count {
+  display: flex;
+}

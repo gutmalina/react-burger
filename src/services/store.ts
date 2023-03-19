@@ -37,24 +37,7 @@ const composeEnhancers =
     : compose;
 
 const enhancer = composeEnhancers(
-  applyMiddleware(
-    thunk,
-    socketMiddleware(WSS_URL, wsActions)
-  //   applyMiddleware(
-  //     thunk
-  )
+  applyMiddleware(thunk, socketMiddleware(WSS_URL, wsActions))
 );
 
 export const store = createStore(rootReducer, enhancer);
-
-
-// const ws = new WebSocket("ws://norma.nomoreparties.space/orders/all");
-
-// ws.onopen = (event) => {
-//   console.log('yes')
-// }
-
-// ws.onmessage = (event) => {
-//   console.log(`Получены данныe: ${event.data}`)
-// }
-// }

@@ -1,6 +1,6 @@
 // socketMiddleware.ts
 import type { Middleware, MiddlewareAPI } from "redux";
-import type { AppThunk, AppDispatch, RootState } from "../types";
+import type { AppDispatch, RootState } from "../types";
 import { getCookie } from "../../utils/cookie";
 import { tokenConstants } from "../../utils/constants";
 import { IWsActions } from "../types";
@@ -52,7 +52,6 @@ export const socketMiddleware = (
           const { data } = event;
           const parsedData = JSON.parse(data);
           dispatch({ type: onMessage, payload: parsedData });
-          console.log(parsedData)
         };
 
         socket.onclose = (event: CloseEvent) => {

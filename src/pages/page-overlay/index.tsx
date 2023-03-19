@@ -17,17 +17,16 @@ const PageOverlay: FC<PropsWithChildren<TPage>> = ({ textTitle, children }) => {
   const { ACCESS_TOKEN, REFRESH_TOKEN, PASSWORD } = tokenConstants;
   const { PROFILE_PAGE_SUBTITLE } = textConstants;
   const { PROFILE_LINK, ORDER_HISTORY_LINK, EXIT } = linkConstants;
-  const { PROFILE, ORDER_HISTORY, SIGN_IN } = pathConstants;
+  const { PROFILE, ORDER_HISTORY, SIGN_IN, FEED } = pathConstants;
 
   const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
   const dispath = useDispatch();
   const { pathname } = useLocation();
 
   const mainClassName =
-    pathname === PROFILE || pathname === ORDER_HISTORY
+    pathname === PROFILE || pathname.includes(ORDER_HISTORY) || pathname.includes(FEED)
       ? `${styles.main_profile}`
       : `${styles.main}`;
-
   const activeClassLink = `${styles.link} text text_type_main-medium`;
   const inActiveClassLink = `${styles.link} ${styles.link_inactive} text text_type_main-medium`;
 

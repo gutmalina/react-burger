@@ -5,8 +5,9 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order.module.css";
 import { orderConstants } from "../../utils/constants";
-import { TOrdersPage } from "../../utils/types";
-import { useSelector } from "../../services/hooks";
+import { TOrdersPage, TIngredient } from "../../utils/types";
+import { useDispatch, useSelector } from "../../services/hooks";
+import { getOrderFeedAction } from "../../services/actions/order/order";
 
 const Order: FC<TOrdersPage> = ({ typeOrder, onOrder }) => {
   const {
@@ -22,6 +23,8 @@ const Order: FC<TOrdersPage> = ({ typeOrder, onOrder }) => {
   const ingredientsAll = useSelector(
     (store) => store.burgerIngredients.ingredients
   );
+  const dispatch = useDispatch();
+
   const statusOrder = () => {
     switch (status) {
       case STATUS_DONE_ENG: {
@@ -38,48 +41,67 @@ const Order: FC<TOrdersPage> = ({ typeOrder, onOrder }) => {
     }
   };
 
-  /** данные заказа */
-  const order = useCallback(() => {
-    return ingredientsAll.filter((item) => {
-      return ingredients.includes(item._id);
-    });
+  /** получить данные ингредиентов по id в массив*/
+  const handleIngredientsOrder = useCallback(() => {
+    const ingredientsOrder: TIngredient[] = [];
+    for (let i = 0; i < ingredients.length; i++) {
+      const element: any = ingredientsAll?.find(
+        (item) => item._id === ingredients[i]
+      );
+      element.count = 1;
+      if (element) {
+        ingredientsOrder.push(element);
+      }
+    }
+    return ingredientsOrder;
   }, [ingredientsAll, ingredients]);
 
   /** итоговая сумма заказа */
   const handleSumOrder = useCallback(() => {
-    return order()
+    return handleIngredientsOrder()
       .map((item: any) => item.price)
       .reduce((acc, sum) => {
         return acc + sum;
       }, 0);
-  }, [order]);
+  }, [handleIngredientsOrder]);
 
-  /** список ингредиентов заказа  */
+  /** массив уникальных ингридиентов с указанием количества */
+  const handleUniqueIngredients = Object.values(
+    handleIngredientsOrder()
+      .flat()
+      .reduce((acc: any, item: any) => {
+        if (!acc[item._id]) {
+          acc[item._id] = { ...item };
+        } else {
+          acc[item._id].count = `${+acc[item._id].count + +item.count}`;
+        }
+        return acc;
+      }, {})
+  );
+
+  /** список имён ингредиентов заказа  */
   const handleListNameIngredient = useCallback(() => {
-    return order()
-      .map((item) => item.name)
-      .join(", ");
-  }, [order]);
+    return handleUniqueIngredients.map((item: any) => item.name).join(", ");
+  }, [handleUniqueIngredients]);
 
   const classNameCard =
     typeOrder === TYPE_ORDER_FEED
       ? `${styles.card} ${styles.card_type_order_feed} p-6 mb-6`
       : `${styles.card} ${styles.card_type_order_history} p-6 mb-6`;
+  const classNameStatus =
+    typeOrder === TYPE_ORDER_FEED
+      ? `${styles.card_status_hidden}`
+      : status === STATUS_DONE_ENG
+      ? `${styles.card_status} text text_type_main-small`
+      : `text text_type_main-small`;
 
-  const classNameStatus = useCallback(() => {
-    if (typeOrder === TYPE_ORDER_FEED) {
-      return `${styles.card_status_hidden}`;
-    } else {
-      if (status === STATUS_DONE_ENG) {
-        return `${styles.card_status} text text_type_main-small`;
-      } else {
-        return `text text_type_main-small`;
-      }
-    }
-  }, [typeOrder, TYPE_ORDER_FEED, STATUS_DONE_ENG, status]);
+  /** запрос на получение данных выбранного заказа */
+  const sendNumberOrder = () => {
+    dispatch(getOrderFeedAction(number));
+  };
 
   return (
-    <div className={classNameCard}>
+    <div className={classNameCard} onClick={sendNumberOrder}>
       <div className={styles.card_data}>
         <p className="text text_type_digits-default">{`#${number}`}</p>
         <FormattedDate
@@ -93,15 +115,15 @@ const Order: FC<TOrdersPage> = ({ typeOrder, onOrder }) => {
         >
           {handleListNameIngredient()}
         </p>
-        <p className={classNameStatus()}>{statusOrder()}</p>
+        <p className={classNameStatus}>{statusOrder()}</p>
       </div>
       <div className={styles.card_components_price}>
         <div className={styles.card_container_img}>
-          {order().map((item, index) => {
+          {handleUniqueIngredients.map((item: any, index) => {
             let zIndex = 6 - index;
             let left = index * 48;
             let display = index > 5 ? "none" : "";
-            let rest = order().length - 6;
+            let rest = handleUniqueIngredients.length - 6;
             return (
               <li
                 className={styles.card_wrap}

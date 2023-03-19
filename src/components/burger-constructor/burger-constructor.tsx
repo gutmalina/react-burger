@@ -24,16 +24,14 @@ import {
   elementConstants,
 } from "../../utils/constants";
 import { TIngredient } from "../../utils/types";
-import Element from "../element/element";
+import ElementBurger from "../element-burger/element-burger";
 
 const BurgerConstructor: FC = () => {
   const { TYPE_DETAILS_ORDER } = scrollBarConstants;
-  const { SAUCE_EN, MAIN_EN, BUN_EN, BUN_TOP, BUN_BOTTOM } =
-    ingredientConstants;
+  const { SAUCE_EN, MAIN_EN, BUN_EN, BUN_TOP, BUN_BOTTOM } =ingredientConstants;
   const { SIGN_IN } = pathConstants;
   const { SELECT_BUN, SELECT_FILLING } = textConstants;
-  const { TYPE_ELEMENT_TOP, TYPE_ELEMENT_CENTER, TYPE_ELEMENT_BOTTOM } =
-    elementConstants;
+  const { TYPE_ELEMENT_TOP, TYPE_ELEMENT_CENTER, TYPE_ELEMENT_BOTTOM } =elementConstants;
   const summed = useSelector((store) => store.order.sum);
   const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
   const { bun, filling } = useSelector(
@@ -107,13 +105,13 @@ const BurgerConstructor: FC = () => {
           extraClass={`${styles.element} mb-4`}
         />
       ) : (
-        <Element typeElement={TYPE_ELEMENT_TOP} typeSelect={SELECT_BUN} />
+        <ElementBurger typeElement={TYPE_ELEMENT_TOP} typeSelect={SELECT_BUN} />
       )}
       <ScrollBar typeScroll={TYPE_DETAILS_ORDER}>
         {filling.length ? (
           <ScrollBarConstructor arrayIngredients={filling || []} />
         ) : (
-          <Element
+          <ElementBurger
             typeElement={TYPE_ELEMENT_CENTER}
             typeSelect={SELECT_FILLING}
           />
@@ -129,7 +127,10 @@ const BurgerConstructor: FC = () => {
           extraClass={`${styles.element} mt-1 mb-10`}
         />
       ) : (
-        <Element typeElement={TYPE_ELEMENT_BOTTOM} typeSelect={SELECT_BUN} />
+        <ElementBurger
+          typeElement={TYPE_ELEMENT_BOTTOM}
+          typeSelect={SELECT_BUN}
+        />
       )}
 
       <article className={`${styles.order} mr-4`}>

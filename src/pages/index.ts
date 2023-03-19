@@ -7,7 +7,6 @@ import ResetPasswordPage from "./reset-password";
 import ProfilePage from "./profile";
 import NotFoundPage from "./not-found";
 import OrdersPage from "./orders";
-import OrderPage from "./order";
 import PageIngredient from "./page-ingredient";
 import FeedPage from "./feed";
 
@@ -21,7 +20,6 @@ export {
   ProfilePage,
   NotFoundPage,
   OrdersPage,
-  OrderPage,
   PageIngredient,
   FeedPage
 };

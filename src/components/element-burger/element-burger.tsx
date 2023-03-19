@@ -1,9 +1,9 @@
 import { FC } from "react";
-import styles from "./element.module.css";
+import styles from "./element-burger.module.css";
 import { TElement } from "../../utils/types";
 import { elementConstants } from "../../utils/constants";
 
-const Element: FC<TElement> = ({typeElement, typeSelect}) => {
+const ElementBurger: FC<TElement> = ({typeElement, typeSelect}) => {
   const { TYPE_ELEMENT_TOP, TYPE_ELEMENT_CENTER, TYPE_ELEMENT_BOTTOM} = elementConstants
 
   const classNameDiv = () =>{
@@ -25,4 +25,4 @@ const Element: FC<TElement> = ({typeElement, typeSelect}) => {
   return <div className={classNameDiv()}>{typeSelect}</div>
 };
 
-export default Element;
+export default ElementBurger;

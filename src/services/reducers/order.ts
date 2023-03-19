@@ -2,15 +2,22 @@ import {
   MAKE_ORDER,
   MAKE_ORDER_FAILED,
   MAKE_ORDER_SUCCESS,
+  GET_ORDER_FEED,
+  GET_ORDER_FEED_SUCCESS,
+  GET_ORDER_FEED_FAILED,
   CLOSE_ORDER,
   SUM_ORDER,
 } from '../constants/index';
 import { TOrderActions } from '../actions/order/types';
+import { TWsOrders } from '../../utils/types';
 
 type TOrderStore = {
   order: string,
   isOrderRequest: boolean,
   isOrderFailed: boolean,
+  isOrderFeedRequest: boolean,
+  isOrderFeedFailed: boolean,
+  orderFeed: TWsOrders[],
   sum: number
 };
 
@@ -18,6 +25,9 @@ const initialStore: TOrderStore = {
   order: "",
   isOrderRequest: false,
   isOrderFailed: false,
+  isOrderFeedRequest: false,
+  isOrderFeedFailed: false,
+  orderFeed: [],
   sum: 0
 };
 
@@ -44,10 +54,32 @@ export const orderReducer = (state= initialStore, action: TOrderActions): TOrder
         isOrderFailed: true
       }
     }
+    case GET_ORDER_FEED: {
+      return {
+        ...state,
+        isOrderFeedRequest: true,
+        isOrderFeedFailed: false
+      }
+    }
+    case GET_ORDER_FEED_SUCCESS: {
+      return {
+        ...state,
+        orderFeed: action.orderFeed,
+        isOrderFeedRequest: false
+      }
+    }
+    case GET_ORDER_FEED_FAILED: {
+      return {
+        ...state,
+        isOrderFeedRequest: false,
+        isOrderFeedFailed: true
+      }
+    }
     case CLOSE_ORDER: {
       return {
         ...state,
         order: "",
+        orderFeed: [],
         isOrderFailed: false,
         isOrderRequest: false
       }

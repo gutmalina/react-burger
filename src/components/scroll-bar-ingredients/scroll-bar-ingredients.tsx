@@ -14,7 +14,7 @@ const ScrollBarIngredients: FC = () => {
   const { SAUCE_EN, MAIN_EN, BUN_EN, SAUCE_RU, MAIN_RU, BUN_RU } =
     ingredientConstants;
 
-  /** фильтр ингридиентво по типу */
+  /** фильтр ингридиентов по типу */
   const getGroup = (array: TIngredient[], type: string) => {
     return array.filter((card: TIngredient) => card.type === type);
   };

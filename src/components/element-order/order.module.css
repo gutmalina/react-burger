@@ -1,7 +1,9 @@
 .card {
-  background: #1C1C21;
+  background: #1c1c21;
   border-radius: 40px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 0px 1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04),
+              0px 0px 2px rgba(0, 0, 0, 0.06),
+              0px 0px 1px rgba(0, 0, 0, 0.04);
   display: grid;
   gap: 24px;
 }
@@ -40,7 +42,7 @@
 }
 
 .card_status {
-  color: #00CCCC;
+  color: #00cccc;
 }
 
 .card_status_hidden {
@@ -61,7 +63,7 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  border: 2px solid #4C4CFF;
+  border: 2px solid #4c4cff;
   position: absolute;
   top: 0;
   background: #1c1c21;
@@ -69,8 +71,10 @@
 }
 
 .card_img {
-  width: 60px;
-  height: 60px;
+  width: 112px;
+  height: 56px;
+  position: absolute;
+  left: -26px;
 }
 
 .card_span {
@@ -83,6 +87,3 @@
 .card_price {
   display: flex;
 }
-
-
-

@@ -12,6 +12,7 @@ export type TIngredient = {
   image_large: string;
   __v: number;
   keyid?: string;
+  count?: any;
 };
 
 export type TArrayIngredients = {
@@ -99,4 +100,8 @@ export type TWsMessage = {
 
 export type TNumberOrder = {
   groupOrders?: TWsOrders[]
+}
+
+export type TElementOrder = {
+  id: string
 }

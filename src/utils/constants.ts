@@ -60,6 +60,10 @@ export const textConstants = {
   FEED_STATUS_PENDING: "В работе:",
   FEED_TOTAL: "Выполнено за все время:",
   FEED_TOTAL_TODAY: "Выполнено за сегодня:",
+  ORDER_INFO_STRUCTURE: "Состав:",
+  ORDER_DETAILS_ID: "идентификатор заказа",
+  ORDER_DETAILS_STATUS: "Ваш заказ начали готовить",
+  ORDER_DETAILS_WAIT: "Дождитесь готовности на орбитальной станции"
 };
 
 export const ingredientConstants = {
@@ -85,9 +89,11 @@ export const pathConstants = {
   RESET: "/reset-password",
   PROFILE: "/profile",
   ORDER_HISTORY: "/profile/orders",
+  ORDER_HISTORY_ID: "/profile/orders/:id",
   INGREDIENTS: "/ingredients/:",
   INGREDIENTS_ID: "/ingredients/:id",
   FEED: "/feed",
+  FEED_ID: "/feed/:id",
   NOT_FOUND: "*",
 };
 
