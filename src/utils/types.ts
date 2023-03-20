@@ -65,6 +65,7 @@ export type TUser = {
 
 export type TLoginUser = Omit<TUser, 'name'>
 export type TEmailUser = Omit<TUser, 'name' | 'password'>
+export type TGetUser = Omit<TUser, 'password'>
 
 export type TNewPassword = {
   password: string,
@@ -105,3 +106,56 @@ export type TNumberOrder = {
 export type TElementOrder = {
   id: string
 }
+
+export type TResponseSuccess = {
+  success: boolean
+}
+export type TResponseIngredients = TResponseSuccess & {
+  data: TIngredient[]
+}
+
+export type TResponseMessage = TResponseSuccess & {
+  message: string
+}
+
+export type TResponseMakeOrder = TResponseSuccess & {
+  name: string,
+  order: {
+    ingredients: TIngredient[],
+    _id: string,
+    owner: {
+      name: string,
+      email: string,
+      createdAt: string,
+      updatedAt: string
+    },
+    status: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+    number: number,
+    price: number
+  }
+}
+
+export type TResponseToken = TResponseSuccess & {
+  accessToken: string,
+  refreshToken: string,
+}
+
+export type TResponseUser = TResponseSuccess & {
+  user: {
+    name: string,
+    email: string
+  }
+}
+
+export type TResponseLogin = TResponseToken & TResponseSuccess & {
+  user: {
+    name: string,
+    email: string,
+    password: string
+  }
+}
+
+export type TResponseRegister = TResponseToken & TGetUser

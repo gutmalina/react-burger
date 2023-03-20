@@ -60,7 +60,7 @@ const BurgerConstructor: FC = () => {
 
   const resultArr = (arr: TIngredient[]) => {
     return arr
-      .map((a: any) => a.price)
+      .map((a: TIngredient) => a.price)
       .reduce((acc, sum) => {
         return acc + sum;
       }, 0);

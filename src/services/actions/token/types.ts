@@ -10,7 +10,6 @@ export interface ITokenAction {
 
 export interface ITokenSuccessAction {
   readonly type: typeof TOKEN_SUCCESS;
-  readonly order: string
 };
 
 export interface ITokenFailedAction {

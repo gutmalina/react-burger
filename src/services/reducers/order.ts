@@ -12,7 +12,7 @@ import { TOrderActions } from '../actions/order/types';
 import { TWsOrders } from '../../utils/types';
 
 type TOrderStore = {
-  order: string,
+  order: number,
   isOrderRequest: boolean,
   isOrderFailed: boolean,
   isOrderFeedRequest: boolean,
@@ -22,7 +22,7 @@ type TOrderStore = {
 };
 
 const initialStore: TOrderStore = {
-  order: "",
+  order: 0,
   isOrderRequest: false,
   isOrderFailed: false,
   isOrderFeedRequest: false,
@@ -78,7 +78,7 @@ export const orderReducer = (state= initialStore, action: TOrderActions): TOrder
     case CLOSE_ORDER: {
       return {
         ...state,
-        order: "",
+        order: 0,
         orderFeed: [],
         isOrderFailed: false,
         isOrderRequest: false

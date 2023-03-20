@@ -19,7 +19,7 @@ export interface IAddFillingAction {
 
 export interface IRemoveFillingAction {
   readonly type: typeof REMOVE_FILLING;
-  readonly keyid: any;
+  readonly keyid: string;
 };
 
 export interface IUpDateFillingAction {

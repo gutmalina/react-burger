@@ -120,3 +120,7 @@ export const elementConstants = {
   TYPE_ELEMENT_TOP: "top",
   TYPE_ELEMENT_BOTTOM: "bottom"
 }
+
+export const wsConstants = {
+  WS_ALL: "/all"
+}

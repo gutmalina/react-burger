@@ -18,6 +18,7 @@ import {
   RESET_SUCCESS,
   RESET_FAILED,
 } from "../../constants/index";
+import { TLoginUser, TGetUser } from "../../../utils/types";
 
 export interface IRegisterAction {
   readonly type: typeof REGISTER;
@@ -37,6 +38,7 @@ export interface ILoginAction {
 
 export interface ILoginSuccessAction {
   readonly type: typeof LOGIN_SUCCESS;
+  readonly user: TLoginUser
 };
 
 export interface ILoginFailedAction {
@@ -49,10 +51,7 @@ export interface IGetUserAction {
 
 export interface IGetUserSuccessAction {
   readonly type: typeof GET_USER_SUCCESS;
-  readonly user: {
-    name: string,
-    email: string
-  }
+  readonly user: TGetUser
 };
 
 export interface IGetUserFailedAction {
@@ -65,10 +64,7 @@ export interface IEditAction {
 
 export interface IEditSuccessAction {
   readonly type: typeof EDIT_SUCCESS;
-  readonly user: {
-    name: string,
-    email: string
-  }
+  readonly user: TGetUser
 };
 
 export interface IEditFailedAction {

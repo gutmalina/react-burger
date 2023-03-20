@@ -6,17 +6,19 @@ import {
   TOKEN_SUCCESS,
   TOKEN_FAILED,
 } from "../../constants/index";
+import { AppDispatch, AppThunk } from '../../types/index';
+import { TResponseToken } from "../../../utils/types";
 
 const { ACCESS_TOKEN, REFRESH_TOKEN } = tokenConstants;
 
 /** обновление токена */
-export const editTokenAction = () => {
-  return function (dispatch: any) {
+export const editTokenAction = (): AppThunk => {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: TOKEN,
     });
     editToken()
-      .then((res: any) => {
+      .then((res: TResponseToken) => {
         if (res && res.success) {
           dispatch({
             type: TOKEN_SUCCESS,

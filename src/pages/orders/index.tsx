@@ -25,10 +25,12 @@ const OrdersPage: FC<TPage> = ({textButton}) => {
     };
   }, [dispatch]);
 
+  if (!message) return <div>Обработка данных</div>;
+
   return (
     <>
       <ScrollBar typeScroll={TYPE_ORDERS}>
-        {message?.orders.map((order)=>(
+        {message.orders.map((order)=>(
           <Link
             key={order._id}
             to={`${ORDER_HISTORY}/:${order.number}`}

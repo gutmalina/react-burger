@@ -6,15 +6,17 @@ import {
   ACTIVE_TAB_BAR,
 } from "../../constants";
 import { IActiveTabBarAction } from "./types";
+import { AppDispatch, AppThunk } from '../../types/index';
+import { TResponseIngredients } from "../../../utils/types";
 
 /** получить все ингредиенты */
-export const getIngredientsAction = () => {
-  return function (dispatch: any) {
+export const getIngredientsAction = (): AppThunk => {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_INGREDIENTS,
     });
     getIngredients()
-      .then((res: any) => {
+      .then((res: TResponseIngredients) => {
         if (res && res.success) {
           dispatch({
             type: GET_INGREDIENTS_SUCCESS,

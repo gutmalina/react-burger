@@ -28,17 +28,19 @@ import {
   RESET_FAILED,
 } from "../../constants/index";
 import { TUser, TLoginUser, TEmailUser, TNewPassword } from "../../../utils/types";
+import { AppDispatch, AppThunk } from '../../types/index';
+import { TResponseRegister, TResponseMessage, TResponseLogin, TResponseUser } from "../../../utils/types";
 
 const { ACCESS_TOKEN, REFRESH_TOKEN, PASSWORD } = tokenConstants;
 
 /** регистрация пользователя */
-export const registrationAction = (user: TUser) => {
-  return function (dispatch: any) {
+export const registrationAction = (user: TUser): AppThunk => {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: REGISTER,
     });
     registerRequest(user)
-      .then((res: any) => {
+      .then((res: TResponseRegister) => {
         if (res && res.success) {
           dispatch({
             type: REGISTER_SUCCESS,
@@ -61,18 +63,17 @@ export const registrationAction = (user: TUser) => {
 }
 
 /** аутентификация пользователя */
-export const authenticationAction = (user: TLoginUser) => {
-  return function (dispatch: any) {
+export const authenticationAction = (user: TLoginUser): AppThunk => {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: LOGIN,
     });
     loginRequest(user)
-      .then((res: any) => {
+      .then((res: TResponseLogin) => {
         if (res && res.success) {
           dispatch({
             type: LOGIN_SUCCESS,
-            user: res.user,
-            isLoggedIn: true,
+            user: res.user
           });
           setCookie(ACCESS_TOKEN, res.accessToken);
           localStorage.setItem(REFRESH_TOKEN, res.refreshToken);
@@ -92,13 +93,13 @@ export const authenticationAction = (user: TLoginUser) => {
 }
 
 /** получить данные профиля */
-export const getProfileAction = () => {
-  return function (dispatch: any) {
+export const getProfileAction = (): AppThunk => {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_USER,
     });
     getProfile()
-      .then((res: any) => {
+      .then((res: TResponseUser) => {
         if (res && res.success) {
           dispatch({
             type: GET_USER_SUCCESS,
@@ -119,13 +120,13 @@ export const getProfileAction = () => {
 };
 
 /** обновить данные профиля */
-export const editProfileAction = (user: TUser) => {
-  return function (dispatch: any) {
+export const editProfileAction = (user: TUser): AppThunk => {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: EDIT,
     });
     editProfile(user)
-      .then((res: any) => {
+      .then((res: TResponseUser) => {
         if (res && res.success) {
           dispatch({
             type: EDIT_SUCCESS,
@@ -146,13 +147,13 @@ export const editProfileAction = (user: TUser) => {
 }
 
 /** восстановить пароль */
-export const forgotPasswordAction = (email: TEmailUser) => {
-  return function (dispatch: any) {
+export const forgotPasswordAction = (email: TEmailUser): AppThunk => {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: FORGOT,
     });
     sendEmail(email)
-      .then((res: any) => {
+      .then((res: TResponseMessage) => {
         if (res && res.success) {
           dispatch({
             type: FORGOT_SUCCESS,
@@ -172,13 +173,13 @@ export const forgotPasswordAction = (email: TEmailUser) => {
 }
 
 /** отправить новый пароль */
-export const newPasswordAction = (data: TNewPassword) => {
-  return function (dispatch: any) {
+export const newPasswordAction = (data: TNewPassword): AppThunk => {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: RESET,
     });
     sendNewPassword(data)
-      .then((res: any) => {
+      .then((res: TResponseMessage) => {
         if (res && res.success) {
           dispatch({
             type: RESET_SUCCESS,

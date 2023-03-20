@@ -11,17 +11,19 @@ const IngredientDetails: FC = () => {
     (store) => store.burgerIngredients.ingredients
   );
   const { id } = useParams();
-  const ingredient = ingredients.find((item: TIngredient) => item._id === id?.slice(1));
+  const ingredient = id && ingredients.find((item: TIngredient) => item._id === id.slice(1));
+
+  if (!ingredient) return <div>Обработка данных</div>;
 
   return (
     <>
       <img
         className={`${styles.image} mt-2 mb-5`}
-        src={ingredient?.image}
-        alt={ingredient?.name}
+        src={ingredient.image}
+        alt={ingredient.name}
       />
       <p className={`${styles.subtitle} text text_type_main-medium mb-4`}>
-        {ingredient?.name}
+        {ingredient.name}
       </p>
       <ul className={styles.group}>
         <li className={styles.item}>
@@ -29,7 +31,7 @@ const IngredientDetails: FC = () => {
             {CALORIES}
           </h4>
           <p className="text text_type_digits-default text_color_inactive">
-            {ingredient?.calories}
+            {ingredient.calories}
           </p>
         </li>
         <li className={styles.item}>
@@ -37,7 +39,7 @@ const IngredientDetails: FC = () => {
             {PROTEINS}
           </h4>
           <p className="text text_type_digits-default text_color_inactive">
-            {ingredient?.proteins}
+            {ingredient.proteins}
           </p>
         </li>
         <li className={styles.item}>
@@ -45,7 +47,7 @@ const IngredientDetails: FC = () => {
             {FAT}
           </h4>
           <p className="text text_type_digits-default text_color_inactive">
-            {ingredient?.fat}
+            {ingredient.fat}
           </p>
         </li>
         <li className={styles.item}>
@@ -53,7 +55,7 @@ const IngredientDetails: FC = () => {
             {CARBOHYDRATES}
           </h4>
           <p className="text text_type_digits-default text_color_inactive">
-            {ingredient?.carbohydrates}
+            {ingredient.carbohydrates}
           </p>
         </li>
       </ul>

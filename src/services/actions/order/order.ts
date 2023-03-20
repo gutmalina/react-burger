@@ -10,10 +10,11 @@ import {
   SUM_ORDER,
 } from "../../constants/index";
 import { ICloseOrderAction, ISumOrderAction } from "./types";
+import { AppDispatch, AppThunk } from '../../types/index';
 
 /** отправить заказ и получить номер */
-export const getOrderAction = (idIngredients: string[]) => {
-  return function (dispatch: any) {
+export const getOrderAction = (idIngredients: string[]): AppThunk => {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: MAKE_ORDER,
     });
@@ -39,8 +40,8 @@ export const getOrderAction = (idIngredients: string[]) => {
 }
 
 /** получить данные выбранного заказа */
-export const getOrderFeedAction = (numberOrder: string) => {
-  return function (dispatch: any) {
+export const getOrderFeedAction = (numberOrder: string): AppThunk => {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_ORDER_FEED,
     });

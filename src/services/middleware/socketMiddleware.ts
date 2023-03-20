@@ -30,7 +30,7 @@ export const socketMiddleware = (
       const { isLoggedIn } = getState().user;
 
       if (type === wsInit) {
-        socket = new WebSocket(`${wsUrl}/all`);
+        socket = new WebSocket(`${wsUrl}${payload}`);
       }
 
       if (type === wsInitUser && isLoggedIn) {
@@ -66,18 +66,9 @@ export const socketMiddleware = (
         if (type === close) {
           socket.close();
         }
-
       }
-
-      next(action); //передает экшены дальше
+      
+      next(action);
     };
-
-
-
-
-
-
-    // }
   };
-  // }) as Middleware;
 };

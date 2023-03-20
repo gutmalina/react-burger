@@ -5,7 +5,7 @@ const NumberOrder: FC<TNumberOrder> = ({groupOrders}) => {
 
   return (
     <>
-      {groupOrders?.slice(0, 20).map((order: TWsOrders)=>
+      {groupOrders && groupOrders.slice(0, 20).map((order: TWsOrders)=>
       (
         <li
           key={order._id}

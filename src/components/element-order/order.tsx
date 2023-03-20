@@ -45,8 +45,8 @@ const Order: FC<TOrdersPage> = ({ typeOrder, onOrder }) => {
   const handleIngredientsOrder = useCallback(() => {
     const ingredientsOrder: TIngredient[] = [];
     for (let i = 0; i < ingredients.length; i++) {
-      const element: any = ingredientsAll?.find(
-        (item) => item._id === ingredients[i]
+      const element: any = ingredientsAll.find(
+        (item: TIngredient) => item._id === ingredients[i]
       );
       element.count = 1;
       if (element) {
@@ -59,7 +59,7 @@ const Order: FC<TOrdersPage> = ({ typeOrder, onOrder }) => {
   /** итоговая сумма заказа */
   const handleSumOrder = useCallback(() => {
     return handleIngredientsOrder()
-      .map((item: any) => item.price)
+      .map((item: TIngredient) => item.price)
       .reduce((acc, sum) => {
         return acc + sum;
       }, 0);
@@ -69,7 +69,7 @@ const Order: FC<TOrdersPage> = ({ typeOrder, onOrder }) => {
   const handleUniqueIngredients = Object.values(
     handleIngredientsOrder()
       .flat()
-      .reduce((acc: any, item: any) => {
+      .reduce((acc: any, item: TIngredient) => {
         if (!acc[item._id]) {
           acc[item._id] = { ...item };
         } else {
@@ -99,6 +99,8 @@ const Order: FC<TOrdersPage> = ({ typeOrder, onOrder }) => {
   const sendNumberOrder = () => {
     dispatch(getOrderFeedAction(number));
   };
+
+  if (!ingredientsAll) return <div>Обработка данных</div>;
 
   return (
     <div className={classNameCard} onClick={sendNumberOrder}>

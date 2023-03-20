@@ -31,11 +31,6 @@ const FeedPage: FC<TPage> = ({ textTitle }) => {
   const location = useLocation();
   const message = useSelector((store) => store.wsReducer.message);
 
-  /** получить группу заказов по статусу выполнения*/
-  const handleGroupOrders = useCallback((array: any, status: string) => {
-    return array?.filter((item: any) => item.status === status);
-  }, []);
-
   /** запрос по ws на все заказы */
   useEffect(() => {
     dispatch(wsConnectionStart());
@@ -43,23 +38,30 @@ const FeedPage: FC<TPage> = ({ textTitle }) => {
     return () => {
       dispatch(wsConnectionClose());
     };
-  }, [dispatch]);
+  }, [dispatch, message]);
+
+  /** получить группу заказов по статусу выполнения*/
+  const handleGroupOrders = useCallback((array: any, status: string) => {
+    return array && array.filter((item: any) => item.status === status);
+  }, []);
+
+  if (!message) return <div>Обработка данных</div>;
 
   return (
     <section className={styles.main}>
       <h1 className="text text_type_main-large mb-5">{textTitle}</h1>
       <div className={styles.group_info}>
         <ScrollBar typeScroll={TYPE_FEED}>
-          {message?.orders.map((order) => (
-            <Link
-              key={order._id}
-              to={`${FEED}/:${order.number}`}
-              state={{ background: location }}
-              className={styles.link}
-            >
-              <Order onOrder={order} typeOrder={TYPE_ORDER_FEED} />
-            </Link>
-          ))}
+          {message.orders.map((order) => (
+              <Link
+                key={order._id}
+                to={`${FEED}/:${order.number}`}
+                state={{ background: location }}
+                className={styles.link}
+              >
+                <Order onOrder={order} typeOrder={TYPE_ORDER_FEED} />
+              </Link>
+            ))}
         </ScrollBar>
         <ul className={styles.container_all}>
           <li className={`${styles.board} ${styles.board_list_number}`}>
@@ -72,7 +74,7 @@ const FeedPage: FC<TPage> = ({ textTitle }) => {
               >
                 <NumberOrder
                   groupOrders={handleGroupOrders(
-                    message?.orders,
+                    message.orders,
                     STATUS_DONE_ENG
                   )}
                 />
@@ -85,7 +87,7 @@ const FeedPage: FC<TPage> = ({ textTitle }) => {
               <ul className={styles.list_number_order}>
                 <NumberOrder
                   groupOrders={handleGroupOrders(
-                    message?.orders,
+                    message.orders,
                     STATUS_COOK_ENG
                   )}
                 />
@@ -99,7 +101,7 @@ const FeedPage: FC<TPage> = ({ textTitle }) => {
               {FEED_TOTAL}
             </p>
             <p className={`${styles.board_number} text text_type_digits-large`}>
-              {message?.total}
+              {message.total}
             </p>
           </li>
           <li className={styles.board}>
@@ -109,7 +111,7 @@ const FeedPage: FC<TPage> = ({ textTitle }) => {
               {FEED_TOTAL_TODAY}
             </p>
             <p className={`${styles.board_number} text text_type_digits-large`}>
-              {message?.totalToday}
+              {message.totalToday}
             </p>
           </li>
         </ul>

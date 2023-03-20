@@ -30,4 +30,3 @@ export const updateBurgerFilling = (filling: TIngredient[]): IUpDateFillingActio
   type: UPDATE_FILLING,
   filling,
 });
-

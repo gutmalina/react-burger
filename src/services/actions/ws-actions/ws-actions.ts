@@ -9,9 +9,11 @@ import {
   WS_SEND_MESSAGE
 } from '../../constants/index';
 import { TWsMessage } from '../../../utils/types';
+import { wsConstants } from '../../../utils/constants';
 
 export const wsConnectionStart = ()=> ({
   type: WS_CONNECTION_START,
+  payload: wsConstants.WS_ALL
 });
 
 export const wsConnectionUserStart = () => ({

@@ -8,7 +8,7 @@ import {
   CLOSE_ORDER,
   SUM_ORDER,
 } from "../../constants/index";
-import { TWsOrders } from "../../../utils/types";
+import { TWsOrders, TResponseMakeOrder } from "../../../utils/types";
 
 export interface IMakeOrderAction {
   readonly type: typeof MAKE_ORDER;
@@ -16,11 +16,7 @@ export interface IMakeOrderAction {
 
 export interface IMakeOrderSuccessAction {
   readonly type: typeof MAKE_ORDER_SUCCESS;
-  readonly order: {
-    order: {
-      number: string
-    }
-  }
+  readonly order: TResponseMakeOrder
 };
 
 export interface IMakeOrderFailedAction {

@@ -19,7 +19,7 @@ const handleOptions = (method: string) => {
 };
 
 /** проверить ответ*/
-const checkResponse = (res: any) => {
+const checkResponse = (res: Response) => {
   return res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`);
 };
 
@@ -44,7 +44,7 @@ const fetchWithToken = async (
   url: string,
   method: string,
   data?: any
-): Promise<Response> => {
+): Promise<any> => {
   try {
     const res = await request(url, method, data);
     return await checkSuccess(res);

@@ -28,55 +28,61 @@ const OrderInfo: FC<TPage> = () => {
   } = orderConstants;
   const { ORDER_INFO_STRUCTURE } = textConstants;
   const { TYPE_ORDER } = scrollBarConstants
-  const order = useSelector((store) => store.order.orderFeed);
+  const orderFeed = useSelector((store) => store.order.orderFeed);
+  const order = useSelector((store) => store.order.order);
   const ingredientsAll = useSelector(
     (store) => store.burgerIngredients.ingredients
   );
+  const {number, name, createdAt} = orderFeed[0] || ''
   const location = useLocation();
   const { id } = useParams();
   const dispatch = useDispatch();
 
   /** запрос данных по выбранному заказу при прямом переходе на страницу */
   useEffect(() => {
-    id && dispatch(getOrderFeedAction(id?.slice(1)));
-  }, [id, dispatch]);
+    id && dispatch(getOrderFeedAction(id.slice(1)));
+  }, [dispatch, id]);
 
   const statusOrder = () => {
-    switch (order[0]?.status) {
-      case STATUS_DONE_ENG: {
-        return STATUS_DONE;
+    if(orderFeed[0]){
+      switch (orderFeed[0].status) {
+        case STATUS_DONE_ENG: {
+          return STATUS_DONE;
+        }
+        case STATUS_COOK_ENG: {
+          return STATUS_COOK;
+        }
+        case STATUS_CREATED_ENG: {
+          return STATUS_CREATED;
+        }
+        default:
+          return;
       }
-      case STATUS_COOK_ENG: {
-        return STATUS_COOK;
-      }
-      case STATUS_CREATED_ENG: {
-        return STATUS_CREATED;
-      }
-      default:
-        return;
     }
   };
 
   /** получить данные ингредиентов по id в массив*/
   const handleIngredientsOrder = useCallback(() => {
     const ingredientsOrder: TIngredient[] = [];
-    for (let i = 0; i < order[0]?.ingredients.length; i++) {
-      const element: any = ingredientsAll?.find(
-        (item) => item._id === order[0]?.ingredients[i]
-      );
-      element.count = 1;
-      if (element) {
-        ingredientsOrder.push(element);
+    if(orderFeed[0] && ingredientsAll){
+      for (let i = 0; i < orderFeed[0].ingredients.length; i++) {
+        const element: any = ingredientsAll.find(
+          (item: TIngredient) => item._id === orderFeed[0].ingredients[i]
+        );
+        element.count = 1;
+        if (element) {
+          ingredientsOrder.push(element);
+        }
       }
     }
     return ingredientsOrder;
-  }, [ingredientsAll, order]);
+  }, [ingredientsAll, orderFeed]);
 
   /** массив уникальных ингридиентов с указанием количества */
   const handleUniqueIngredients = Object.values(
     handleIngredientsOrder()
       .flat()
-      .reduce((acc: any, item: any) => {
+      .reduce((acc: any, item: TIngredient) => {
         if (!acc[item._id]) {
           acc[item._id] = { ...item };
         } else {
@@ -89,7 +95,7 @@ const OrderInfo: FC<TPage> = () => {
   /** итоговая сумма заказа */
   const handleSumOrder = useCallback(() => {
     return handleIngredientsOrder()
-      .map((item: any) => item.price)
+      .map((item: TIngredient) => item.price)
       .reduce((acc, sum) => {
         return acc + sum;
       }, 0);
@@ -105,14 +111,16 @@ const OrderInfo: FC<TPage> = () => {
     ? `${styles.subtitle} ${styles.subtitle_modal} text text_type_main-medium mb-2`
     : `${styles.subtitle} ${styles.subtitle_page} text text_type_main-medium mb-3`;
   const classNameStatus =
-    order[0]?.status === STATUS_DONE_ENG
+    orderFeed[0]?.status === STATUS_DONE_ENG
       ? `${styles.status} text text_type_main-default mb-15`
       : `text text_type_main-default mb-15`;
 
+  if (!ingredientsAll && !orderFeed[0] && !order) return <div>Обработка данных</div>;
+
   return (
     <section className={classNameContainer}>
-      <h1 className={classNameTitle}>#{order[0]?.number}</h1>
-      <p className={classNameSubtitle}>{order[0]?.name}</p>
+      <h1 className={classNameTitle}>#{number}</h1>
+      <p className={classNameSubtitle}>{name}</p>
       <p className={classNameStatus}>{statusOrder()}</p>
       <p className="text text_type_main-medium mb-6">{ORDER_INFO_STRUCTURE}</p>
       <ScrollBar typeScroll={TYPE_ORDER}>
@@ -123,7 +131,7 @@ const OrderInfo: FC<TPage> = () => {
       <div className={`${styles.total} mt-10 mb-10`}>
         <FormattedDate
           className="text text_type_main-default text_color_inactive"
-          date={new Date(order[0]?.createdAt)}
+          date={new Date(createdAt)}
         />
         <div className={styles.count}>
           <p className="text text_type_digits-default mr-2">
