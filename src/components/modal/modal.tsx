@@ -6,12 +6,18 @@ import styles from "./modal.module.css";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { pathConstants } from "../../utils/constants";
 import { TModal } from "../../utils/types";
+import { useSelector } from "../../services/hooks";
 
 const modalRoot = document.querySelector("#root-modal") as Element;
 
-const Modal: FC<PropsWithChildren<TModal>> = ({ onClose, textTitle, children }) => {
+const Modal: FC<PropsWithChildren<TModal>> = ({
+  onClose,
+  textTitle,
+  children,
+}) => {
   const navigate = useNavigate();
   const { HOME } = pathConstants;
+  const isPreloader = useSelector((store) => store.order.isPreloader);
 
   /** закрыть модальное окно */
   const onCloseModal = useCallback(() => {
@@ -36,18 +42,24 @@ const Modal: FC<PropsWithChildren<TModal>> = ({ onClose, textTitle, children }) 
     };
   }, [onCloseModal]);
 
+  const classNameWrapper = isPreloader
+    ? `${styles.wrapper} ${styles.wrapper_preloader}`
+    : `${styles.wrapper}`;
+
   return createPortal(
     <>
-      <div className={styles.wrapper}>
-        <article className={styles.title}>
-          <h3 className="text text_type_main-large">{textTitle}</h3>
-          <div className={styles.btn}>
-            <CloseIcon type="primary" onClick={onCloseModal} />
-          </div>
-        </article>
+      <div className={classNameWrapper}>
+        {!isPreloader ? (
+          <article className={styles.title}>
+            <h3 className="text text_type_main-large">{textTitle}</h3>
+            <div className={styles.btn}>
+              <CloseIcon type="primary" onClick={onCloseModal} />
+            </div>
+          </article>
+        ) : null}
         {children}
       </div>
-      <ModalOverlay onClose={onCloseModal}/>
+      <ModalOverlay onClose={onCloseModal} />
     </>,
     modalRoot!
   );

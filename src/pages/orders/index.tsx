@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "../../services/hooks";
 import { wsConnectionUserStart, wsConnectionClose } from "../../services/actions/ws-actions/ws-actions";
 import { Link, useLocation } from "react-router-dom";
 import styles from './orders.module.css';
+import Preloader from "../../components/preloader/preloader";
 
 const OrdersPage: FC<TPage> = ({textButton}) => {
   const { TYPE_ORDER_HISTORY } = orderConstants
@@ -15,17 +16,19 @@ const OrdersPage: FC<TPage> = ({textButton}) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const message = useSelector(store=> store.wsReducer.message);
+  const isLoggedIn = useSelector(store=>store.user.isLoggedIn)
 
   /** запрос по ws на заказы пользователя */
   useEffect(() => {
+    isLoggedIn &&
     dispatch(wsConnectionUserStart());
 
     return () => {
       dispatch(wsConnectionClose());
     };
-  }, [dispatch]);
+  }, [dispatch, isLoggedIn]);
 
-  if (!message) return <div>Обработка данных</div>;
+  if (!message) return <Preloader/>;
 
   return (
     <>
@@ -44,7 +47,6 @@ const OrdersPage: FC<TPage> = ({textButton}) => {
       </ScrollBar>
     </>
   )
-
 }
 
 export default OrdersPage;

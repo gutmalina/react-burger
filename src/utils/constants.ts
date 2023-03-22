@@ -63,7 +63,8 @@ export const textConstants = {
   ORDER_INFO_STRUCTURE: "Состав:",
   ORDER_DETAILS_ID: "идентификатор заказа",
   ORDER_DETAILS_STATUS: "Ваш заказ начали готовить",
-  ORDER_DETAILS_WAIT: "Дождитесь готовности на орбитальной станции"
+  ORDER_DETAILS_WAIT: "Дождитесь готовности на орбитальной станции",
+  PRELOADER_TITLE: "Обработка данных",
 };
 
 export const ingredientConstants = {

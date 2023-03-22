@@ -29,7 +29,6 @@ const OrderInfo: FC<TPage> = () => {
   const { ORDER_INFO_STRUCTURE } = textConstants;
   const { TYPE_ORDER } = scrollBarConstants
   const orderFeed = useSelector((store) => store.order.orderFeed);
-  const order = useSelector((store) => store.order.order);
   const ingredientsAll = useSelector(
     (store) => store.burgerIngredients.ingredients
   );
@@ -37,11 +36,6 @@ const OrderInfo: FC<TPage> = () => {
   const location = useLocation();
   const { id } = useParams();
   const dispatch = useDispatch();
-
-  /** запрос данных по выбранному заказу при прямом переходе на страницу */
-  useEffect(() => {
-    id && dispatch(getOrderFeedAction(id.slice(1)));
-  }, [dispatch, id]);
 
   const statusOrder = () => {
     if(orderFeed[0]){
@@ -67,7 +61,7 @@ const OrderInfo: FC<TPage> = () => {
     if(orderFeed[0] && ingredientsAll){
       for (let i = 0; i < orderFeed[0].ingredients.length; i++) {
         const element: any = ingredientsAll.find(
-          (item: TIngredient) => item._id === orderFeed[0].ingredients[i]
+          (item) => item._id === orderFeed[0].ingredients[i]
         );
         element.count = 1;
         if (element) {
@@ -82,7 +76,7 @@ const OrderInfo: FC<TPage> = () => {
   const handleUniqueIngredients = Object.values(
     handleIngredientsOrder()
       .flat()
-      .reduce((acc: any, item: TIngredient) => {
+      .reduce((acc: any, item) => {
         if (!acc[item._id]) {
           acc[item._id] = { ...item };
         } else {
@@ -95,7 +89,7 @@ const OrderInfo: FC<TPage> = () => {
   /** итоговая сумма заказа */
   const handleSumOrder = useCallback(() => {
     return handleIngredientsOrder()
-      .map((item: TIngredient) => item.price)
+      .map((item) => item.price)
       .reduce((acc, sum) => {
         return acc + sum;
       }, 0);
@@ -115,7 +109,12 @@ const OrderInfo: FC<TPage> = () => {
       ? `${styles.status} text text_type_main-default mb-15`
       : `text text_type_main-default mb-15`;
 
-  if (!ingredientsAll && !orderFeed[0] && !order) return <div>Обработка данных</div>;
+  /** запрос данных по выбранному заказу при прямом переходе на страницу */
+  useEffect(() => {
+    id && dispatch(getOrderFeedAction(id.slice(1)));
+  }, [dispatch, id]);
+
+  if (!ingredientsAll && !orderFeed[0]) return <div>Обработка данных</div>;
 
   return (
     <section className={classNameContainer}>

@@ -66,12 +66,12 @@ export const getOrderFeedAction = (numberOrder: string): AppThunk => {
   };
 }
 /** закрыть модальное окно и удалить данные заказа */
-export const closeOrder = (): ICloseOrderAction => ({
+export const closeOrderAction = (): ICloseOrderAction => ({
   type: CLOSE_ORDER,
 });
 
 /** сумма заказа */
-export const sumOrder = (sum: number): ISumOrderAction => ({
+export const sumOrderAction = (sum: number): ISumOrderAction => ({
   type: SUM_ORDER,
   sum,
 });

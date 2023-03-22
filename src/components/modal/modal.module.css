@@ -17,6 +17,10 @@
   padding-top: 54px;
 }
 
+.wrapper_preloader {
+  padding: 120px 0;
+}
+
 .title {
   display: flex;
   justify-content: space-between;

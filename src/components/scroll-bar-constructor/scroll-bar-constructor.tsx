@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { useDispatch } from "../../services/hooks";
 import RenderBurgerInside from "../render-burger-inside/render-burger-inside";
-import { updateBurgerFilling } from "../../services/actions/burger-constructor/burger-constructor";
-import { TIngredient, TArrayIngredients } from "../../utils/types";
+import { updateBurgerFillingAction } from "../../services/actions/burger-constructor/burger-constructor";
+import { TArrayIngredients } from "../../utils/types";
 
 const ScrollBarConstructor: FC<TArrayIngredients> = ({ arrayIngredients }) => {
   const dispatch = useDispatch();
@@ -13,12 +13,12 @@ const ScrollBarConstructor: FC<TArrayIngredients> = ({ arrayIngredients }) => {
     let dragIngredient = newIngredients[dragIndex];
     newIngredients.splice(dragIndex, 1);
     newIngredients.splice(hoverIndex, 0, dragIngredient);
-    dispatch(updateBurgerFilling(newIngredients));
+    dispatch(updateBurgerFillingAction(newIngredients));
   };
 
   return (
     <>
-      {arrayIngredients.map((card: TIngredient, index: number) => (
+      {arrayIngredients.map((card, index) => (
         <RenderBurgerInside
           card={card}
           key={card.keyid}

@@ -16,6 +16,10 @@
   padding-top: 135px;
 }
 
+.main_preloader {
+  flex-direction: column;
+  height: 100vh;
+}
 .nav {
   display: flex;
   list-style: none;

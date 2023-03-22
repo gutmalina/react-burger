@@ -8,9 +8,11 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
 import OrderInfo from "../order-info/order-info";
 import { getIngredientsAction } from "../../services/actions/burger-ingredients/burger-ingredients";
+import { removeBurgerAction } from "../../services/actions/burger-constructor/burger-constructor";
 import { getProfileAction } from "../../services/actions/user/user";
 import { getCookie } from "../../utils/cookie";
-import { closeOrder } from "../../services/actions/order/order";
+import { closeOrderAction } from "../../services/actions/order/order";
+import Preloader from "../preloader/preloader";
 import {
   buttonConstants,
   pathConstants,
@@ -65,6 +67,7 @@ const App: FC = () => {
   const dispatch = useDispatch();
   const order = useSelector((store) => store.order.order);
   const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
+  const isPreloader = useSelector((store) => store.order.isPreloader);
   const token = getCookie(ACCESS_TOKEN);
 
   /** получить массива ингридиентов */
@@ -81,8 +84,13 @@ const App: FC = () => {
 
   /** закрыть модальное окно Ордер */
   const onCloseOrder = () => {
-    dispatch(closeOrder());
-    location.state && navigate(-1)
+    if (!isPreloader) {
+      dispatch(closeOrderAction());
+      dispatch(removeBurgerAction());
+      location.state && navigate(-1);
+    } else {
+      return;
+    }
   };
 
   return (
@@ -226,9 +234,13 @@ const App: FC = () => {
             <Route
               path={ORDER_HISTORY_ID}
               element={
-                <Modal onClose={onCloseOrder}>
-                  <OrderInfo />
-                </Modal>
+                <ProtectedRoute
+                  element={
+                    <Modal onClose={onCloseOrder}>
+                      <OrderInfo />
+                    </Modal>
+                  }
+                />
               }
             />
           </Routes>
@@ -237,6 +249,11 @@ const App: FC = () => {
       {order && (
         <Modal onClose={onCloseOrder}>
           <OrderDetails />
+        </Modal>
+      )}
+      {isPreloader && (
+        <Modal onClose={onCloseOrder}>
+          <Preloader />
         </Modal>
       )}
     </>

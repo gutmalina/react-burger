@@ -24,7 +24,7 @@ export const socketMiddleware = (
   return (store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
 
-    return (next: any) => (action: any) => {
+    return (next) => (action) => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
       const { isLoggedIn } = getState().user;
@@ -67,7 +67,7 @@ export const socketMiddleware = (
           socket.close();
         }
       }
-      
+
       next(action);
     };
   };

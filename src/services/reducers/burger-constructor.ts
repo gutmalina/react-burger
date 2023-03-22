@@ -3,6 +3,7 @@ import {
   ADD_FILLING,
   UPDATE_FILLING,
   REMOVE_FILLING,
+  BURGER_REMOVE
 } from "../constants/index";
 import { TIngredient } from "../../utils/types";
 import { TBurgerConstructorActions } from "../actions/burger-constructor/types";
@@ -60,6 +61,15 @@ export const burgerConstructorReducer = (state = initialStore, action: TBurgerCo
         burger: {
           ...state.burger,
           filling: action.filling,
+        },
+      };
+    }
+    case BURGER_REMOVE: {
+      return {
+        ...state,
+        burger: {
+          bun: [],
+          filling: [],
         },
       };
     }

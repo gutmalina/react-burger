@@ -16,6 +16,8 @@ import {
   wsConnectionClose,
 } from "../../services/actions/ws-actions/ws-actions";
 import NumberOrder from "../../components/number-order/number-order";
+import Preloader from "../../components/preloader/preloader";
+import PageOverlay from "../page-overlay";
 
 const FeedPage: FC<TPage> = ({ textTitle }) => {
   const { FEED } = pathConstants;
@@ -45,7 +47,7 @@ const FeedPage: FC<TPage> = ({ textTitle }) => {
     return array && array.filter((item: any) => item.status === status);
   }, []);
 
-  if (!message) return <div>Обработка данных</div>;
+  if (!message) return <PageOverlay><Preloader/></PageOverlay>;
 
   return (
     <section className={styles.main}>

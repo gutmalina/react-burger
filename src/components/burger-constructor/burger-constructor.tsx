@@ -11,10 +11,10 @@ import styles from "./burger-constructor.module.css";
 import ScrollBar from "../scroll-bar/scroll-bar";
 import ScrollBarConstructor from "../scroll-bar-constructor/scroll-bar-constructor";
 import {
-  addBurgerBun,
-  addBurgerFilling,
+  addBurgerBunAction,
+  addBurgerFillingAction,
 } from "../../services/actions/burger-constructor/burger-constructor";
-import { getOrderAction, sumOrder } from "../../services/actions/order/order";
+import { getOrderAction, sumOrderAction } from "../../services/actions/order/order";
 import { scrollBarConstants } from "../../utils/constants";
 import {
   buttonConstants,
@@ -46,21 +46,21 @@ const BurgerConstructor: FC = () => {
     accept: [BUN_EN, MAIN_EN, SAUCE_EN],
     drop(card: TIngredient) {
       card.type === BUN_EN
-        ? dispatch(addBurgerBun(card))
-        : dispatch(addBurgerFilling(card));
+        ? dispatch(addBurgerBunAction(card))
+        : dispatch(addBurgerFillingAction(card));
     },
   });
 
   /** получить ID ингридиентов бургера */
   const handleIdIngredient = useMemo(() => {
     const arrBurger = filling.concat(bun, bun);
-    let result = arrBurger.map((a: TIngredient) => a._id);
+    let result = arrBurger.map((a) => a._id);
     return result;
   }, [bun, filling]);
 
   const resultArr = (arr: TIngredient[]) => {
     return arr
-      .map((a: TIngredient) => a.price)
+      .map((a) => a.price)
       .reduce((acc, sum) => {
         return acc + sum;
       }, 0);
@@ -79,7 +79,7 @@ const BurgerConstructor: FC = () => {
   }, [bun, filling]);
 
   useEffect(() => {
-    dispatch(sumOrder(handleResult));
+    dispatch(sumOrderAction(handleResult));
   }, [dispatch, handleResult]);
 
   /** передать заказ и получить номер заказа */

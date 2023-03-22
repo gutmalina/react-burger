@@ -10,7 +10,7 @@ import NavTab from "../nav-tab/nav-tab";
 import { headerConstants, pathConstants } from "../../utils/constants";
 
 const AppHeader: FC = () => {
-  const { HOME, FEED, PROFILE, SIGN_IN } = pathConstants;
+  const { HOME, FEED, PROFILE } = pathConstants;
   const { CONSTRUCTOR, LIST_ORDER, PERSONAL_ACCOUNT } = headerConstants;
 
   return (
@@ -23,7 +23,7 @@ const AppHeader: FC = () => {
           <ListIcon type="secondary" />
         </NavTab>
         <div className={styles.logo}>
-          <NavTab onTo={SIGN_IN}>
+          <NavTab onTo={HOME}>
             <Logo />
           </NavTab>
         </div>

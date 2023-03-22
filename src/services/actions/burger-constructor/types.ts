@@ -3,6 +3,7 @@ import {
   ADD_FILLING,
   REMOVE_FILLING,
   UPDATE_FILLING,
+  BURGER_REMOVE
 } from "../../constants/index";
 import { TIngredient } from "../../../utils/types";
 
@@ -27,8 +28,13 @@ export interface IUpDateFillingAction {
   readonly filling: TIngredient[];
 };
 
+export interface IRemoveBurgerAction {
+  readonly type: typeof BURGER_REMOVE;
+};
+
 export type TBurgerConstructorActions =
   | IAddBunAction
   | IAddFillingAction
   | IRemoveFillingAction
-  | IUpDateFillingAction;
+  | IUpDateFillingAction
+  | IRemoveBurgerAction;

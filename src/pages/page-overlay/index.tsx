@@ -20,13 +20,22 @@ const PageOverlay: FC<PropsWithChildren<TPage>> = ({ textTitle, children }) => {
   const { PROFILE, ORDER_HISTORY, SIGN_IN, FEED } = pathConstants;
 
   const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
+  const message = useSelector((store) => store.wsReducer.message);
   const dispath = useDispatch();
   const { pathname } = useLocation();
 
-  const mainClassName =
-    pathname === PROFILE || pathname.includes(ORDER_HISTORY) || pathname.includes(FEED)
-      ? `${styles.main_profile}`
-      : `${styles.main}`;
+  const mainClassName = () => {
+    if (pathname === PROFILE || pathname === ORDER_HISTORY) {
+      return `${styles.main_profile}`;
+    } else if (pathname.includes(FEED)) {
+      if (!message) {
+        return `${styles.main_profile} ${styles.main_preloader}`;
+      }
+      return `${styles.main_profile}`;
+    } else {
+      return `${styles.main}`;
+    }
+  };
   const activeClassLink = `${styles.link} text text_type_main-medium`;
   const inActiveClassLink = `${styles.link} ${styles.link_inactive} text text_type_main-medium`;
 
@@ -42,7 +51,7 @@ const PageOverlay: FC<PropsWithChildren<TPage>> = ({ textTitle, children }) => {
   };
 
   return (
-    <section className={mainClassName}>
+    <section className={mainClassName()}>
       {pathname === PROFILE || pathname === ORDER_HISTORY ? (
         <ul className={styles.nav}>
           <NavLink

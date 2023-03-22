@@ -3,7 +3,6 @@ import { useSelector } from "../../services/hooks";
 import { useParams } from "react-router-dom";
 import styles from "./ingredient-details.module.css";
 import { ingredientConstants } from "../../utils/constants";
-import { TIngredient } from "../../utils/types";
 
 const IngredientDetails: FC = () => {
   const { CALORIES, PROTEINS, FAT, CARBOHYDRATES } = ingredientConstants;
@@ -11,8 +10,8 @@ const IngredientDetails: FC = () => {
     (store) => store.burgerIngredients.ingredients
   );
   const { id } = useParams();
-  const ingredient = id && ingredients.find((item: TIngredient) => item._id === id.slice(1));
-
+  const ingredient = id && ingredients.find((item) => item._id === id.slice(1));
+  
   if (!ingredient) return <div>Обработка данных</div>;
 
   return (

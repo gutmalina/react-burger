@@ -1,11 +1,11 @@
 import { FC } from "react";
-import { TNumberOrder, TWsOrders } from "../../utils/types";
+import { TNumberOrder } from "../../utils/types";
 
 const NumberOrder: FC<TNumberOrder> = ({groupOrders}) => {
 
   return (
     <>
-      {groupOrders && groupOrders.slice(0, 20).map((order: TWsOrders)=>
+      {groupOrders && groupOrders.slice(0, 20).map((order)=>
       (
         <li
           key={order._id}

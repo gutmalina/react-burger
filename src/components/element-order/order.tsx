@@ -46,7 +46,7 @@ const Order: FC<TOrdersPage> = ({ typeOrder, onOrder }) => {
     const ingredientsOrder: TIngredient[] = [];
     for (let i = 0; i < ingredients.length; i++) {
       const element: any = ingredientsAll.find(
-        (item: TIngredient) => item._id === ingredients[i]
+        (item) => item._id === ingredients[i]
       );
       element.count = 1;
       if (element) {
@@ -59,7 +59,7 @@ const Order: FC<TOrdersPage> = ({ typeOrder, onOrder }) => {
   /** итоговая сумма заказа */
   const handleSumOrder = useCallback(() => {
     return handleIngredientsOrder()
-      .map((item: TIngredient) => item.price)
+      .map((item) => item.price)
       .reduce((acc, sum) => {
         return acc + sum;
       }, 0);
@@ -69,7 +69,7 @@ const Order: FC<TOrdersPage> = ({ typeOrder, onOrder }) => {
   const handleUniqueIngredients = Object.values(
     handleIngredientsOrder()
       .flat()
-      .reduce((acc: any, item: TIngredient) => {
+      .reduce((acc: any, item) => {
         if (!acc[item._id]) {
           acc[item._id] = { ...item };
         } else {

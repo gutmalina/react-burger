@@ -18,7 +18,8 @@ type TOrderStore = {
   isOrderFeedRequest: boolean,
   isOrderFeedFailed: boolean,
   orderFeed: TWsOrders[],
-  sum: number
+  sum: number,
+  isPreloader: boolean,
 };
 
 const initialStore: TOrderStore = {
@@ -28,7 +29,8 @@ const initialStore: TOrderStore = {
   isOrderFeedRequest: false,
   isOrderFeedFailed: false,
   orderFeed: [],
-  sum: 0
+  sum: 0,
+  isPreloader: false,
 };
 
 export const orderReducer = (state= initialStore, action: TOrderActions): TOrderStore => {
@@ -37,21 +39,24 @@ export const orderReducer = (state= initialStore, action: TOrderActions): TOrder
       return {
         ...state,
         isOrderRequest: true,
-        isOrderFailed: false
+        isOrderFailed: false,
+        isPreloader: true
       }
     }
     case MAKE_ORDER_SUCCESS: {
       return {
         ...state,
         order: action.order.order.number,
-        isOrderRequest: false
+        isOrderRequest: false,
+        isPreloader: false
       }
     }
     case MAKE_ORDER_FAILED: {
       return {
         ...state,
         isOrderRequest: false,
-        isOrderFailed: true
+        isOrderFailed: true,
+        isPreloader: false
       }
     }
     case GET_ORDER_FEED: {

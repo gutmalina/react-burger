@@ -16,7 +16,7 @@ const ScrollBarIngredients: FC = () => {
 
   /** фильтр ингридиентов по типу */
   const getGroup = (array: TIngredient[], type: string) => {
-    return array.filter((card: TIngredient) => card.type === type);
+    return array.filter((card) => card.type === type);
   };
 
   const [bunRef, inViewBun] = useInView();
