@@ -1,17 +1,17 @@
 import { useMemo, useState, FC } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { useDrag } from "react-dnd/dist/hooks";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient.module.css";
-import { TIngredient, TPropsIngredient } from "../../utils/types";
+import { TPropsIngredient } from "../../utils/types";
 
 const Ingredient: FC<TPropsIngredient> = ({ ingredient }) => {
   const { name, price, image, _id } = ingredient;
   const [count, setCount] = useState<number>(0);
-  const burger = useSelector((store: any) => store.burgerConstructor.burger);
+  const burger = useSelector((store) => store.burgerConstructor.burger);
 
   /** перетаскиваемый элемент - ингредиент в бургер */
   const [, dragRef] = useDrag({
@@ -22,8 +22,8 @@ const Ingredient: FC<TPropsIngredient> = ({ ingredient }) => {
   /** счетчик выбранных ингридиентов */
   const handleCounerIngredient = useMemo(() => {
     const arrBurger = burger.filling.concat(burger.bun, burger.bun);
-    const arrId = arrBurger.map((a: TIngredient ) => a._id);
-    setCount(arrId.filter((a: string) => a === _id).length);
+    const arrId = arrBurger.map((a ) => a._id);
+    setCount(arrId.filter((a) => a === _id).length);
   }, [burger, _id]);
 
   const countClass = count ? "" : styles.counter_hidden;

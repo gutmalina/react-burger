@@ -11,3 +11,22 @@
 .scroll_bar_details {
   max-height: 477px;
 }
+
+.scroll_bar_orders {
+  position: absolute;
+  top: 40px;
+  left: 38%;
+  width: max-content;
+  max-height: 97vh;
+}
+
+.scroll_bar_feed {
+  width: max-content;
+  max-height: 92vh;
+}
+
+.scroll_bar_order {
+  padding-right: 24px;
+  width: 620px;
+  height: 310px;
+}

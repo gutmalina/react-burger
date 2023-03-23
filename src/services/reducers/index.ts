@@ -1,7 +1,7 @@
 import { appReducer } from "./app";
-import { LOGOUT } from "../actions/logout";
+import { LOGOUT } from "../constants/index";
 
-export const rootReducer = (state, action) => {
+export const rootReducer = (state: any, action: any) => {
   if (action.type === LOGOUT) {
     state = undefined;
   }

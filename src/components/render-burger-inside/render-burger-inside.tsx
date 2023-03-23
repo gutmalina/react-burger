@@ -1,12 +1,12 @@
 import { useRef, FC } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/hooks";
 import { useDrag, useDrop } from "react-dnd";
 import styles from "../render-burger-inside/render-burger-inside.module.css";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { removeBurgerFilling } from "../../services/actions/burger-constructor";
+import { removeBurgerFillingAction } from "../../services/actions/burger-constructor/burger-constructor";
 import { TRenderBurgerInside } from "../../utils/types";
 
 const RenderBurgerInside: FC<TRenderBurgerInside> = ({ card, index, moveCard }) => {
@@ -53,7 +53,7 @@ const RenderBurgerInside: FC<TRenderBurgerInside> = ({ card, index, moveCard }) 
           thumbnail={card.image}
           extraClass="mb-4 ml-2"
           handleClose={() => {
-            dispatch(removeBurgerFilling(card.keyid));
+            dispatch(removeBurgerFillingAction(card.keyid));
           }}
         />
       </div>

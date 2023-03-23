@@ -3,31 +3,39 @@ import { useLocation, NavLink } from "react-router-dom";
 import NavForm from "../nav-form";
 import { deleteCookie } from "../../utils/cookie";
 import styles from "./page-overlay.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import {
   pathConstants,
   tokenConstants,
   textConstants,
   linkConstants,
 } from "../../utils/constants";
-import { logoutAction } from "../../services/actions/logout";
+import { logoutAction } from "../../services/actions/logout/logout";
 import { TPage } from "../../utils/types";
 
 const PageOverlay: FC<PropsWithChildren<TPage>> = ({ textTitle, children }) => {
   const { ACCESS_TOKEN, REFRESH_TOKEN, PASSWORD } = tokenConstants;
   const { PROFILE_PAGE_SUBTITLE } = textConstants;
   const { PROFILE_LINK, ORDER_HISTORY_LINK, EXIT } = linkConstants;
-  const { PROFILE, ORDER_HISTORY, SIGN_IN } = pathConstants;
+  const { PROFILE, ORDER_HISTORY, SIGN_IN, FEED } = pathConstants;
 
-  const isLoggedIn = useSelector((store: any) => store.user.isLoggedIn);
-  const dispath = useDispatch<any>();
+  const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
+  const message = useSelector((store) => store.wsReducer.message);
+  const dispath = useDispatch();
   const { pathname } = useLocation();
 
-  const mainClassName =
-    pathname === PROFILE || pathname === ORDER_HISTORY
-      ? `${styles.main_profile}`
-      : `${styles.main}`;
-
+  const mainClassName = () => {
+    if (pathname === PROFILE || pathname === ORDER_HISTORY) {
+      return `${styles.main_profile}`;
+    } else if (pathname.includes(FEED)) {
+      if (!message) {
+        return `${styles.main_profile} ${styles.main_preloader}`;
+      }
+      return `${styles.main_profile}`;
+    } else {
+      return `${styles.main}`;
+    }
+  };
   const activeClassLink = `${styles.link} text text_type_main-medium`;
   const inActiveClassLink = `${styles.link} ${styles.link_inactive} text text_type_main-medium`;
 
@@ -43,7 +51,7 @@ const PageOverlay: FC<PropsWithChildren<TPage>> = ({ textTitle, children }) => {
   };
 
   return (
-    <section className={mainClassName}>
+    <section className={mainClassName()}>
       {pathname === PROFILE || pathname === ORDER_HISTORY ? (
         <ul className={styles.nav}>
           <NavLink

@@ -1,21 +1,24 @@
 import { useEffect, FC } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "../../services/hooks";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import ProtectedRoute from "../protected-route/protected-route";
 import AppHeader from "../app-header/app-header";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
-import { getIngredientsAction } from "../../services/actions/burger-ingredients";
-import { getProfileAction } from "../../services/actions/user";
+import OrderInfo from "../order-info/order-info";
+import { getIngredientsAction } from "../../services/actions/burger-ingredients/burger-ingredients";
+import { removeBurgerAction } from "../../services/actions/burger-constructor/burger-constructor";
+import { getProfileAction } from "../../services/actions/user/user";
 import { getCookie } from "../../utils/cookie";
-import { closeOrder } from "../../services/actions/order";
+import { closeOrderAction } from "../../services/actions/order/order";
+import Preloader from "../preloader/preloader";
 import {
   buttonConstants,
   pathConstants,
   textConstants,
   linkConstants,
-  tokenConstants
+  tokenConstants,
 } from "../../utils/constants";
 import {
   HomePage,
@@ -26,8 +29,9 @@ import {
   ResetPasswordPage,
   ProfilePage,
   NotFoundPage,
-  OrderPage,
+  OrdersPage,
   PageIngredient,
+  FeedPage,
 } from "../../pages/index";
 
 const App: FC = () => {
@@ -40,7 +44,10 @@ const App: FC = () => {
     FORGOT,
     RESET,
     ORDER_HISTORY,
+    ORDER_HISTORY_ID,
     INGREDIENTS_ID,
+    FEED,
+    FEED_ID,
     NOT_FOUND,
   } = pathConstants;
   const {
@@ -49,15 +56,18 @@ const App: FC = () => {
     FORGOT_PASSWORD,
     DETAILS_INGREDIENT,
     NOT_FOUND_TEXT,
+    FEED_TITLE,
   } = textConstants;
   const { CANCEL, BACK } = linkConstants;
-  const {ACCESS_TOKEN} = tokenConstants
+  const { ACCESS_TOKEN } = tokenConstants;
 
   const location = useLocation();
   const background = location.state && location.state.background;
-  const dispatch = useDispatch<any>();
-  const order = useSelector((store: any) => store.order.order);
-  const isLoggedIn = useSelector((store: any)=> store.user.isLoggedIn)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const order = useSelector((store) => store.order.order);
+  const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
+  const isPreloader = useSelector((store) => store.order.isPreloader);
   const token = getCookie(ACCESS_TOKEN);
 
   /** получить массива ингридиентов */
@@ -74,7 +84,13 @@ const App: FC = () => {
 
   /** закрыть модальное окно Ордер */
   const onCloseOrder = () => {
-    dispatch(closeOrder());
+    if (!isPreloader) {
+      dispatch(closeOrderAction());
+      dispatch(removeBurgerAction());
+      location.state && navigate(-1);
+    } else {
+      return;
+    }
   };
 
   return (
@@ -82,6 +98,7 @@ const App: FC = () => {
       <AppHeader />
       <Routes location={background || location}>
         <Route path={HOME} element={<HomePage />} />
+        <Route path={FEED} element={<FeedPage textTitle={FEED_TITLE} />} />
         <Route
           path={PROFILE}
           element={
@@ -100,7 +117,19 @@ const App: FC = () => {
             <ProtectedRoute
               element={
                 <PageOverlay>
-                  <OrderPage textButton={BACK} />
+                  <OrdersPage textButton={BACK} />
+                </PageOverlay>
+              }
+            />
+          }
+        />
+        <Route
+          path={ORDER_HISTORY_ID}
+          element={
+            <ProtectedRoute
+              element={
+                <PageOverlay>
+                  <OrderInfo />
                 </PageOverlay>
               }
             />
@@ -167,6 +196,14 @@ const App: FC = () => {
           }
         />
         <Route
+          path={FEED_ID}
+          element={
+            <PageOverlay>
+              <OrderInfo />
+            </PageOverlay>
+          }
+        />
+        <Route
           path={NOT_FOUND}
           element={
             <PageOverlay textTitle={NOT_FOUND_TEXT}>
@@ -186,12 +223,37 @@ const App: FC = () => {
                 </Modal>
               }
             />
+            <Route
+              path={FEED_ID}
+              element={
+                <Modal onClose={onCloseOrder}>
+                  <OrderInfo />
+                </Modal>
+              }
+            />
+            <Route
+              path={ORDER_HISTORY_ID}
+              element={
+                <ProtectedRoute
+                  element={
+                    <Modal onClose={onCloseOrder}>
+                      <OrderInfo />
+                    </Modal>
+                  }
+                />
+              }
+            />
           </Routes>
         </>
       )}
       {order && (
         <Modal onClose={onCloseOrder}>
           <OrderDetails />
+        </Modal>
+      )}
+      {isPreloader && (
+        <Modal onClose={onCloseOrder}>
+          <Preloader />
         </Modal>
       )}
     </>

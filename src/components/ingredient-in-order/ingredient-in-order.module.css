@@ -1,0 +1,28 @@
+.card_ingredient {
+  display: grid;
+  grid-template-columns: 60px auto max-content;
+  grid-template-rows: minmax(64px , 1fr);
+  gap: 24px;
+  align-items: center;
+}
+
+.count {
+  display: flex;
+  align-items: center;
+}
+
+.image {
+  width: 112px;
+  height: 56px;
+  position: absolute;
+  left: -26px;
+}
+
+.card_wrap {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #4C4CFF;
+  background: #1c1c21;
+  position: relative;
+}

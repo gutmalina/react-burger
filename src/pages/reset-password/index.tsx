@@ -1,6 +1,6 @@
 import { FC, FormEvent } from "react";
-import { useDispatch } from "react-redux";
-import { newPasswordAction } from "../../services/actions/user";
+import { useDispatch } from "../../services/hooks";
+import { newPasswordAction } from "../../services/actions/user/user";
 import styles from "../page-overlay/page-overlay.module.css";
 import {
   Input,
@@ -13,7 +13,7 @@ import { useForm } from "../../hooks/useForm";
 
 const ResetPasswordPage: FC<TPage> = ({ textButton }) => {
   const { WRITE_CODE, WRITE_NEW_PASSWORD } = inputConstants;
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const { values, handleChange } = useForm(
     { password: "", code: "" },
     { passwordDisabled: true, codeDisabled: true }

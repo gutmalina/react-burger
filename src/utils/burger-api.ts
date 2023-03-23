@@ -8,8 +8,14 @@ const { REFRESH_TOKEN } = tokenConstants;
 export const getIngredients = () => request("/ingredients", "GET");
 
 /** отправить заказ и получить номер заказа */
-export const getOrder = (isIdIngredients: string) =>
-  request("/orders", "POST", { ingredients: isIdIngredients });
+export const getOrder = (isIdIngredients: string[]) => {
+  return fetchWithToken("/orders", "POST", { ingredients: isIdIngredients });
+}
+
+/** получить данные выбранного заказа */
+export const getOrderFeed = (number: string) => {
+  return fetchWithToken(`/orders/${number}`, "GET");
+}
 
 /** выход из системы */
 export const logoutRequest = () =>

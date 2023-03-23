@@ -1,20 +1,54 @@
 import {
-  registration,
-  login,
-  getUser,
-  editUser,
-  forgot,
-  reset,
-} from "../actions/user";
+  REGISTER,
+  REGISTER_SUCCESS,
+  REGISTER_FAILED,
+  LOGIN,
+  LOGIN_SUCCESS,
+  LOGIN_FAILED,
+  GET_USER,
+  GET_USER_SUCCESS,
+  GET_USER_FAILED,
+  EDIT,
+  EDIT_SUCCESS,
+  EDIT_FAILED,
+  FORGOT,
+  FORGOT_SUCCESS,
+  FORGOT_FAILED,
+  RESET,
+  RESET_SUCCESS,
+  RESET_FAILED,
+} from "../constants/index";
+import { TUserActions } from "../actions/user/types";
 
-const { REGISTER, REGISTER_SUCCESS, REGISTER_FAILED } = registration;
-const { LOGIN, LOGIN_SUCCESS, LOGIN_FAILED } = login;
-const { GET_USER, GET_USER_SUCCESS, GET_USER_FAILED } = getUser;
-const { EDIT, EDIT_SUCCESS, EDIT_FAILED } = editUser;
-const { FORGOT, FORGOT_SUCCESS, FORGOT_FAILED } = forgot;
-const { RESET, RESET_SUCCESS, RESET_FAILED } = reset;
+type TUserStore = {
+  name: string,
+  email: string,
+  isLoggedIn: boolean,
+  isForgot: boolean,
+  isReset: boolean,
+  isGetUser: boolean,
 
-const initialStore = {
+  isRegisterRequest: boolean,
+  isRegisterFailed: boolean,
+
+  isLoginRequest: boolean,
+  isLoginFailed: boolean,
+
+  isGetRequest: boolean,
+  isGetSuccess: boolean,
+  isGetFailed: boolean,
+
+  isEditRequest: boolean,
+  isEditFailed: boolean,
+
+  isForgotRequest: boolean,
+  isForgotFailed: boolean,
+
+  isResetRequest: boolean,
+  isResetFailed: boolean,
+};
+
+const initialStore: TUserStore = {
   name: "",
   email: "",
   isLoggedIn: false,
@@ -42,7 +76,7 @@ const initialStore = {
   isResetFailed: false,
 };
 
-export const userReducer = (state = initialStore, action) => {
+export const userReducer = (state = initialStore, action: TUserActions): TUserStore => {
   switch (action.type) {
     case REGISTER:
       return {

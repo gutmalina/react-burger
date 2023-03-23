@@ -1,11 +1,11 @@
 import { FC } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { Navigate, useLocation } from "react-router-dom";
 import { pathConstants } from "../../utils/constants";
 import { IRouter } from "../../utils/interface";
 
 const ProtectedRoute: FC<IRouter> = ({ element, onlyUnAuth = false, ...rest }) => {
-  const isGetUser = useSelector((store: any) => store.user.isGetUser);
+  const isGetUser = useSelector((store) => store.user.isGetUser);
   const { HOME, SIGN_IN } = pathConstants;
   const location = useLocation();
   const from = location.state?.from || HOME;
@@ -20,6 +20,8 @@ const ProtectedRoute: FC<IRouter> = ({ element, onlyUnAuth = false, ...rest }) =
     return <Navigate to={SIGN_IN} state={{ from: location }} />;
   }
 
+  /** onlyUnAuth-true  isGetUser-false*/
+  /** onlyUnAuth-false  isGetUser-true */
   return element;
 };
 

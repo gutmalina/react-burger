@@ -5,8 +5,11 @@ export const headerConstants = {
 };
 
 export const scrollBarConstants = {
-  TYPE_INGREDIENTS: "ingredients",
-  TYPE_DETAILS_ORDER: "detailsOrder",
+  TYPE_INGREDIENTS: "bar_ingredients",
+  TYPE_DETAILS_ORDER: "bar_details",
+  TYPE_ORDERS: "bar_orders",
+  TYPE_FEED: "bar_feed",
+  TYPE_ORDER: "bar_order",
 };
 
 export const buttonConstants = {
@@ -52,6 +55,16 @@ export const textConstants = {
     "В этом разделе вы можете изменить свои персональные данные",
   SELECT_BUN: "Выберите булку",
   SELECT_FILLING: "Выберите начинку",
+  FEED_TITLE: "Лента заказов",
+  FEED_STATUS_DONE: "Готовы:",
+  FEED_STATUS_PENDING: "В работе:",
+  FEED_TOTAL: "Выполнено за все время:",
+  FEED_TOTAL_TODAY: "Выполнено за сегодня:",
+  ORDER_INFO_STRUCTURE: "Состав:",
+  ORDER_DETAILS_ID: "идентификатор заказа",
+  ORDER_DETAILS_STATUS: "Ваш заказ начали готовить",
+  ORDER_DETAILS_WAIT: "Дождитесь готовности на орбитальной станции",
+  PRELOADER_TITLE: "Обработка данных",
 };
 
 export const ingredientConstants = {
@@ -77,8 +90,11 @@ export const pathConstants = {
   RESET: "/reset-password",
   PROFILE: "/profile",
   ORDER_HISTORY: "/profile/orders",
+  ORDER_HISTORY_ID: "/profile/orders/:id",
   INGREDIENTS: "/ingredients/:",
   INGREDIENTS_ID: "/ingredients/:id",
+  FEED: "/feed",
+  FEED_ID: "/feed/:id",
   NOT_FOUND: "*",
 };
 
@@ -87,3 +103,25 @@ export const tokenConstants = {
   REFRESH_TOKEN: "refreshToken",
   PASSWORD: "password",
 };
+
+export const orderConstants = {
+  STATUS_CREATED: "Создан",
+  STATUS_COOK: "Готовиться",
+  STATUS_DONE: "Выполнен",
+  STATUS_COOK_ENG: "pending",
+  STATUS_DONE_ENG: "done",
+  STATUS_CREATED_ENG: 'created',
+  TYPE_ORDER: "card_type_order",
+  TYPE_ORDER_FEED: "card_type_order_feed",
+  TYPE_ORDER_HISTORY: "card_type_order_history",
+}
+
+export const elementConstants = {
+  TYPE_ELEMENT_CENTER: "center",
+  TYPE_ELEMENT_TOP: "top",
+  TYPE_ELEMENT_BOTTOM: "bottom"
+}
+
+export const wsConstants = {
+  WS_ALL: "/all"
+}

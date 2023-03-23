@@ -1,21 +1,24 @@
-import { editToken } from "../../utils/auth";
-import { setCookie } from "../../utils/cookie.ts";
-import { tokenConstants } from "../../utils/constants";
+import { editToken } from "../../../utils/auth";
+import { setCookie } from "../../../utils/cookie";
+import { tokenConstants } from "../../../utils/constants";
+import {
+  TOKEN,
+  TOKEN_SUCCESS,
+  TOKEN_FAILED,
+} from "../../constants/index";
+import { AppDispatch, AppThunk } from '../../types/index';
+import { TResponseToken } from "../../../utils/types";
 
 const { ACCESS_TOKEN, REFRESH_TOKEN } = tokenConstants;
 
-export const TOKEN = "TOKEN";
-export const TOKEN_SUCCESS = "TOKEN_SUCCESS";
-export const TOKEN_FAILED = "TOKEN_FAILED";
-
 /** обновление токена */
-export function editTokenAction() {
-  return function (dispatch) {
+export const editTokenAction = (): AppThunk => {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: TOKEN,
     });
     editToken()
-      .then((res) => {
+      .then((res: TResponseToken) => {
         if (res && res.success) {
           dispatch({
             type: TOKEN_SUCCESS,
@@ -28,7 +31,7 @@ export function editTokenAction() {
           });
         }
       })
-      .catch((err) => {
+      .catch((err: any) => {
         dispatch({
           type: TOKEN_FAILED,
         });

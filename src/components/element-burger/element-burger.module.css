@@ -1,0 +1,31 @@
+.element {
+  max-width: 536px;
+  width: 100%;
+  min-height: 80px;
+  background: #2f2f37;
+  display: flex;
+  justify-content: center;
+  margin-left: 48px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.element_top {
+  border-top-right-radius: 64px;
+  border-top-left-radius: 64px;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+.element_center {
+  border-radius: 40px;
+}
+
+.element_bottom {
+  margin-top: 4px;
+  margin-bottom: 40px;
+  border-top-right-radius: 40px;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 64px;
+  border-bottom-right-radius: 64px;
+}

@@ -1,9 +1,6 @@
-import { FC, FormEvent, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  authenticationAction,
-  getProfileAction,
-} from "../../services/actions/user";
+import { FC, FormEvent } from "react";
+import { useDispatch } from "../../services/hooks";
+import { authenticationAction } from "../../services/actions/user/user";
 import styles from "../page-overlay/page-overlay.module.css";
 import {
   EmailInput,
@@ -14,8 +11,7 @@ import { TPage } from "../../utils/types";
 import { useForm } from "../../hooks/useForm";
 
 const LoginPage: FC<TPage> = ({ textButton }) => {
-  const dispatch = useDispatch<any>();
-  const { isLoggedIn } = useSelector((store: any) => store.user);
+  const dispatch = useDispatch();
   const { values, handleChange } = useForm(
     { email: "", password: "" },
     { emailDisabled: true, passwordDisabled: true }
@@ -27,13 +23,6 @@ const LoginPage: FC<TPage> = ({ textButton }) => {
       authenticationAction({ email: values.email, password: values.password })
     );
   };
-
-  // /** получить данные пользователя*/
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     dispatch(getProfileAction());
-  //   }
-  // }, [dispatch, isLoggedIn]);
 
   return (
     <form className={styles.container_form} onSubmit={handleSubmint}>

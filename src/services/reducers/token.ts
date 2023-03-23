@@ -1,11 +1,17 @@
-import { TOKEN, TOKEN_SUCCESS, TOKEN_FAILED } from "../actions/token";
+import { TOKEN, TOKEN_SUCCESS, TOKEN_FAILED } from "../constants/index";
+import { TTokenActions } from "../actions/token/types";
 
-const initialStore = {
+type TTokenStore = {
+  isTokenRequest: boolean,
+  isTokenFailed: boolean,
+};
+
+const initialStore: TTokenStore = {
   isTokenRequest: false,
   isTokenFailed: false,
 };
 
-export const editTokenReducer = (state = initialStore, action) => {
+export const editTokenReducer = (state = initialStore, action: TTokenActions): TTokenStore => {
   switch (action.type) {
     case TOKEN:
       return {
@@ -21,7 +27,6 @@ export const editTokenReducer = (state = initialStore, action) => {
     case TOKEN_FAILED:
       return {
         ...state,
-        loggedIn: false,
         isTokenFailed: true,
       };
     default:
