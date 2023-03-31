@@ -203,14 +203,14 @@ const App: FC = () => {
             </PageOverlay>
           }
         />
-        {/* <Route
+        <Route
           path={NOT_FOUND}
           element={
             <PageOverlay textTitle={NOT_FOUND_TEXT}>
               <NotFoundPage textButton={BACK} />
             </PageOverlay>
           }
-        /> */}
+        />
       </Routes>
       {background && (
         <>
