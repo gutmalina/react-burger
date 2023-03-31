@@ -40,7 +40,7 @@ export const getOrderAction = (idIngredients: string[]): AppThunk => {
 }
 
 /** получить данные выбранного заказа */
-export const getOrderFeedAction = (numberOrder: string): AppThunk => {
+export const getOrderFeedAction = (numberOrder: number | string): AppThunk => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_ORDER_FEED,

@@ -4,11 +4,11 @@ import {
   UPDATE_FILLING,
   REMOVE_FILLING,
   BURGER_REMOVE
-} from "../constants/index";
-import { TIngredient } from "../../utils/types";
-import { TBurgerConstructorActions } from "../actions/burger-constructor/types";
+} from "../../constants/index";
+import { TIngredient } from "../../../utils/types";
+import { TBurgerConstructorActions } from "../../actions/burger-constructor/types";
 
-type TBurgerConstructorStore = {
+export type TBurgerConstructorStore = {
   burger: {
     bun: TIngredient[],
     filling: TIngredient[],

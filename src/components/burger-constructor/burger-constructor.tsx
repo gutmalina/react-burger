@@ -54,7 +54,7 @@ const BurgerConstructor: FC = () => {
   /** получить ID ингридиентов бургера */
   const handleIdIngredient = useMemo(() => {
     const arrBurger = filling.concat(bun, bun);
-    let result = arrBurger.map((a) => a._id);
+    let result = arrBurger.map((a) => a._id).reverse();
     return result;
   }, [bun, filling]);
 
@@ -86,6 +86,7 @@ const BurgerConstructor: FC = () => {
   const getNumberOrder = () => {
     if (handleIdIngredient.length) {
       if (isLoggedIn) {
+
         dispatch(getOrderAction(handleIdIngredient));
       } else {
         navigate(SIGN_IN, { replace: true });
@@ -94,7 +95,7 @@ const BurgerConstructor: FC = () => {
   };
 
   return (
-    <div ref={dropTargetRef} className={styles.container}>
+    <div id='dropContainer' ref={dropTargetRef} className={styles.container}>
       {bun.length ? (
         <ConstructorElement
           type="top"

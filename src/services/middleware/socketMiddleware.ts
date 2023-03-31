@@ -1,15 +1,16 @@
 // socketMiddleware.ts
 import type { Middleware, MiddlewareAPI } from "redux";
 import type { AppDispatch, RootState } from "../types";
-import { getCookie } from "../../utils/cookie";
+import { getCookie, setCookie } from "../../utils/cookie";
 import { tokenConstants } from "../../utils/constants";
 import { IWsActions } from "../types";
+import { editToken } from "../../utils/auth";
 
 export const socketMiddleware = (
   wsUrl: string,
   wsActions: IWsActions
 ): Middleware => {
-  const { ACCESS_TOKEN } = tokenConstants;
+  const { ACCESS_TOKEN, REFRESH_TOKEN } = tokenConstants;
   const {
     wsInit,
     wsInitUser,
@@ -41,7 +42,7 @@ export const socketMiddleware = (
 
       if (socket) {
         socket.onopen = (event: Event) => {
-          dispatch({ type: onOpen, payload: event });
+          dispatch({ type: onOpen, payload: event});
         };
 
         socket.onerror = (event: Event) => {
@@ -51,11 +52,24 @@ export const socketMiddleware = (
         socket.onmessage = (event: MessageEvent) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
-          dispatch({ type: onMessage, payload: parsedData });
+          if (parsedData.message === "Invalid or missing token"){
+            editToken()
+              .then((refreshData) => {
+                localStorage.setItem(REFRESH_TOKEN, refreshData.refreshToken);
+                setCookie(ACCESS_TOKEN, refreshData.accessToken);
+                dispatch({type: wsInitUser});
+              })
+              .catch((err) => {
+                dispatch({ type: onError, payload: err });
+              });
+            dispatch({ type: onClose, payload: event});
+          }else{
+            dispatch({ type: onMessage, payload: parsedData });
+          }
         };
 
         socket.onclose = (event: CloseEvent) => {
-          dispatch({ type: onClose, payload: event });
+          dispatch({ type: onClose, payload: event});
         };
 
         if (type === wsSendMessage) {

@@ -3,11 +3,11 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE
-} from '../constants/index';
-import { TWsActions } from '../actions/ws-actions/types';
-import { TWsMessage } from '../../utils/types';
+} from '../../constants/index';
+import { TWsActions } from '../../actions/ws-actions/types';
+import { TWsMessage } from '../../../utils/types';
 
-type TWsStore = {
+export type TWsStore = {
   wsConnected: boolean,
   message: TWsMessage | null,
   error?: Event,

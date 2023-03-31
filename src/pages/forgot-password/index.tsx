@@ -1,17 +1,21 @@
-import { FC, FormEvent } from "react";
-import { useDispatch } from "../../services/hooks";
+import { FC, FormEvent, useEffect } from "react";
+import { useDispatch, useSelector } from "../../services/hooks";
+import { useNavigate } from "react-router-dom";
 import { forgotPasswordAction } from "../../services/actions/user/user";
 import styles from "../page-overlay/page-overlay.module.css";
 import {
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { inputConstants } from "../../utils/constants";
+import { inputConstants, pathConstants } from "../../utils/constants";
 import { TPage } from "../../utils/types";
 import { useForm } from "../../hooks/useForm";
 
 const ForgotPasswordPage: FC<TPage> = ({ textButton }) => {
   const { EMAIL } = inputConstants;
+  const { RESET } = pathConstants;
+  const navigate = useNavigate();
+  const isForgot = useSelector((store) => store.user.isForgot);
   const dispatch = useDispatch();
   const { values, handleChange } = useForm(
     { email: "" },
@@ -22,6 +26,10 @@ const ForgotPasswordPage: FC<TPage> = ({ textButton }) => {
     e.preventDefault();
     dispatch(forgotPasswordAction(values.email));
   };
+
+  useEffect(()=>{
+    isForgot && navigate(RESET, { replace: true });
+  }, [isForgot, navigate, RESET])
 
   return (
     <form className={styles.container_form} onSubmit={handleSubmint}>

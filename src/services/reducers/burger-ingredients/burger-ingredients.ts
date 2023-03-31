@@ -3,11 +3,11 @@ import {
   GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_SUCCESS,
   ACTIVE_TAB_BAR,
-} from "../constants/index";
-import { TIngredient } from "../../utils/types";
-import { TBurgerIngredientsActions } from "../actions/burger-ingredients/types";
+} from "../../constants/index";
+import { TIngredient } from "../../../utils/types";
+import { TBurgerIngredientsActions } from "../../actions/burger-ingredients/types";
 
-type TBurgerIngredientsStore = {
+export type TBurgerIngredientsStore = {
   ingredients: TIngredient[],
   isIngredientsRequest: boolean,
   isIngredientsFailed: boolean,

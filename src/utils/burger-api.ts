@@ -13,7 +13,7 @@ export const getOrder = (isIdIngredients: string[]) => {
 }
 
 /** получить данные выбранного заказа */
-export const getOrderFeed = (number: string) => {
+export const getOrderFeed = (number: number | string) => {
   return fetchWithToken(`/orders/${number}`, "GET");
 }
 

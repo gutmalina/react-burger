@@ -10,7 +10,7 @@ const OrderDetails: FC = () => {
 
   return (
     <>
-      <p className="text text_type_digits-large mt-10 mb-8">{order}</p>
+      <p id="orderNumber" className="text text_type_digits-large mt-10 mb-8">{order}</p>
       <p className="text text_type_main-medium">{ORDER_DETAILS_ID}</p>
       <div className={styles.accpeted}></div>
       <p className="text text_type_main-default mb-2">{ORDER_DETAILS_STATUS}</p>

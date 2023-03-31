@@ -84,9 +84,9 @@ export type TElement = {
 
 export type TWsOrders = {
   createdAt: string,
-  ingredients: string[],
+  ingredients: TIngredient[] | string[],
   name: string,
-  number: string,
+  number: number,
   status: string,
   updatedAt: string,
   _id: string,
@@ -97,6 +97,11 @@ export type TWsMessage = {
   total: number;
   totalToday: number;
   orders: TWsOrders[];
+};
+
+export type TWsError = {
+  success: boolean;
+  message: string;
 };
 
 export type TNumberOrder = {

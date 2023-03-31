@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import { burgerIngredientsReducer } from "./burger-ingredients";
-import { burgerConstructorReducer } from "./burger-constructor";
-import { orderReducer } from "./order";
-import { userReducer } from "./user";
-import { editTokenReducer } from "./token";
-import { wsReducer } from "./ws-reducers";
+import { burgerIngredientsReducer } from "./burger-ingredients/burger-ingredients";
+import { burgerConstructorReducer } from "./burger-constructor/burger-constructor";
+import { orderReducer } from "./order/order";
+import { userReducer } from "./user/user";
+import { editTokenReducer } from "./token/token";
+import { wsReducer } from "./ws-reducers/ws-reducers";
 
 export const appReducer = combineReducers({
   burgerIngredients: burgerIngredientsReducer,

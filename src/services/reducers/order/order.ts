@@ -7,11 +7,11 @@ import {
   GET_ORDER_FEED_FAILED,
   CLOSE_ORDER,
   SUM_ORDER,
-} from '../constants/index';
-import { TOrderActions } from '../actions/order/types';
-import { TWsOrders } from '../../utils/types';
+} from '../../constants/index';
+import { TOrderActions } from '../../actions/order/types';
+import { TWsOrders } from '../../../utils/types';
 
-type TOrderStore = {
+export type TOrderStore = {
   order: number,
   isOrderRequest: boolean,
   isOrderFailed: boolean,

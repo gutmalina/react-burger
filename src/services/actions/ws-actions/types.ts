@@ -34,7 +34,7 @@ export interface IWsConnectionCloseAction {
 
 export interface IWsConnectionClosedAction {
   readonly type: typeof WS_CONNECTION_CLOSED;
-  readonly payload: any;
+  readonly payload: any
 };
 
 export interface IWsConnectionGetMessageAction {

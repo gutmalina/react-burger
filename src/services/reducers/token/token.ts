@@ -1,7 +1,7 @@
-import { TOKEN, TOKEN_SUCCESS, TOKEN_FAILED } from "../constants/index";
-import { TTokenActions } from "../actions/token/types";
+import { TOKEN, TOKEN_SUCCESS, TOKEN_FAILED } from "../../constants/index";
+import { TTokenActions } from "../../actions/token/types";
 
-type TTokenStore = {
+export type TTokenStore = {
   isTokenRequest: boolean,
   isTokenFailed: boolean,
 };

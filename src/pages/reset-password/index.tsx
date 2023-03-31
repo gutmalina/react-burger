@@ -1,5 +1,6 @@
-import { FC, FormEvent } from "react";
-import { useDispatch } from "../../services/hooks";
+import { FC, FormEvent, useEffect } from "react";
+import { useDispatch, useSelector } from "../../services/hooks";
+import { useNavigate } from "react-router-dom";
 import { newPasswordAction } from "../../services/actions/user/user";
 import styles from "../page-overlay/page-overlay.module.css";
 import {
@@ -7,12 +8,15 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { inputConstants } from "../../utils/constants";
+import { inputConstants, pathConstants } from "../../utils/constants";
 import { TPage } from "../../utils/types";
 import { useForm } from "../../hooks/useForm";
 
 const ResetPasswordPage: FC<TPage> = ({ textButton }) => {
   const { WRITE_CODE, WRITE_NEW_PASSWORD } = inputConstants;
+  const { SIGN_IN } = pathConstants;
+  const navigate = useNavigate();
+  const isForgot = useSelector((store) => store.user.isForgot);
   const dispatch = useDispatch();
   const { values, handleChange } = useForm(
     { password: "", code: "" },
@@ -24,6 +28,10 @@ const ResetPasswordPage: FC<TPage> = ({ textButton }) => {
     e.preventDefault();
     dispatch(newPasswordAction({ password: values.password, code: values.code }));
   };
+
+  useEffect(()=>{
+    !isForgot && navigate(SIGN_IN, { replace: true });
+  }, [isForgot, navigate, SIGN_IN])
 
   return (
     <form className={styles.container_form} onSubmit={handleSubmint}>

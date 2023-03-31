@@ -29,7 +29,7 @@ const Ingredient: FC<TPropsIngredient> = ({ ingredient }) => {
   const countClass = count ? "" : styles.counter_hidden;
 
   return (
-    <article className={styles.card} ref={dragRef}>
+    <article id='dragElement' className={styles.card} ref={dragRef}>
       <Counter count={count} size="default" extraClass={countClass} />
       <img
         className={`${styles.image} mr-4 mb-2 ml-4`}

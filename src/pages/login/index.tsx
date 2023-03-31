@@ -28,6 +28,7 @@ const LoginPage: FC<TPage> = ({ textButton }) => {
     <form className={styles.container_form} onSubmit={handleSubmint}>
       <fieldset className={styles.inputs}>
         <EmailInput
+          id="nameTest"
           onChange={handleChange}
           value={values.email}
           name={"email"}
@@ -35,6 +36,7 @@ const LoginPage: FC<TPage> = ({ textButton }) => {
           extraClass="mb-6"
         />
         <PasswordInput
+          id="passwordTest"
           onChange={handleChange}
           value={values.password}
           name={"password"}

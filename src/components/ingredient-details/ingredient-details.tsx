@@ -11,7 +11,7 @@ const IngredientDetails: FC = () => {
   );
   const { id } = useParams();
   const ingredient = id && ingredients.find((item) => item._id === id.slice(1));
-  
+
   if (!ingredient) return <div>Обработка данных</div>;
 
   return (
@@ -29,7 +29,7 @@ const IngredientDetails: FC = () => {
           <h4 className="text text_type_main-default text_color_inactive mb-1">
             {CALORIES}
           </h4>
-          <p className="text text_type_digits-default text_color_inactive">
+          <p id='calories' className="text text_type_digits-default text_color_inactive">
             {ingredient.calories}
           </p>
         </li>
@@ -37,7 +37,7 @@ const IngredientDetails: FC = () => {
           <h4 className="text text_type_main-default text_color_inactive mb-1">
             {PROTEINS}
           </h4>
-          <p className="text text_type_digits-default text_color_inactive">
+          <p id='proteins' className="text text_type_digits-default text_color_inactive">
             {ingredient.proteins}
           </p>
         </li>
@@ -45,7 +45,7 @@ const IngredientDetails: FC = () => {
           <h4 className="text text_type_main-default text_color_inactive mb-1">
             {FAT}
           </h4>
-          <p className="text text_type_digits-default text_color_inactive">
+          <p id='fat' className="text text_type_digits-default text_color_inactive">
             {ingredient.fat}
           </p>
         </li>
@@ -53,7 +53,7 @@ const IngredientDetails: FC = () => {
           <h4 className="text text_type_main-default text_color_inactive mb-1">
             {CARBOHYDRATES}
           </h4>
-          <p className="text text_type_digits-default text_color_inactive">
+          <p id='carbohydrates' className="text text_type_digits-default text_color_inactive">
             {ingredient.carbohydrates}
           </p>
         </li>

@@ -17,10 +17,10 @@ import {
   RESET,
   RESET_SUCCESS,
   RESET_FAILED,
-} from "../constants/index";
-import { TUserActions } from "../actions/user/types";
+} from "../../constants/index";
+import { TUserActions } from "../../actions/user/types";
 
-type TUserStore = {
+export type TUserStore = {
   name: string,
   email: string,
   isLoggedIn: boolean,
@@ -166,6 +166,7 @@ export const userReducer = (state = initialStore, action: TUserActions): TUserSt
         ...state,
         isForgotRequest: true,
         isForgotFailed: false,
+        isForgot: false,
       };
     case FORGOT_SUCCESS:
       return {
@@ -178,6 +179,7 @@ export const userReducer = (state = initialStore, action: TUserActions): TUserSt
         ...state,
         isForgotRequest: false,
         isForgotFailed: true,
+        isForgot: false,
       };
     case RESET:
       return {
@@ -190,6 +192,7 @@ export const userReducer = (state = initialStore, action: TUserActions): TUserSt
         ...state,
         isReset: true,
         isResetRequest: false,
+        isForgot: false,
       };
     case RESET_FAILED:
       return {
