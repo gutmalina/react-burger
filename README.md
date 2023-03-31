@@ -25,5 +25,5 @@
 
 
 ### Ссылки:
-* :hamburger: [Ссылка на проект](https://gutmalina.github.io/react-burger/index.html)
+* :hamburger: [Ссылка на проект](https://gutmalina.github.io/react-burger/)
 * :pushpin: [Макет в Figma](https://www.figma.com/file/zFGN2O5xktHl9VmoOieq5E/React-_-Проектные-задачи_external_link?node-id=0%3A1&t=L1Qw4Ncywvdufa0e-0)
