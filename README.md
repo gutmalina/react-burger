@@ -1,7 +1,7 @@
 <h1 align="center"><a  href="#" target="_blank"><img src="./readme/stellar-burger_header.jpg" width="100%" alt="шапка"></a></h1>
 
-<h1 align="center"># ***Бургерная на краю Вселенной***
-<h3 align="center">собери и закажи фантастический и неповторимый бургер</>
+<h1 align="center" styles="color: linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%);">Бургерная на краю Вселенной</>
+<h2 align="center" styles="color: blue">собери и закажи фантастический и неповторимый бургер</>
 
 ## О проекте:
 
