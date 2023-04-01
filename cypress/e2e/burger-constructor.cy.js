@@ -1,7 +1,7 @@
 describe("works burger-constructor", function () {
   beforeEach(function () {
     cy.viewport(1700, 1110);
-    cy.visit("http://localhost:3000");
+    cy.visit("http://localhost:3000/react-burger#/");
     cy.intercept("GET", "/ingredients", { fixture: "ingredients.json" });
     cy.intercept("POST", "/login", { fixture: "login.json" }).as("postLogin");
     cy.intercept("GET", "/auth/user", { fixture: "user.json" });
@@ -46,10 +46,10 @@ describe("works burger-constructor", function () {
   });
 
   it("should login, dnd, open, displaying elements and close order", () => {
-    cy.visit("http://localhost:3000/login");
+    cy.visit("http://localhost:3000/react-burger#/login");
     const email = "testtest@test.ru";
     const password = "testtest";
-    cy.get("[id^=nameTest").type(email);
+    cy.get("[id^=emailTest").type(email);
     cy.get("[id^=passwordTest").type(password);
     cy.get("button").contains("Войти").click();
 
