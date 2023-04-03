@@ -28,7 +28,7 @@ const LoginPage: FC<TPage> = ({ textButton }) => {
     <form className={styles.container_form} onSubmit={handleSubmint}>
       <fieldset className={styles.inputs}>
         <EmailInput
-          id="nameTest"
+          id="emailTest"
           onChange={handleChange}
           value={values.email}
           name={"email"}
